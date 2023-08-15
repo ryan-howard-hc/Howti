@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link';
-import Navbar from './00header';
+import Navbar from './00nav';
 
 export default function Page() {
   return (
