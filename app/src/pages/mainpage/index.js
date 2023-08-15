@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PlantList = () => {
+const Main = () => {
   return (
     <div className="flex flex-row flex-wrap justify-left items-start px-2 sm:px-0">
       <div className="plant-card">
@@ -16,7 +16,7 @@ const PlantList = () => {
           <h3 className="text-sm font-medium pt-2 pb-1 hover-underline">Golden Pothos</h3>
           <p className="text-xs flex flex-row items-center justify-center">
             <img className="heart-icon" src="/static/web/img/heart_5.png" alt="Heart Icon" />
-            <span className="font-bold ml-1.5 mr-1">4.8</span> (2581)
+            <span className="font-bold ml-1.5 mr-1">4.8</span> 
           </p>
         </a>
       </div>
@@ -27,4 +27,4 @@ const PlantList = () => {
   );
 };
 
-export default PlantList;
+export default Main;
