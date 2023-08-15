@@ -1,0 +1,52 @@
+.plant-card {
+    width: 50%;
+    height: 50%;
+    min-width: 20%;
+    min-height: 20%;
+    padding: 0.5rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
+  }
+  
+  .plant-card a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .plant-card img {
+    width: 200px;
+    height: 200px;
+    border-radius: 8px;
+    object-fit: cover;
+  }
+  
+  .plant-card h3 {
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding-top: 0.5rem;
+    padding-bottom: 0.25rem;
+    cursor: pointer;
+  }
+  
+  .plant-card h3:hover {
+    text-decoration: underline;
+  }
+  
+  .plant-card p {
+    font-size: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .heart-icon {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.25rem;
+  }
+  
+  .plant-card .font-bold {
+    font-weight: 600;
+    margin-left: 0.15rem;
+    margin-right: 0.1rem;
+  }

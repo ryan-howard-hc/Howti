@@ -43,9 +43,9 @@ export default function Navbar() {
     <nav style={navbarStyle}>
       <div style={titular}><img src={icon} style={{ width: '24px', height: '24px' }} />Howticulture</div>
       <ul style={linkContainerStyle}>
-        <li><a href="#" style={linkStyle}>Home</a></li>
-        <li><a href="#" style={linkStyle}>About</a></li>
-        <li><a href="#" style={linkStyle}>Community</a></li>
+        <li><a href="/mainpage" style={linkStyle}>Home</a></li>
+        <li><a href="/about" style={linkStyle}>About</a></li>
+        <li><a href="/community" style={linkStyle}>Community</a></li>
       </ul>
     </nav>
   );

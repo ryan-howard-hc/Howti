@@ -8,7 +8,7 @@ export default function Page() {
     <div>
       <Navbar />
       <h1>Howticulture</h1>
-      <Link href="/dashboard">Dashboard</Link>
+      <Link href="/mainpage">Dashboard</Link>
       <Link href="/about">About</Link>
     </div>
   );
