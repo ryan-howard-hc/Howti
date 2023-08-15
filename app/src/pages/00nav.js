@@ -1,5 +1,7 @@
 import React from 'react';
 import icon from './Icon.png';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 const navbarStyle = {
   display: 'flex',
@@ -11,7 +13,7 @@ const navbarStyle = {
 };
 
 const titular = {
-  paddingLeft: '300px',
+  paddingLeft: '350px',
   fontSize: '22px',
   fontWeight: 'bold',
 };
@@ -20,7 +22,7 @@ const linkContainerStyle = {
   display: 'flex',
   listStyleType: 'none',
   margin: 0,
-  paddingRight: '300px', 
+  paddingRight: '350px', 
 };
 
 const linkStyle = {
@@ -28,6 +30,12 @@ const linkStyle = {
   textDecoration: 'none',
   fontSize: '20px',
   margin: '0 10px',
+  transition: 'color 0.3s ease', // Adding a transition for smooth color change
+};
+
+// Add a hover effect by changing the link color on hover
+linkStyle[':hover'] = {
+  color: '#FF5733', // Change to the color you want on hover
 };
 
 export default function Navbar() {
@@ -37,7 +45,7 @@ export default function Navbar() {
       <ul style={linkContainerStyle}>
         <li><a href="#" style={linkStyle}>Home</a></li>
         <li><a href="#" style={linkStyle}>About</a></li>
-        <li><a href="#" style={linkStyle}>Contact</a></li>
+        <li><a href="#" style={linkStyle}>Community</a></li>
       </ul>
     </nav>
   );
