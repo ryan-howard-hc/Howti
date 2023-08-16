@@ -1,42 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import PlantInfo from '../axios/index';
 
 
-const Main = () => {
-  const placeholderPlant = {
-    imageUrl:
-      'https://media.greg.app/cGxhbnQtZGItcGhvdG9zL2dvbGRlbl9wb3Rob3MuanBn?format=pjpeg&amp;optimize=medium&amp;auto=webp&amp;precrop=600:600,smart&amp;fit=cover&amp;width=600&amp;height=600',
-    title: 'Golden Pothos',
-    rating: '4.8',
-  };
+
+const Main = ({ plantData }) => {
+  console.log("Main Component - plantData:", plantData);
+
+  if (!plantData) {
+    return null;
+  }
 
   return (
     <div className="flex flex-row justify-center">
-      {[...Array(5)].map((_, index) => (
-        <div key={index} className="plant-card mx-2">
-          <a className="cursor-pointer" href="https://greg.app/plant-care/golden-pothos">
-            <img
-              src={placeholderPlant.imageUrl}
-              width="200px"
-              height="200px"
-              className="rounded-2xl"
-              loading="lazy"
-              alt={placeholderPlant.title}
-            />
-            <h3 className="text-sm font-medium pt-2 pb-1 hover-underline">{placeholderPlant.title}</h3>
-            <p className="text-xs flex flex-row items-center justify-center">
-              <img className="heart-icon" src="/static/web/img/heart_5.png" alt="Heart Icon" />
-              <span className="font-bold ml-1.5 mr-1">{placeholderPlant.rating}</span>
-            </p>
-          </a>
-        </div>
-      ))}
+      <div className="plant-card mx-2">
+      <h3 className="text-sm font-medium pt-2 pb-1 hover-underline">
+          {plantData.common_name}
+        </h3>
+        <p>Scientific Name: {plantData.scientific_name}</p>
+        {/* Display other plant information here */}
+      </div>
     </div>
   );
 };
 
 export default Main;
+
+
 
 
 // const PlantInfo = () => {
