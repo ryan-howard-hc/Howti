@@ -13,18 +13,26 @@ const Main = ({ plantData }) => {
   }
 
   return (
-    <div className="flex flex-row justify-center">
-      <div className="plant-card mx-2">
-      <h3 className="text-sm font-medium pt-2 pb-1 hover-underline">
-          {plantData.common_name}
-        </h3>
-        <p>Scientific Name: {plantData.scientific_name}</p>
-        {/* Display other plant information here */}
+    <div style={{ textAlign: 'center' }}>
+      <h1 style={{ borderBottom: '1px solid #000', borderTop: '1px solid #000', padding: '10px 0' }}>Plant Information</h1>
+
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <div style={{ flex: '50%' }}>
+          {plantData.map(plant => (
+            <div className="card" key={plant.id}>
+              <h3 className="card-title">{plant.common_name}</h3>
+              <p className="card-text">Scientific Name: {plant.scientific_name}</p>
+
+
+
+              <img src={plant.image_url} alt={plant.common_name} style={{ maxWidth: '100px' }} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
-};
-
+          }
 export default Main;
 
 

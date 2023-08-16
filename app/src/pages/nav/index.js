@@ -47,17 +47,21 @@ export default function Navbar() {
   console.log("handleSearchClick - searchValue:", searchValue);
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
+    console.log("Search value:", event.target.value);
+
   };
 
   const handleSearchClick = () => {
     const API_KEY = 'eYAFPMrYTYRUvLTle8cNaBjynNmAeqmcfI-iNDcfwMI';
-    const apiUrl = `https://trefle.io/api/v1/species?token=${API_KEY}&common_name=${searchValue}`;
-    
+    const apiUrl = `https://trefle.io/api/v1/plants/search?token=${API_KEY}&q=${searchValue}`;
+    console.log("API URL:", apiUrl);
+
     axios.get(apiUrl)
       .then(response => {
-        if (response.data.length > 0) {
-          setPlantData(response.data[0]);
-          console.log("handleSearchClick - Fetched plantData:", response.data[0]);
+        console.log(response);
+        if (response.data.data.length > 0) {
+          setPlantData(response.data.data);
+          console.log("handleSearchClick - Fetched plantData:", response.data.data);
 
         } else {
           setPlantData(null);
