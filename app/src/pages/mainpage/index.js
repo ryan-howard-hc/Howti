@@ -1,11 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PlantInfo from '../axios/index';
+import { handleSearchClick } from '../../utils/api'; // Import the function from the utility file
+import Navbar from '../nav/index';
 
+const Main = () => {
+  const [searchValue, setSearchValue] = useState(''); // Add the searchValue state
+  const [plantData, setPlantData] = useState([]); // Add the setPlantData state
 
+  const handleSearch = () => {
+    handleSearchClick(searchValue, setPlantData); // Call the shared function
+  };
 
-const Main = ({ plantData }) => {
   console.log("Main Component - plantData:", plantData);
 
   if (!plantData) {
@@ -16,15 +22,22 @@ const Main = ({ plantData }) => {
     <div style={{ textAlign: 'center' }}>
       <h1 style={{ borderBottom: '1px solid #000', borderTop: '1px solid #000', padding: '10px 0' }}>Plant Information</h1>
 
+      <div>
+        <input
+          type="text"
+          placeholder="Search for plants..."
+          value={searchValue}
+          onChange={event => setSearchValue(event.target.value)} // Update the searchValue state
+        />
+        <button onClick={handleSearch}>Search</button>
+      </div>
+
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <div style={{ flex: '50%' }}>
           {plantData.map(plant => (
             <div className="card" key={plant.id}>
               <h3 className="card-title">{plant.common_name}</h3>
               <p className="card-text">Scientific Name: {plant.scientific_name}</p>
-
-
-
               <img src={plant.image_url} alt={plant.common_name} style={{ maxWidth: '100px' }} />
             </div>
           ))}
@@ -32,8 +45,10 @@ const Main = ({ plantData }) => {
       </div>
     </div>
   );
-          }
+}
+
 export default Main;
+
 
 
 
