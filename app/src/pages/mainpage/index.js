@@ -39,7 +39,39 @@ const Main = () => {
 export default Main;
 
 
+// const PlantInfo = () => {
+//   const API_KEY = 'eYAFPMrYTYRUvLTle8cNaBjynNmAeqmcfI-iNDcfwMI';
+//   const COMMON_NAME = 'peace lily';
 
+//   const [plantData, setPlantData] = useState(null);
+
+//   useEffect(() => {
+//     // Construct the URL for the API query
+//     const apiUrl = `https://trefle.io/api/v1/species?token=${API_KEY}&common_name=${COMMON_NAME}`;
+
+//     // Make the API request using Axios
+//     axios.get(apiUrl)
+//       .then(response => {
+//         setPlantData(response.data);
+//       })
+//       .catch(error => {
+//         console.error('Error fetching data:', error);
+//       });
+//   }, []);
+
+//   return (
+//     <div>
+//       <h1>Plant Information</h1>
+//       {plantData ? (
+//         <pre>{JSON.stringify(plantData, null, 2)}</pre>
+//       ) : (
+//         <p>Loading plant information...</p>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default PlantInfo;
 
 
 
