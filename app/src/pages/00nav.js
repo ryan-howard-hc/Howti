@@ -33,10 +33,10 @@ const linkStyle = {
   transition: 'color 0.3s ease', // Adding a transition for smooth color change
 };
 
-// Add a hover effect by changing the link color on hover
-linkStyle[':hover'] = {
-  color: '#FF5733', // Change to the color you want on hover
-};
+// // Add a hover effect by changing the link color on hover
+// linkStyle[':hover'] = {
+//   color: '#FF5733', // Change to the color you want on hover
+// };
 
 export default function Navbar() {
   const [searchValue, setSearchValue] = useState('');

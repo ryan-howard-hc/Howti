@@ -6,11 +6,11 @@ import Main from './mainpage/index';
 
 export default function Page() {
   return (
-    <div>
-      <h1>Howticulture</h1>
-
-      <Main />
-
+    <div className="d-flex flex-column align-items-center min-vh-100">
+      <div className="container mt-4">
+        <h1 className="text-center">How</h1>
+        <Main />
+      </div>
     </div>
   );
 }
