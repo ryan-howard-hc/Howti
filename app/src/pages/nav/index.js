@@ -24,12 +24,14 @@ const Navbar = () => {
     fontWeight: 'bold',
     display: 'flex',
     alignItems: 'center',
+    marginLeft: '300px',
   };
 
   const linkContainerStyle = {
     display: 'flex',
     listStyleType: 'none',
     margin: 0,
+    marginRight: '300px'
   };
 
   const linkStyle = {
@@ -45,8 +47,8 @@ const Navbar = () => {
       <div style={titular}>
         <img src={icon} style={{ width: '24px', height: '24px', marginRight: '10px' }} />
         Howticulture
-
         </div>
+        
       <ul style={linkContainerStyle}>
         <li><a href="/" style={linkStyle}>Home</a></li>
         <li><a href="/about" style={linkStyle}>About</a></li>
