@@ -1,9 +1,16 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
+// import '../../public/styles.css';
 
 const About = () => {
-  return (
-    <><div className="container">
+
+    return (
+      <>
+        
+        <div style={{ marginTop: '80px' }} className="text-center">
+          <h1 className="howticulture-title">Howticulture</h1>
+        </div>
+<div style={{ marginTop: '80px' }}className="container">
           <div className="row">
               <div className="col-3 d-flex align-items-center justify-content-center">
                   <h2 style={{ fontSize: '30px' }}>About Me:</h2>

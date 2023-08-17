@@ -1,0 +1,9 @@
+@font-face {
+  font-family: 'JFWildWood';
+  src: url('/JFWilwod.ttf') format('truetype');
+}
+
+.howticulture-title {
+  font-family: 'JFWildWood', sans-serif;
+  font-size: 48px;
+}

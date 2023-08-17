@@ -1,5 +1,5 @@
 import React, { useState }  from 'react';
-import icon from './Icon.png';
+import icon from '../../../public/favicon.ico';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { handleSearchClick } from '../../utils/api'; // Import the function from the utility file
 
