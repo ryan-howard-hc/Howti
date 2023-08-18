@@ -44,16 +44,15 @@ const Navbar = () => {
 
   return (
     <nav style={navbarStyle}>
-      <div className="howticulture-title" style={titular}>
+      <div className="howticulture-nav-title" style={titular}>
         <img src="/favicon.ico" style={{ width: '24px', height: '24px', marginRight: '10px' }} alt="Icon" />
         Howticulture
       </div>
         
       <ul style={linkContainerStyle}>
-        <li><a href="/" style={linkStyle}>Home</a></li>
-        <li><a href="/about" style={linkStyle}>About</a></li>
-        <li><a href="/community" style={linkStyle}>Community</a></li>
-        {/* Add more links if needed */}
+        <li className='nav-link'><a href="/" style={linkStyle}>Home</a></li>
+        <li className='nav-link'><a href="/about" style={linkStyle}>About</a></li>
+        <li className='nav-link'><a href="/community" style={linkStyle}>Community</a></li>
       </ul>
     </nav>
 
