@@ -1,31 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import MainLayout from '../layout';
+import axios from 'axios';
+import Main from '../pages/mainpage/index';
 
-const PlantDetailPage = () => {
+const PlantDetailPage = ({ plantDetail }) => {
   const router = useRouter();
-  const { id } = router.query;
-  const [plantDetail, setPlantDetail] = useState(null);
 
-  useEffect(() => {
-    // Fetch plant detail based on the ID from the route
-    // Replace the following placeholder with actual fetching logic
-    const fetchPlantDetail = async () => {
-      try {
-        // Fetch plant details using the ID
-        // Example API call: axios.get(`/api/plants/${id}`)
-        // Replace the following with actual API call
-        const response = await axios.get(`/api/plants/${id}`);
-        setPlantDetail(response.data);
-      } catch (error) {
-        console.error('Error fetching plant detail:', error);
-      }
-    };
-
-    fetchPlantDetail();
-  }, [id]);
-
-  if (!plantDetail) {
+  if (router.isFallback) {
     return <p>Loading...</p>;
   }
 
@@ -41,6 +23,27 @@ const PlantDetailPage = () => {
       </div>
     </MainLayout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { slug } = context.params;
+  const API_KEY = 'eYAFPMrYTYRUvLTle8cNaBjynNmAeqmcfI-iNDcfwMI';
+  const apiUrl = `https://trefle.io/api/v1/plants/${slug}?token=${API_KEY}`;
+
+  try {
+    const response = await axios.get(apiUrl);
+    const plantDetail = response.data.data;
+    return {
+      props: {
+        plantDetail,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching plant detail:', error);
+    return {
+      notFound: true,
+    };
+  }
 }
 
 export default PlantDetailPage;
