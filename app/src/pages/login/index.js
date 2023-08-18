@@ -4,7 +4,7 @@ import { useGlobalState } from '../../context/GlobalState';
 import authService from '../../services/auth.service';
 import jwtDecode from 'jwt-decode';
 import Link from 'next/link';
-import Navbar from '../nav';
+import Navbar from '../nav/index';
 import styles from '../../styles/login.module.css';
 
 function Page() {

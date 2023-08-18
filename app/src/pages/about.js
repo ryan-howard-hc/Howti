@@ -5,10 +5,13 @@ import '../../public/me.png';
 import '../../public/heart.png';
 import '../../public/plant.png';
 import '../../public/research.png';
+import Layout from './layout';
+
+
 const About = () => {
 
     return (
-        <>
+        <Layout>
         <div className="text-center">
         <div style={{ marginTop: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <img src="./research.png" alt="Research" style={{ width: '50px', height: '50px', marginRight: '50px' }} />
@@ -110,7 +113,7 @@ const About = () => {
                         </p>
                     </div>
                 </div>
-            </div></>
+            </div></Layout>
     );
 }
 

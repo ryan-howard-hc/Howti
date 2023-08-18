@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { handleSearchClick, fetchFlowerData, fetchFoliageData, fetchGrowthData } from '../../utils/api'; // Import the function from the utility file
-import Navbar from '../nav/index';
+import Navbar from '../nav';
 
 const Main = () => {
   const [searchValue, setSearchValue] = useState(''); 
@@ -66,6 +66,8 @@ const Main = () => {
 }
 
 export default Main;
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // {/* Flower Data */}
 // {flowerData.length > 0 && (
