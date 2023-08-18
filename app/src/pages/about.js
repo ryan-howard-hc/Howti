@@ -1,44 +1,48 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 // import '../../public/styles.css';
-import './me.png'
-
-
+import '../../public/me.png';
+import '../../public/heart.png';
+import '../../public/plant.png';
+import '../../public/research.png';
 const About = () => {
 
     return (
         <>
-            <div style={{ marginTop: '50px' }} className="text-center">
-                <h1 className="howticulture-title">Howticulture</h1>
-            </div>
+        <div className="text-center">
+        <div style={{ marginTop: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <img src="./research.png" alt="Research" style={{ width: '50px', height: '50px', marginRight: '50px' }} />
+            <h1 className="howticulture-title">Howticulture</h1>
+            <img src="./plant.png" alt="Plant" style={{ width: '50px', height: '50px', marginLeft: '50px' }} />
+        </div>
+    </div>
+    
             
-            {/* Profile Image and First Paragraph */}
             <div style={{ marginTop: '40px' }} className="container">
                 <div className="row">
-                    <div className="col-3 d-flex align-items-center justify-content-center">
-                        <h2 style={{ fontSize: '30px' }}>About Me:</h2>
+                    <div className="col-3 d-flex align-items-center justify-content-start">
+                        <h2 style={{ fontSize: '30px', fontWeight: 'bold', margin:0 }}>About Me:</h2>
                     </div>
-                    <div className="col-6">
+                    <div className="col-7">
                         <p style={{ fontSize: '25px' }}>
                             Greetings! I'm Ryan, a dedicated plant enthusiast and tech-savvy individual who's always had a fascination with the natural world and the limitless possibilities of technology. With a genuine love for all things green and a knack for innovation, I've combined my passions to introduce you to "Howticulture." Join me as we embark on a journey to blend the beauty of nature with the power of digital solutions. I'm excited to share my knowledge, connect with fellow plant aficionados, and help you create a thriving green haven in both your physical and digital spaces.
                         </p>
                     </div>
-                    <div className="col-3">
-                        {/* Circular Profile Image */}
-                        <div className="rounded-circle" style={{ width: "100px", height: "100px", position: "relative", overflow: "hidden", margin: "0 auto" }}>
+                    <div className="col-2">
+                    <div className="rounded-circle" style={{ width: "400px", height: "400px", position: "relative", overflow: "hidden", margin: "0 auto" }}>
                         <div className="rounded-circle" style={{ position: "absolute", top: 0, bottom: 0, left: 0, right: 0, display: "flex" }}>
-                            <img src={require('./me.png')} className="img-fluid" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "cover", borderRadius: "50%" }} alt="Profile" />
+                            <img src="./me.png" className="img-fluid" style={{ maxWidth: "100%", maxHeight: "100%", objectFit: "cover", borderRadius: "50%" }} alt="Profile" />
                         </div>
                     </div>
-                    </div>
+                </div>
                 </div>
             </div>
 
 
             <div style={{ marginTop: '80px' }} className="container">
                 <div className="row">
-                    <div className="col-3 d-flex align-items-center justify-content-center">
-                        <h2 style={{ fontSize: '30px' }}>Howticulture:</h2>
+                    <div className="col-3 d-flex align-items-center justify-content-start">
+                        <h2 style={{ fontSize: '30px', fontWeight: 'bold' }}>Howticulture:</h2>
                     </div>
                     <div className="col-9">
                         <p style={{ fontSize: '25px' }}>
@@ -48,8 +52,8 @@ const About = () => {
                 </div>
             </div><div style={{ marginTop: '80px' }} className="container">
                 <div className="row">
-                    <div className="col-3 d-flex align-items-center justify-content-center">
-                        <h2 style={{ fontSize: '30px' }}>ID & Care Made Easy:</h2>
+                    <div className="col-3 d-flex align-items-center justify-content-start">
+                        <h2 style={{ fontSize: '30px', fontWeight: 'bold' }}>ID & Care Made Easy:</h2>
                     </div>
                     <div className="col-9">
                         <p style={{ fontSize: '25px' }}>
@@ -62,7 +66,7 @@ const About = () => {
             </div><div style={{ marginTop: '80px' }} className="container">
                 <div className="row">
                     <div className="col-3 d-flex align-items-center justify-content-center">
-                        <h2 style={{ fontSize: '30px' }}>Cultivate Connections:</h2>
+                        <h2 style={{ fontSize: '30px', fontWeight: 'bold' }}>Cultivate Connection:</h2>
                     </div>
                     <div className="col-9">
                         <p style={{ fontSize: '25px' }}>
@@ -72,8 +76,8 @@ const About = () => {
                 </div>
             </div><div style={{ marginTop: '80px' }} className="container">
                 <div className="row">
-                    <div className="col-3 d-flex align-items-center justify-content-center">
-                        <h2 style={{ fontSize: '30px' }}>Plantfolio: </h2>
+                    <div className="col-3 d-flex align-items-center justify-content-start">
+                        <h2 style={{ fontSize: '30px' , fontWeight: 'bold'}}>Plantfolio: </h2>
                     </div>
                     <div className="col-9">
                         <p style={{ fontSize: '25px' }}>
@@ -83,8 +87,8 @@ const About = () => {
                 </div>
             </div><div style={{ marginTop: '80px' }} className="container">
                 <div className="row">
-                    <div className="col-3 d-flex align-items-center justify-content-center">
-                        <h2 style={{ fontSize: '30px' }}>Learn and Flourish:</h2>
+                    <div className="col-3 d-flex align-items-center justify-content-start">
+                        <h2 style={{ fontSize: '30px', fontWeight: 'bold' }}>Learn and Flourish:</h2>
                     </div>
                     <div className="col-9">
                         <p style={{ fontSize: '25px' }}>
@@ -94,8 +98,8 @@ const About = () => {
                 </div>
             </div><div style={{ marginTop: '80px' }} className="container">
                 <div className="row">
-                    <div className="col-3 d-flex align-items-center justify-content-center">
-                        <h2 style={{ fontSize: '30px' }}>Why Choose Us:</h2>
+                    <div className="col-3 d-flex align-items-center justify-content-start">
+                        <h2 style={{ fontSize: '30px', fontWeight: 'bold' }}>Why Choose Us:</h2>
                     </div>
                     <div className="col-9">
                         <p style={{ fontSize: '25px' }}>
