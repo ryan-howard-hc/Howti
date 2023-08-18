@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import MainLayout from '../layout';
 import axios from 'axios';
+import Main from '../pages/mainpage/index';
 
 const PlantDetailPage = ({ plantDetail }) => {
   const router = useRouter();

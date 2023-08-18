@@ -28,21 +28,26 @@ const Community = () => {
 
     return (
         <div className="container">
-            <div className="row justify-content-center mb-4">
-                <div className="col-md-8 col-7">
-                    <h2 className="community-title">Community</h2>
-                </div>
-                <div className="col-md-2 col-2 text-end">
-                    <a href="/login" className="btn btn-primary">Login</a>
-                </div>
+        <div className="row justify-content-center mb-4 mt-4">
+        <div className="col-md-8 col-7">
+            <div style={{ marginLeft: '50px' }}> 
+                <h2 className="community-title">Community</h2>
             </div>
+        </div>
+        <div className="col-md-2 col-2 text-end">
+            <div style={{ marginRight: '50px' }}>
+                <a href="/login" className="btn btn-primary">Login</a>
+            </div>
+        </div>
+    </div>
 
             <div className="row justify-content-center">
                 <div className="col-md-10 col-12">
                     <div className="card mb-4">
                         <div className="row g-0 align-items-center">
                             <div className="col-md-3">
-                            
+
+
                                 <div style={tinyContainerStyle}>
                                     <a href="heart-link">
                                         <img src="./heart.png" alt="Heart" style={iconStyle} />
@@ -56,6 +61,7 @@ const Community = () => {
                                     <span style={counterStyle}>2</span>
                                 </div>
                             </div>
+
 
                             <div className="col-md-3 col-12">
                                 <img src="your-image-url.jpg" alt="Community" className="img-fluid" />
@@ -79,7 +85,7 @@ const Community = () => {
                     <div className="card mb-4">
                         <div className="row g-0 align-items-center">
                             <div className="col-md-3">
-                            
+
                                 <div style={tinyContainerStyle}>
                                     <a href="heart-link">
                                         <img src="./heart.png" alt="Heart" style={iconStyle} />
