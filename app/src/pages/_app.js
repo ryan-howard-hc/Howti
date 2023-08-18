@@ -2,16 +2,24 @@ import React from 'react';
 import Layout from './layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../public/styles.css';
+import { GlobalStateProvider } from '../context/GlobalState';
 
 function MyApp({ Component, pageProps }) {
   return (
     <Layout>
-      <Component {...pageProps} />
+     <GlobalStateProvider>
+
+    <Component {...pageProps} />
+    
+     </GlobalStateProvider>
     </Layout>
   );
 }
 
 export default MyApp;
+
+
+
 
 
 // import React from 'react';
