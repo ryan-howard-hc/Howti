@@ -4,7 +4,7 @@ import { useRouter } from "next/navigation";
 import { useGlobalState } from "../../context/GlobalState";
 
 function Register() {
-  const [state, dispatch] = useGlobalState();
+  const {state, dispatch} = useGlobalState();
   const router = useRouter();
   const [user, setUser] = useState({
     password: "",

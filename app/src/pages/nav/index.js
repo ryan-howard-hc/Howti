@@ -7,7 +7,14 @@ import { handleSearchClick } from '../../utils/api'; // Import the function from
 //   color: '#FF5733', // Change to the color you want on hover
 // };
 
+
 const Navbar = () => {
+  const fontStyles = `
+  @font-face {
+    font-family: 'ClimbingPlant';
+    src: url('./pete.ttf') format('truetype');
+  }
+`;
 
   const navbarStyle = {
     display: 'flex',
@@ -25,6 +32,7 @@ const Navbar = () => {
     alignItems: 'center',
     marginLeft: '300px',
     letterSpacing: '5px',
+    fontFamily: 'ClimbingPlant',
   };
 
   const linkContainerStyle = {

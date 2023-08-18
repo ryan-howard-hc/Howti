@@ -18,7 +18,7 @@ exports.modules = {
   \**************************************/
 /***/ ((module) => {
 
-eval("// Exports\nmodule.exports = {\n\n};\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvc3R5bGVzL2dsb2JhbC5tb2R1bGUuY3NzIiwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7O0FBRUEiLCJzb3VyY2VzIjpbIndlYnBhY2s6Ly8vLi9zcmMvc3R5bGVzL2dsb2JhbC5tb2R1bGUuY3NzPzlkNjYiXSwic291cmNlc0NvbnRlbnQiOlsiLy8gRXhwb3J0c1xubW9kdWxlLmV4cG9ydHMgPSB7XG5cbn07XG4iXSwibmFtZXMiOltdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./src/styles/global.module.css\n");
+eval("// Exports\nmodule.exports = {\n\t\"howticulture-title\": \"global_howticulture-title__JBnqF\",\n\t\"howticulture-nav-title\": \"global_howticulture-nav-title__Rx8v_\",\n\t\"nav-link\": \"global_nav-link___6S2t\"\n};\n//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9zcmMvc3R5bGVzL2dsb2JhbC5tb2R1bGUuY3NzIiwibWFwcGluZ3MiOiJBQUFBO0FBQ0E7QUFDQTtBQUNBO0FBQ0E7QUFDQSIsInNvdXJjZXMiOlsid2VicGFjazovLy8uL3NyYy9zdHlsZXMvZ2xvYmFsLm1vZHVsZS5jc3M/OWQ2NiJdLCJzb3VyY2VzQ29udGVudCI6WyIvLyBFeHBvcnRzXG5tb2R1bGUuZXhwb3J0cyA9IHtcblx0XCJob3d0aWN1bHR1cmUtdGl0bGVcIjogXCJnbG9iYWxfaG93dGljdWx0dXJlLXRpdGxlX19KQm5xRlwiLFxuXHRcImhvd3RpY3VsdHVyZS1uYXYtdGl0bGVcIjogXCJnbG9iYWxfaG93dGljdWx0dXJlLW5hdi10aXRsZV9fUng4dl9cIixcblx0XCJuYXYtbGlua1wiOiBcImdsb2JhbF9uYXYtbGlua19fXzZTMnRcIlxufTtcbiJdLCJuYW1lcyI6W10sInNvdXJjZVJvb3QiOiIifQ==\n//# sourceURL=webpack-internal:///./src/styles/global.module.css\n");
 
 /***/ }),
 

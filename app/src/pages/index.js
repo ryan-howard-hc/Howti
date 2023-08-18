@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link';
 import Navbar from './nav';
-import Main from './mainpage/index';
+import Main from './mainpage';
 import Layout from './layout';
 
 export default function Page() {

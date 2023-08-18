@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'JFWildWood';
+    src: url('../../public/JFWilwod.ttf') format('truetype');
+    
+  }
+  @font-face {
+    font-family: 'ClimbingPlant';
+    src: url('../../public/pete.ttf') format('truetype');
+}
+  .howticulture-title {
+    font-family: 'JFWildWood', sans-serif;
+    font-size: 100px;
+  }
+  .howticulture-nav-title{
+    font-family: 'ClimbingPlant', sans-serif;
+
+  }
+  .nav-link {
+    font-weight: 900;
+  }
