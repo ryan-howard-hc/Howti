@@ -2,7 +2,7 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../public/heart.png';
 import '../../public/chat.png';
-
+import Layout from './layout';
 
 
 const Community = () => {
@@ -27,6 +27,7 @@ const Community = () => {
     };
 
     return (
+        <Layout>
         <div className="container">
         <div className="row justify-content-center mb-4 mt-4">
         <div className="col-md-8 col-7">
@@ -156,6 +157,7 @@ const Community = () => {
 
 
         </div>
+        </Layout>
     );
 }
 
