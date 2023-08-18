@@ -2,10 +2,10 @@ import { useRouter } from 'next/navigation';
 import React, { useState } from 'react'
 import { useGlobalState } from '../../context/GlobalState';
 import authService from '../../services/auth.service';
-import Navbar from '../../components/navbar';
 import jwtDecode from 'jwt-decode';
-import styles from './login.module.css';
 import Link from 'next/link';
+import Navbar from '../nav';
+import styles from '../../styles/login.module.css';
 
 function Page() {
     const router = useRouter();
