@@ -11,23 +11,17 @@ import '../styles/global.module.css';
 
 const About = () => {
     
-    const fontStyles = `
-    @font-face {
-      font-family: 'JFWildWood';
-      src: url('./JFWilwod.ttf') format('truetype');
-    }
-  `;
-
-    const  howticulturetitle = {
-        fontFamily: 'JFWildWood',
-    }
-
     return (
         <Layout>
         <div className="text-center">
         <div style={{ marginTop: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <img src="./research.png" alt="Research" style={{ width: '50px', height: '50px', marginRight: '50px' }} />
-            <h1 style ={{howticulturetitle}} className="howticulture-title">Howticulture</h1>
+            <h1     style={{
+                borderBottom: '1px solid #000',
+                borderTop: '1px solid #000',
+                padding: '10px 0',
+                fontFamily: 'JFWildWood, sans-serif',
+              }} className="howticulture-title">Howticulture</h1>
             <img src="./plant.png" alt="Plant" style={{ width: '50px', height: '50px', marginLeft: '50px' }} />
         </div>
     </div>

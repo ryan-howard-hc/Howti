@@ -5,12 +5,13 @@ import { handleSearchClick, fetchFlowerData, fetchFoliageData, fetchGrowthData }
 import Navbar from './nav';
 import Link from 'next/link';
 
+
 const Main = () => {
-  const [searchValue, setSearchValue] = useState(''); 
-  const [plantData, setPlantData] = useState([]); 
-  const [flowerData, setFlowerData] = useState([]); 
-  const [foliageData, setFoliageData] = useState([]); 
-  const [growthData, setGrowthData] = useState([]); 
+  const [searchValue, setSearchValue] = useState('');
+  const [plantData, setPlantData] = useState([]);
+  const [flowerData, setFlowerData] = useState([]);
+  const [foliageData, setFoliageData] = useState([]);
+  const [growthData, setGrowthData] = useState([]);
 
   const handleSearch = async () => {
     try {
@@ -29,35 +30,73 @@ const Main = () => {
     return null;
   }
 
+  
+
   return (
     <div style={{ textAlign: 'center' }}>
-      <h1 style={{ borderBottom: '1px solid #000', borderTop: '1px solid #000', padding: '10px 0' }}>Plant Information</h1>
-
-      <div>
-        <input
-          type="text"
-          placeholder="Search for plants..."
-          value={searchValue}
-          onChange={event => setSearchValue(event.target.value)} // Update the searchValue state
-        />
-        <button onClick={handleSearch}>Search</button>
-      </div>
+    
+    <h1
+    style={{
+      borderBottom: '1px solid #000',
+      borderTop: '1px solid #000',
+      padding: '10px 0',
+      fontFamily: 'JFWildWood, sans-serif',
+    }}
+  >
+    Plant Database
+  </h1>
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px', marginTop: '20px' }}>
+      <input
+        style={{
+          padding: '10px',
+          border: '1px solid #ccc',
+          borderRadius: '5px',
+          marginBottom: '10px',
+          width: '300px',
+          boxSizing: 'border-box',
+        }}
+        type="text"
+        placeholder="Search for plants..."
+        value={searchValue}
+        onChange={event => setSearchValue(event.target.value)} 
+      />
+      <button
+        style={{
+          padding: '10px 20px',
+          backgroundColor: '#007bff',
+          color: '#fff',
+          border: 'none',
+          borderRadius: '5px',
+          cursor: 'pointer',
+          transition: 'background-color 0.3s',
+        }}
+        onClick={handleSearch}
+        onMouseEnter={event => event.target.style.backgroundColor = '#0056b3'}
+        onMouseLeave={event => event.target.style.backgroundColor = '#007bff'}
+      >
+        Search
+      </button>
+    </div>
 
       <div className="container">
         <div className="row justify-content-center">
           {plantData.map(plant => (
             <div className="col-md-4" key={plant.id}>
-              <Link href={`/plant/${plant.slug}`}>
-                <div className="card mb-4">
-                  <img src={plant.image_url} alt={plant.common_name} className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover' }} />
-                  <div className="card-body">
+
+              <div className="card mb-4">
+                <img src={plant.image_url} alt={plant.common_name} className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover' }} />
+                <div className="card-body">
+
+                  <Link href={`/plant/${plant.slug}`}>
                     <h3 className="card-title">{plant.common_name}</h3>
-                    <p className="card-text">Family: {plant.family}</p>
-                    <p className="card-text">Genus: {plant.genus}</p>
-                    <p className="card-text">Scientific Name: {plant.scientific_name}</p>
-                  </div>
+                  </Link>
+
+                  <p className="card-text">Family: {plant.family}</p>
+                  
+                  <p className="card-text">Scientific Name: {plant.scientific_name}</p>
                 </div>
-              </Link>
+              </div>
+
             </div>
           ))}
         </div>
