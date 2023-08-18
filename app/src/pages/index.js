@@ -8,7 +8,7 @@ export default function Page() {
   return (
     <div className="d-flex flex-column align-items-center min-vh-100">
       <div className="container mt-4">
-        <h1 className="text-center">How</h1>
+        <h1 className="text-center">Howticulture</h1>
         <Main />
       </div>
     </div>

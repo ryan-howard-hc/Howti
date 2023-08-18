@@ -1,6 +1,7 @@
 import React from 'react';
 import Layout from './layout';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../../public/styles.css';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -18,6 +19,7 @@ export default MyApp;
 // import Layout from './layout';
 // import Main from './mainpage/index';
 // import PlantDetails from '../components/PlantDetails'; 
+// // import id from '../components/[id]';
 
 // function MyApp({ Component, pageProps }) {
 //   return (
