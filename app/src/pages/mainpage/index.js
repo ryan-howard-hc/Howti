@@ -107,10 +107,10 @@ const Main = () => {
 }
 
 export default Main;
-
-
+// import { handleSearchClick } from '../../utils/api'; 
+// import Layout from '../layout';
 // import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
+// import { Link } from 'next/link';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 // import axios from 'axios';
 
@@ -148,6 +148,7 @@ export default Main;
 //   }
 
 //   return (
+//     <Layout>
 //     <div style={{ textAlign: 'center' }}>
 //       <h1 style={{ borderBottom: '1px solid #000', borderTop: '1px solid #000', padding: '10px 0' }}>Plant Information</h1>
 
@@ -165,9 +166,11 @@ export default Main;
 //         <div style={{ flex: '50%' }}>
 //           {plantData.map((plant) => (
 //             <div className="card" key={plant.id}>
-//               <Link to={`/plant/${plant.id}`}>
+//             <Link href={`/plant/${plant.slug}`}>
+//               <a>
 //                 <h3 className="card-title">{plant.common_name}</h3>
-//               </Link>
+//               </a>
+//             </Link>
 //               <p className="card-text">Family: {plant.family}</p>
 //               <p className="card-text">Genus: {plant.genus}</p>
 //               <p className="card-text">Scientific Name: {plant.scientific_name}</p>
@@ -223,6 +226,7 @@ export default Main;
 //         </div>
 //       </div>
 //     </div>
+//     </Layout>
 //   );
 // };
 // export default Main;
