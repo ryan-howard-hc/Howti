@@ -1,8 +1,8 @@
 // import React, { useEffect, useState } from 'react';
 // import axios from 'axios';
 // import { useParams } from 'react-router-dom';
-// import { fetchPlantDetails } from '../utils/api'; 
-
+// import { handleSearchClick } from '../utils/api'; 
+// // import { fetchPlantDetails } from '../utils/api'; 
 // const PlantDetails = () => {
 //   const { id } = useParams(); 
 //   const [plantDetails, setPlantDetails] = useState({});
@@ -13,7 +13,9 @@
 //       try {
 //         console.log('Fetching plant details for ID:', id);
 
-//         const response = await fetchPlantDetails(id);
+//         // const response = await fetchPlantDetails(id);
+        
+//         const response = await handleSearchClick(id);
 //         console.log('Response from API:', response);
 
 //         setPlantDetails(response.data);

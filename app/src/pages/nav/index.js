@@ -1,5 +1,4 @@
 import React, { useState }  from 'react';
-import icon from '../../../public/favicon.ico';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { handleSearchClick } from '../../utils/api'; // Import the function from the utility file
 
@@ -25,6 +24,7 @@ const Navbar = () => {
     display: 'flex',
     alignItems: 'center',
     marginLeft: '300px',
+    letterSpacing: '5px',
   };
 
   const linkContainerStyle = {
@@ -44,10 +44,10 @@ const Navbar = () => {
 
   return (
     <nav style={navbarStyle}>
-      <div style={titular}>
-        <img src={icon} style={{ width: '24px', height: '24px', marginRight: '10px' }} />
+      <div className="howticulture-title" style={titular}>
+        <img src="/favicon.ico" style={{ width: '24px', height: '24px', marginRight: '10px' }} alt="Icon" />
         Howticulture
-        </div>
+      </div>
         
       <ul style={linkContainerStyle}>
         <li><a href="/" style={linkStyle}>Home</a></li>
