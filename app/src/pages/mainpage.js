@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
+import { useRouter } from 'next/router';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { handleSearchClick, fetchFlowerData, fetchFoliageData, fetchGrowthData } from '../utils/api'; // Import the function from the utility file
 import Navbar from './nav';
 import Link from 'next/link';
-
-
 
 const Main = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -13,6 +12,8 @@ const Main = () => {
   const [flowerData, setFlowerData] = useState([]);
   const [foliageData, setFoliageData] = useState([]);
   const [growthData, setGrowthData] = useState([]);
+  
+  const router = useRouter(); // Initialize the useRouter hook
 
   const handleSearch = async () => {
     try {
@@ -27,11 +28,11 @@ const Main = () => {
 
   console.log("Main Component - plantData:", plantData);
 
+  const plantDataArray = Object.values(plantData);
+
   if (!plantData) {
     return null;
   }
-
-  
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -86,9 +87,8 @@ const Main = () => {
         s104.325-20.595,143.622-59.892c39.297-39.297,59.892-91.452,59.892-143.622s-20.595-104.325-59.892-143.622
         c-39.297-39.297-91.452-59.892-143.622-59.892S107.191,28.582,67.894,67.878z"
       />
-    </svg>
-
-    </div>
+      </svg>
+      </div>
       <button
         style={{
           padding: '10px 20px',
@@ -107,29 +107,35 @@ const Main = () => {
       </button>
     </div>
 
-      <div className="container">
-        <div className="row justify-content-center">
-          {plantData.map((plant,index) => (
-            <div className="col-md-4" key={plant.id} style={{ marginTop: '20px' }}>
-              <Link href={`/plant/${plant.slug}`}>
-                <a style={{ textDecoration: 'none', color: 'inherit' }}>
-                  <div className="card mb-4" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                    <img src={plant.image_url} alt={plant.common_name} className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover', height: '200px' }} />
-                    <div className="card-body" style={{ flex: '1', maxHeight: '200px', overflow: 'hidden' }}>
-                      {/* Set a fixed maximum height for the content */}
-                      <h3 className="card-title">{plant.common_name}</h3>
-                      <p className="card-text">Family: {plant.family}</p>
-                      <p className="card-text">Scientific Name: {plant.scientific_name}</p>
-                    </div>
+    <div className="container">
+      <div className="row justify-content-center">
+        {plantDataArray.map((plant, index) => (
+          <div className="col-md-4" key={plant.id} style={{ marginTop: '20px' }}>
+            <Link
+              href={{
+                pathname: '/[slug]/page',
+                query: { slug: plant.slug, plantData: JSON.stringify(plant) }, // Pass plantData as a query parameter
+              }}
+              as={`/${plant.slug}/page`}
+              passHref
+            >
+              
+                <div className="card mb-4" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                  <img src={plant.image_url} alt={plant.common_name} className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover', height: '200px' }} />
+                  <div className="card-body" style={{ flex: '1', maxHeight: '200px', overflow: 'hidden' }}>
+                    <h3 className="card-title">{plant.common_name}</h3>
+                    <p className="card-text">Family: {plant.family}</p>
+                    <p className="card-text">Scientific Name: {plant.scientific_name}</p>
                   </div>
-                </a>
-              </Link>
-            </div>
-          ))}
-        </div>
+                </div>
+              
+            </Link>
+          </div>
+        ))}
       </div>
     </div>
-  );
+  </div>
+);
 }
 
 export default Main;
