@@ -6,6 +6,7 @@ import Navbar from './nav';
 import Link from 'next/link';
 
 
+
 const Main = () => {
   const [searchValue, setSearchValue] = useState('');
   const [plantData, setPlantData] = useState([]);
@@ -37,8 +38,7 @@ const Main = () => {
     
     <h1
     style={{
-      borderBottom: '1px solid #000',
-      borderTop: '1px solid #000',
+
       padding: '10px 0',
       fontFamily: 'JFWildWood, sans-serif',
     }}
@@ -46,20 +46,49 @@ const Main = () => {
     Plant Database
   </h1>
       <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: '40px', marginTop: '20px' }}>
+      <div style={{ position: 'relative', maxWidth: '300px' }}>
       <input
-        style={{
-          padding: '10px',
-          border: '1px solid #ccc',
-          borderRadius: '5px',
-          marginBottom: '10px',
-          width: '300px',
-          boxSizing: 'border-box',
-        }}
-        type="text"
-        placeholder="Search for plants..."
-        value={searchValue}
-        onChange={event => setSearchValue(event.target.value)} 
+      style={{
+        padding: '10px 30px 10px 10px',
+        border: '1px solid #ccc',
+        borderRadius: '5px',
+        width: '100%',
+        boxSizing: 'border-box',
+        fontFamily: 'sans-serif',
+      }}
+      type="text"
+      placeholder="Search for plants..."
+      value={searchValue}
+      onChange={event => setSearchValue(event.target.value)} // Update the searchValue state
+    />
+    <svg
+      style={{
+        position: 'absolute',
+        top: '50%',
+        right: '10px',
+        transform: 'translateY(-50%)',
+        width: '20px',
+        height: '20px',
+        fill: '#000',
+      }}
+      viewBox="0 0 512 512"
+    >
+      <path
+        d="M507.515,474.485L377.332,344.309c-2.78-2.781-6.562-4.309-10.515-4.309c-11.046,0-20,8.954-20,20
+        c0,3.953,1.528,7.735,4.309,10.515l130.176,130.176c4.093,4.093,10.729,4.093,14.823,0
+        C511.608,485.214,511.608,478.578,507.515,474.485z"
       />
+      <path
+        d="M212.609,393.002c-66.035,0-128.972-25.695-176.554-72.277C-11.07,237.579-11.07,137.233,54.035,78.651
+        c48.805-48.805,111.841-72.334,175.897-72.334c66.035,0,128.972,25.695,176.554,72.277
+        c97.396,97.396,97.396,197.742,0,256.325C341.581,367.307,278.644,393.002,212.609,393.002z M67.894,67.878
+        c-39.297,39.297-59.892,91.452-59.892,143.622s20.595,104.325,59.892,143.622c39.297,39.297,91.452,59.892,143.622,59.892
+        s104.325-20.595,143.622-59.892c39.297-39.297,59.892-91.452,59.892-143.622s-20.595-104.325-59.892-143.622
+        c-39.297-39.297-91.452-59.892-143.622-59.892S107.191,28.582,67.894,67.878z"
+      />
+    </svg>
+
+    </div>
       <button
         style={{
           padding: '10px 20px',
