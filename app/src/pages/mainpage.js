@@ -109,23 +109,21 @@ const Main = () => {
 
       <div className="container">
         <div className="row justify-content-center">
-          {plantData.map(plant => (
-            <div className="col-md-4" key={plant.id}>
-
-              <div className="card mb-4">
-                <img src={plant.image_url} alt={plant.common_name} className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover' }} />
-                <div className="card-body">
-
-                  <Link href={`/plant/${plant.slug}`}>
-                    <h3 className="card-title">{plant.common_name}</h3>
-                  </Link>
-
-                  <p className="card-text">Family: {plant.family}</p>
-                  
-                  <p className="card-text">Scientific Name: {plant.scientific_name}</p>
-                </div>
-              </div>
-
+          {plantData.map((plant,index) => (
+            <div className="col-md-4" key={plant.id} style={{ marginTop: '20px' }}>
+              <Link href={`/plant/${plant.slug}`}>
+                <a style={{ textDecoration: 'none', color: 'inherit' }}>
+                  <div className="card mb-4" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    <img src={plant.image_url} alt={plant.common_name} className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover', height: '200px' }} />
+                    <div className="card-body" style={{ flex: '1', maxHeight: '200px', overflow: 'hidden' }}>
+                      {/* Set a fixed maximum height for the content */}
+                      <h3 className="card-title">{plant.common_name}</h3>
+                      <p className="card-text">Family: {plant.family}</p>
+                      <p className="card-text">Scientific Name: {plant.scientific_name}</p>
+                    </div>
+                  </div>
+                </a>
+              </Link>
             </div>
           ))}
         </div>
