@@ -7,27 +7,50 @@ import Gallery from 'react-image-gallery';
 
 const PlantDetailPage = () => {
   const router = useRouter();
+  
 
-  // Get the slug from the router query
-  const { slug } = router.query;
+  const plantDataJson = router.query.plantData;
+  const plantData = plantDataJson ? JSON.parse(plantDataJson) : null;
+  const plantSlug = plantData ? plantData.slug : null; // Assuming you have a slug property in plantData
 
-  // State to store data fetched using fetchSlug
-  const [slugData, setSlugData] = useState(null);
+  const [plantImages, setPlantImages] = useState([]); // State to store plant images
 
   useEffect(() => {
-    if (slug) {
-      // Fetch data using fetchSlug and set it in the state
-      fetchSlug(slug, setSlugData);
+    const plantSlug = router.query.slug;
+
+    if (plantSlug) {
+      fetchSlug(plantSlug).then((images) => {
+        setPlantImages(images);
+      });
     }
-  }, [slug]);
+  }, [router.query.slug]);
+
+  console.log(plantData);
 
   return (
     <div style={{ textAlign: 'center' }}>
       <h1>Plant Details</h1>
-      {slugData ? (
+      {plantData ? (
         <div className="card">
-          <h3 className="card-title">{slugData.name}</h3>
-          {/* Include other data rendering here based on the fetched slugData */}
+          {plantImages && plantImages.length > 0 ? (
+            <Carousel showArrows={true} infiniteLoop={true}>
+              {plantImages.map((imageUrl, index) => (
+                <div key={index}>
+                  {/* Apply fixed height and width here */}
+                  <img
+                    src={imageUrl}
+                    alt={`Image ${index}`}
+                    style={{
+                      maxHeight: '300px', // Adjust the height as needed
+                      maxWidth: '300px', // Adjust the width as needed
+                    }}
+                  />
+                </div>
+              ))}
+            </Carousel>
+          ) : (
+            <p>No images available</p>
+          )}
         </div>
       ) : (
         <p>Loading...</p>
@@ -37,81 +60,3 @@ const PlantDetailPage = () => {
 };
 
 export default PlantDetailPage;
-
-
-
-
-
-// const PlantDetailPage = () => {
-//   const router = useRouter();
-
-//   const plantDataJson = router.query.plantData;
-//   const plantData = plantDataJson ? JSON.parse(plantDataJson) : null;
-
-//   const [flowerData, setFlowerData] = useState(null); 
-//   const [foliageData, setFoliageData] = useState(null); 
-//   const [growthData, setGrowthData] = useState(null);
-
-//   useEffect(() => {
-//     if (plantData) {
-//       fetchFlowerData(plantData.common_name, setFlowerData);
-//       fetchFoliageData(plantData.common_name, setFoliageData);
-//       fetchGrowthData(plantData.common_name, setGrowthData);
-//     }
-//   }, [plantData]);
-
-//   return (
-//     <div style={{ textAlign: 'center' }}>
-//       <h1>Plant Details</h1>
-//       {plantData ? (
-//         <div className="card">
-//           <img
-//             src={plantData.image_url}
-//             alt={plantData.common_name}
-//             className="card-img-top"
-//             style={{ maxHeight: '200px', objectFit: 'cover' }}
-//           />
-//           <div className="card-body">
-//             <h3 className="card-title">{plantData.common_name}</h3>
-//             <p className="card-text">Family: {plantData.family}</p>
-
-//             {plantData.images && plantData.images.length > 0 ? (
-//               <div>
-
-
-//                 <Gallery items={plantData.images.map(imageUrl => ({ original: imageUrl, thumbnail: imageUrl }))} />
-//               </div>
-//             ) : (
-//               <p>No images available</p>
-//             )}
-
-//             {/* {flowerData && (
-//               <div>
-//                 <h3>Flower Data</h3>
-//                 <p>Color: {flowerData.flower.color}</p>
-//             {/* </div>
-//             )} */}
-
-//             {/* {foliageData && (
-//               <div>
-//                 <h3>Foliage Data</h3>
-//                 <p>Color: {foliageData.foliage.color}</p>
-//               </div>
-//             )} */}
-
-//             {/* {growthData && (
-//               <div>
-//                 <h3>Growth Data</h3>
-//                 <p>Description: {growthData.description}</p>
-//               </div>
-//             )} */}
-//           </div>
-//         </div>
-//       ) : (
-//         <p>Loading...</p>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default PlantDetailPage;

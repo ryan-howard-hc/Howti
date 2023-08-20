@@ -56,15 +56,26 @@ export const fetchGrowthData = (searchValue, setGrowthData) => {
     });
 };
 
-export const fetchSlug = (slug, setPlantData) => {
+export const fetchSlug = async (slug) => {
   const API_KEY = 'eYAFPMrYTYRUvLTle8cNaBjynNmAeqmcfI-iNDcfwMI';
   const apiUrl = `https://trefle.io/api/v1/plants/${slug}?token=${API_KEY}`;
 
-  axios.get(apiUrl)
-    .then(response => {
-      setPlantData(response.data.data);
-    })
-    .catch(error => {
-      console.error('Error fetching plant data by slug:', error);
-    });
+  try {
+    const response = await axios.get(apiUrl);
+    const plantData = response.data.data;
+
+    // Extract images from the plantData object
+    const images = [];
+
+    if (plantData.main_species && plantData.main_species.images && plantData.main_species.images.leaf) {
+      plantData.main_species.images.leaf.forEach((image) => {
+        images.push(image.image_url);
+      });
+    }
+
+    return images;
+  } catch (error) {
+    console.error('Error fetching plant data by slug:', error);
+    return [];
+  }
 };
