@@ -55,3 +55,16 @@ export const fetchGrowthData = (searchValue, setGrowthData) => {
       console.error('Error fetching growth data:', error);
     });
 };
+
+export const fetchSlug = (slug, setPlantData) => {
+  const API_KEY = 'eYAFPMrYTYRUvLTle8cNaBjynNmAeqmcfI-iNDcfwMI';
+  const apiUrl = `https://trefle.io/api/v1/plants/${slug}?token=${API_KEY}`;
+
+  axios.get(apiUrl)
+    .then(response => {
+      setPlantData(response.data.data);
+    })
+    .catch(error => {
+      console.error('Error fetching plant data by slug:', error);
+    });
+};

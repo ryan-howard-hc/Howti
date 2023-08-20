@@ -2,7 +2,8 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { handleSearchClick, fetchFlowerData, fetchFoliageData, fetchGrowthData } from '../../utils/api';
+import { fetchSlug,handleSearchClick, fetchFlowerData, fetchFoliageData, fetchGrowthData } from '../../utils/api';
+import Gallery from 'react-image-gallery'; 
 
 const PlantDetailPage = () => {
   const router = useRouter();
@@ -10,9 +11,9 @@ const PlantDetailPage = () => {
   const plantDataJson = router.query.plantData;
   const plantData = plantDataJson ? JSON.parse(plantDataJson) : null;
 
-  const [flowerData, setFlowerData] = useState(null); // State for flower data
-  const [foliageData, setFoliageData] = useState(null); // State for foliage data
-  const [growthData, setGrowthData] = useState(null); // State for growth data
+  const [flowerData, setFlowerData] = useState(null); 
+  const [foliageData, setFoliageData] = useState(null); 
+  const [growthData, setGrowthData] = useState(null);
 
   useEffect(() => {
     if (plantData) {
@@ -20,7 +21,7 @@ const PlantDetailPage = () => {
       fetchFoliageData(plantData.common_name, setFoliageData);
       fetchGrowthData(plantData.common_name, setGrowthData);
     }
-  }, [plantData]); 
+  }, [plantData]);
 
   return (
     <div style={{ textAlign: 'center' }}>
@@ -39,11 +40,9 @@ const PlantDetailPage = () => {
 
             {plantData.images && plantData.images.length > 0 ? (
               <div>
-                {plantData.images.map((imageUrl, index) => (
-                  <div key={index}>
-                    <img src={imageUrl} alt={`Image ${index}`} />
-                  </div>
-                ))}
+
+
+                <Gallery items={plantData.images.map(imageUrl => ({ original: imageUrl, thumbnail: imageUrl }))} />
               </div>
             ) : (
               <p>No images available</p>
