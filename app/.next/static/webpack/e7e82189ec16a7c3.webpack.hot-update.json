@@ -1,1 +1,0 @@
-{"c":["pages/index","webpack"],"r":["pages/[slug]"],"m":["./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?absolutePagePath=%2Fworkspace%2FHowti%2Fapp%2Fsrc%2Fpages%2F%5Bslug%5D.js&page=%2F%5Bslug%5D!","./node_modules/next/router.js","./src/layout.tsx","./src/pages/[slug].js"]}
