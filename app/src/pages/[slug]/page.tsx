@@ -4,6 +4,8 @@ import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { fetchSlug, fetchWikipediaDescription } from '../../utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Layout from '../layout';
+
 
 const PlantDetailPage = () => {
   const router = useRouter();
@@ -44,6 +46,7 @@ const PlantDetailPage = () => {
   }, [router.query.slug]);
 
   return (
+    <Layout>
     <div className="container">
       <div className="text-center">
       <h1>{scientificName || 'Loading...'}</h1>
@@ -178,6 +181,7 @@ const PlantDetailPage = () => {
         <p>Loading...</p>
       )}
     </div>
+    </Layout>
   );
 };
 
