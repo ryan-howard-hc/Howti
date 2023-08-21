@@ -1,5 +1,4 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import '../../public/heart.png';
 import '../../public/chat.png';
 import Layout from './layout';

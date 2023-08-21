@@ -21,6 +21,16 @@ const Main = () => {
       await fetchFlowerData(searchValue, setFlowerData);
       await fetchFoliageData(searchValue, setFoliageData);
       await fetchGrowthData(searchValue, setGrowthData);
+  
+      // Fetch Wikipedia descriptions and add them to the plant data
+      const updatedPlantData = await Promise.all(
+        Object.values(plantData).map(async (plant) => {
+          const description = await fetchWikipediaDescription(plant.common_name);
+          return { ...plant, description };
+        })
+      );
+  
+      setPlantData(updatedPlantData);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -56,6 +66,8 @@ const Main = () => {
         width: '100%',
         boxSizing: 'border-box',
         fontFamily: 'sans-serif',
+        backgroundColor: '#999', 
+        fontWeight: 'bolder',
       }}
       type="text"
       placeholder="Search for plants..."

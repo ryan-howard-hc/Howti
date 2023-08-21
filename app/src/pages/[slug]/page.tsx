@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import { fetchSlug } from '../../utils/api';
+import { fetchSlug, fetchWikipediaDescription } from '../../utils/api';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import cheerio from 'cheerio';
+
 
 const PlantDetailPage = () => {
   const router = useRouter();
@@ -14,89 +17,109 @@ const PlantDetailPage = () => {
   const [leafImages, setLeafImages] = useState([]);
   const [flowerImages, setFlowerImages] = useState([]);
   const [barkImages, setBarkImages] = useState([]);
+  const [commonNames, setCommonNames] = useState([]);
+  const [wikipediaDescription, setWikipediaDescription] = useState('');
 
   useEffect(() => {
     const plantSlug = router.query.slug;
 
     if (plantSlug) {
-      fetchSlug(plantSlug).then((images) => {
+      fetchSlug(plantSlug).then((data) => {
         // Separate images into leaf, flower, and bark arrays
-        setLeafImages(images.leaf || []);
-        setFlowerImages(images.flower || []);
-        setBarkImages(images.bark || []);
+        setLeafImages(data.images.leaf || []);
+        setFlowerImages(data.images.flower || []);
+        setBarkImages(data.images.bark || []);
+        // Set common names
+        setCommonNames(data.common_names.eng || []);
+        const commonName = data.common_names.eng[0]; // Assuming the common name is the first one in the list
+        fetchWikipediaDescription(commonName).then((description) => {
+          setWikipediaDescription(description);
+        });
       });
     }
   }, [router.query.slug]);
-
-  console.log(plantData);
 
   return (
     <div style={{ textAlign: 'center' }}>
       <h1>Plant Details</h1>
       {plantData ? (
         <div className="card">
-          {/* Display Leaf Images */}
-          {leafImages.length > 0 && (
-            <div>
-              <h2>Leaf Images</h2>
-              <Carousel showArrows={true} infiniteLoop={true}>
-                {leafImages.map((imageUrl, index) => (
-                  <div key={index}>
-                    <img
-                      src={imageUrl}
-                      alt={`Leaf Image ${index}`}
-                      style={{
-                        maxHeight: '300px',
-                        maxWidth: '300px',
-                      }}
-                    />
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          )}
+          <div>
+            {/* Common Names */}
+            <h2>Common Names</h2>
+            <ul>
+              {commonNames.map((name, index) => (
+                <li key={index}>{name}</li>
+              ))}
+            </ul>
+          </div>
+          <div>
+          <h2>Wikipedia Description</h2>
+          <p>{wikipediaDescription}</p>
+        </div>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            {/* Leaf Carousel */}
+            {leafImages.length > 0 && (
+              <div>
+                <h2>Leaf Images</h2>
+                <Carousel showArrows={true} infiniteLoop={true}>
+                  {leafImages.map((imageUrl, index) => (
+                    <div key={index}>
+                      <img
+                        src={imageUrl}
+                        alt={`Leaf Image ${index}`}
+                        style={{
+                          maxHeight: '300px',
+                          maxWidth: '300px',
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
+            )}
 
-          {/* Display Flower Images */}
-          {flowerImages.length > 0 && (
-            <div>
-              <h2>Flower Images</h2>
-              <Carousel showArrows={true} infiniteLoop={true}>
-                {flowerImages.map((imageUrl, index) => (
-                  <div key={index}>
-                    <img
-                      src={imageUrl}
-                      alt={`Flower Image ${index}`}
-                      style={{
-                        maxHeight: '300px',
-                        maxWidth: '300px',
-                      }}
-                    />
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          )}
+            {flowerImages.length > 0 && (
+              <div>
+                <h2>Flower Images</h2>
+                <Carousel showArrows={true} infiniteLoop={true}>
+                  {flowerImages.map((imageUrl, index) => (
+                    <div key={index}>
+                      <img
+                        src={imageUrl}
+                        alt={`Flower Image ${index}`}
+                        style={{
+                          maxHeight: '300px',
+                          maxWidth: '300px',
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
+            )}
 
-          {/* Display Bark Images */}
-          {barkImages.length > 0 && (
-            <div>
-              <h2>Bark Images</h2>
-              <Carousel showArrows={true} infiniteLoop={true}>
-                {barkImages.map((imageUrl, index) => (
-                  <div key={index}>
-                    <img
-                      src={imageUrl}
-                      alt={`Bark Image ${index}`}
-                      style={{
-                        maxHeight: '300px',
-                        maxWidth: '300px',
-                      }}
-                    />
-                  </div>
-                ))}
-              </Carousel>
-            </div>
-          )}
+            {/* Bark Carousel */}
+            {barkImages.length > 0 && (
+              <div>
+                <h2>Bark Images</h2>
+                <Carousel showArrows={true} infiniteLoop={true}>
+                  {barkImages.map((imageUrl, index) => (
+                    <div key={index}>
+                      <img
+                        src={imageUrl}
+                        alt={`Bark Image ${index}`}
+                        style={{
+                          maxHeight: '300px',
+                          maxWidth: '300px',
+                        }}
+                      />
+                    </div>
+                  ))}
+                </Carousel>
+              </div>
+            )}
+          </div>
         </div>
       ) : (
         <p>Loading...</p>
@@ -106,6 +129,7 @@ const PlantDetailPage = () => {
 };
 
 export default PlantDetailPage;
+
 
 
 
