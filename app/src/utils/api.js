@@ -130,15 +130,12 @@ export const fetchSlug = async (slug) => {
   }
 };
 
-
 export const fetchWikipediaDescription = async (commonName) => {
   try {
-    // Step 1: Perform a Google search to find the Wikipedia link
     const googleSearchUrl = `https://www.google.com/search?q=${commonName}+site:wikipedia.org`;
     const googleSearchResponse = await axios.get(googleSearchUrl);
     const googleSearchHtml = googleSearchResponse.data;
 
-    // Step 2: Extract the Wikipedia link from the search results
     const $ = cheerio.load(googleSearchHtml);
     const wikipediaLink = $('a[href^="https://en.wikipedia.org/wiki/"]').attr('href');
 
@@ -146,23 +143,26 @@ export const fetchWikipediaDescription = async (commonName) => {
       return 'No Wikipedia page found';
     }
 
-    // Step 3: Make an HTTP request to the Wikipedia page
     const wikipediaResponse = await axios.get(wikipediaLink);
     const wikipediaHtml = wikipediaResponse.data;
 
-    // Step 4: Parse the Wikipedia page and extract the description
     const $$ = cheerio.load(wikipediaHtml);
     let description = '';
-    
-    // Find the first paragraph that doesn't contain a gallery link
+
+    // Define keywords to exclude paragraphs with
+    const excludeKeywords = ['media related to', 'references', 'external links'];
+
     $$('p').each((index, element) => {
       const text = $$(element).text();
-      
-      // Remove citation markers like [1], [2], etc.
-      const textWithoutCitations = text.replace(/\[\d+\]/g, '');
 
-      if (!text.includes('Gallery') && textWithoutCitations.trim() !== '') {
-        description += textWithoutCitations + ' ';
+      // Check if the text contains any exclude keywords
+      const shouldExclude = excludeKeywords.some(keyword => text.toLowerCase().includes(keyword));
+
+      if (!shouldExclude) {
+        const textWithoutCitations = text.replace(/\[\d+\]/g, '');
+        if (textWithoutCitations.trim() !== '') {
+          description += textWithoutCitations + '\n\n'; // Insert double newline for paragraph breaks
+        }
       }
     });
 
@@ -172,8 +172,3 @@ export const fetchWikipediaDescription = async (commonName) => {
     return 'Error fetching Wikipedia description';
   }
 };
-
-
-
-
-

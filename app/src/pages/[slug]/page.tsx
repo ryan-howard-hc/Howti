@@ -55,29 +55,32 @@ const PlantDetailPage = () => {
           </div>
           <div>
           <h2>Wikipedia Description</h2>
-          <p>{wikipediaDescription}</p>
+          {/* Split the description into paragraphs */}
+          {wikipediaDescription.split('\n\n').map((paragraph, index) => (
+            <p key={index}>{paragraph}</p>
+          ))}
         </div>
-          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-            {/* Leaf Carousel */}
-            {leafImages.length > 0 && (
-              <div>
-                <h2>Leaf Images</h2>
-                <Carousel showArrows={true} infiniteLoop={true}>
-                  {leafImages.map((imageUrl, index) => (
-                    <div key={index}>
-                      <img
-                        src={imageUrl}
-                        alt={`Leaf Image ${index}`}
-                        style={{
-                          maxHeight: '300px',
-                          maxWidth: '300px',
-                        }}
-                      />
-                    </div>
-                  ))}
-                </Carousel>
-              </div>
-            )}
+        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+          {/* Leaf Carousel */}
+          {leafImages.length > 0 && (
+            <div>
+              <h2>Leaf Images</h2>
+              <Carousel showArrows={true} infiniteLoop={true}>
+                {leafImages.map((imageUrl, index) => (
+                  <div key={index}>
+                    <img
+                      src={imageUrl}
+                      alt={`Leaf Image ${index}`}
+                      style={{
+                        maxHeight: '300px',
+                        maxWidth: '300px',
+                      }}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )}
 
             {flowerImages.length > 0 && (
               <div>
