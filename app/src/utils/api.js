@@ -122,8 +122,8 @@ export const fetchSlug = async (slug) => {
         flower: [],
         bark: [],
       },
-      genus: '', // Include genus even when data is missing
-      family: '', // Include family even when data is missing
+      genus: '', 
+      family: '', 
       scientific_name: '',
     };
   } catch (error) {
@@ -137,9 +137,6 @@ export const fetchSlug = async (slug) => {
         flower: [],
         bark: [],
       },
-      genus: '', // Include genus in case of error
-      family: '', // Include family in case of error
-      scientific_name: '',
     };
   }
 };
@@ -181,7 +178,7 @@ export const fetchWikipediaDescription = async (commonName) => {
 
     return description.trim();
   } catch (error) {
-    console.error('Error fetching Wikipedia description:', error);
-    return 'Error fetching Wikipedia description';
+    console.error('Error fetching description:', error);
+    return 'Error fetching description';
   }
 };
