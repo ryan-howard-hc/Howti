@@ -95,11 +95,17 @@ export const fetchSlug = async (slug) => {
         ? plantData.main_species.common_names.eng || []
         : [];
 
+      // Include genus and family information
+      const genus = plantData.main_species.genus || '';
+      const family = plantData.main_species.family || '';
+
       const formattedData = {
         common_names: {
           eng: commonNames,
         },
         images,
+        genus, // Include genus information
+        family, // Include family information
       };
 
       return formattedData;
@@ -114,6 +120,8 @@ export const fetchSlug = async (slug) => {
         flower: [],
         bark: [],
       },
+      genus: '', // Include genus even when data is missing
+      family: '', // Include family even when data is missing
     };
   } catch (error) {
     console.error('Error fetching plant data by slug:', error);
@@ -126,6 +134,8 @@ export const fetchSlug = async (slug) => {
         flower: [],
         bark: [],
       },
+      genus: '', // Include genus in case of error
+      family: '', // Include family in case of error
     };
   }
 };
@@ -149,7 +159,6 @@ export const fetchWikipediaDescription = async (commonName) => {
     const $$ = cheerio.load(wikipediaHtml);
     let description = '';
 
-    // Define keywords to exclude paragraphs with
     const excludeKeywords = ['media related to', 'references', 'external links'];
 
     $$('p').each((index, element) => {
