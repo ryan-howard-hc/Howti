@@ -20,6 +20,7 @@ const PlantDetailPage = () => {
   const [wikipediaDescription, setWikipediaDescription] = useState('');
   const [genus, setGenus] = useState('');
   const [family, setFamily] = useState('');
+  const [scientificName, setScientificName] = useState(''); // Initialize scientificName state
 
   useEffect(() => {
     const plantSlug = router.query.slug;
@@ -32,6 +33,7 @@ const PlantDetailPage = () => {
         setCommonNames(data.common_names.eng || []);
         setGenus(data.genus); // Set the genus
         setFamily(data.family); // Set the family
+        setScientificName(data.scientific_name); // Set the scientific_name
 
         const commonName = data.common_names.eng[0];
         fetchWikipediaDescription(commonName).then((description) => {
@@ -73,6 +75,13 @@ const PlantDetailPage = () => {
               <div>
                 <h2>Family</h2>
                 <p>{family}</p>
+              </div>
+            )}
+            {/* Scientific Name */}
+            {scientificName && (
+              <div>
+                <h2>Scientific Name</h2>
+                <p>{scientificName}</p>
               </div>
             )}
           </div>

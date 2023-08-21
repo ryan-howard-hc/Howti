@@ -98,14 +98,16 @@ export const fetchSlug = async (slug) => {
       // Include genus and family information
       const genus = plantData.main_species.genus || '';
       const family = plantData.main_species.family || '';
+      const scientific_name = plantData.main_species.scientific_name || '';
 
       const formattedData = {
         common_names: {
           eng: commonNames,
         },
         images,
-        genus, // Include genus information
-        family, // Include family information
+        genus, 
+        family, 
+        scientific_name,
       };
 
       return formattedData;
@@ -122,6 +124,7 @@ export const fetchSlug = async (slug) => {
       },
       genus: '', // Include genus even when data is missing
       family: '', // Include family even when data is missing
+      scientific_name: '',
     };
   } catch (error) {
     console.error('Error fetching plant data by slug:', error);
@@ -136,6 +139,7 @@ export const fetchSlug = async (slug) => {
       },
       genus: '', // Include genus in case of error
       family: '', // Include family in case of error
+      scientific_name: '',
     };
   }
 };
