@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import AuthService from "../../services/auth.service";
 import { useRouter } from "next/navigation";
 import { useGlobalState } from "../../context/GlobalState";
+import Layout from "../layout";
 
 function Register() {
   const {state, dispatch} = useGlobalState();
@@ -32,6 +33,7 @@ function Register() {
   }
 
   return (
+    <Layout>
     <div className="w-screen h-screen">
       <div className="flex">
         <form className="mx-auto border-2 bg-mtgray" onSubmit={handleRegister}>
@@ -105,6 +107,7 @@ function Register() {
         </form>
       </div>
     </div>
+    </Layout>
   );
 }
 
