@@ -120,32 +120,38 @@ const Main = () => {
     </div>
 
     <div className="container">
-      <div className="row justify-content-center">
-        {plantDataArray.map((plant, index) => (
-          <div className="col-md-4" key={plant.id} style={{ marginTop: '20px' }}>
-            <Link
-              href={{
-                pathname: '/[slug]/page',
-                query: { slug: plant.slug, plantData: JSON.stringify(plant) }, // Pass plantData as a query parameter
-              }}
-              as={`/${plant.slug}/page`}
-              passHref
-            >
-              
-                <div className="card mb-4" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
-                  <img src={plant.image_url} alt={plant.common_name} className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover', height: '200px' }} />
-                  <div className="card-body" style={{ flex: '1', maxHeight: '200px', overflow: 'hidden' }}>
-                    <h3 className="card-title">{plant.common_name}</h3>
-                    <p className="card-text">Family: {plant.family}</p>
-                    <p className="card-text">Scientific Name: {plant.scientific_name}</p>
-                  </div>
+    <div className="row justify-content-center">
+      {plantDataArray.map((plant, index) => (
+        <div className="col-md-4" key={plant.id} style={{ marginTop: '20px' }}>
+          <Link
+            href={{
+              pathname: '/[slug]/page',
+              query: { slug: plant.slug, plantData: JSON.stringify(plant) },
+            }}
+            as={`/${plant.slug}/page`}
+            passHref
+            style={{ textDecoration: 'none' }}
+          >
+            <div className="card mb-4" style={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
+              <img src={plant.image_url} alt={plant.common_name} className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover', height: '200px' }} />
+  
+              <div className="card-body" style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
+                <h3 className="card-title">{plant.common_name}</h3>
+                <div style={{ marginTop: 'auto' }}>
+                  <p className="card-text" style={{ margin: '0', marginBottom: '0px', fontWeight: 'bold' }}>Scientific Name:</p>
+                  <p className="card-text" style={{ margin: '0' }}><i>{plant.scientific_name}</i></p>
+                  <p className="card-text" style={{ margin: '0', marginBottom: '0px', fontWeight: 'bold' }}>Family:</p>
+                  <p className="card-text" style={{ margin: '0' }}><i>{plant.family}</i></p>
                 </div>
-              
-            </Link>
-          </div>
-        ))}
-      </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+      ))}
     </div>
+  </div>
+  
+
   </div>
 );
 }
