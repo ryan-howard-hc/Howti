@@ -46,75 +46,77 @@ const PlantDetailPage = () => {
   return (
     <div className="container">
       <div className="text-center">
-        <h1>Plant Details</h1>
+      <h1>{scientificName || 'Loading...'}</h1>
       </div>
       {plantData ? (
         <div className="card">
           <div className="row">
-            <div className="col-md-6">
-              {/* Common Names */}
-              {commonNames.length > 0 && (
-                <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
-                  <label className="font-medium text-sm" style={{ fontWeight: 'bold' }}>Common Names:</label>
-                  <div>
-                    {commonNames.map((name, index) => (
-                      <div key={index} className="text-sm italic">{name}</div>
-                    ))}
+          <div className="col-md-6 text-center">
+          
+          {commonNames.length > 0 && (
+            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
+              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize: '24px' }}>Common Names:</label>
+              <div>
+                {commonNames.map((name, index) => (
+                  <div key={index} style={{ fontSize: '18px', fontStyle: 'italic', textAlign: 'center' }}>
+                    <span style={{ fontWeight: 'bold' }}>{index + 1}.</span> {name} {/* Add number before each entry */}
                   </div>
-                </div>
-              )}
-
-              {/* Genus */}
-              {genus && (
-                <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
-                  <label className="font-medium text-sm" style={{ fontWeight: 'bold' }}>Genus:</label>
-                  <h5 className="text-sm">{genus}</h5>
-                </div>
-              )}
-
-              {/* Family */}
-              {family && (
-                <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
-                  <label className="font-medium text-sm" style={{ fontWeight: 'bold' }}>Family:</label>
-                  <h5 className="text-sm">{family}</h5>
-                </div>
-              )}
-
-              {/* Scientific Name */}
-              {scientificName && (
-                <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
-                  <label className="font-medium text-sm" style={{ fontWeight: 'bold' }}>Scientific Name:</label>
-                  <h5 className="text-sm">{scientificName}</h5>
-                </div>
-              )}
-              {/* Leaf Carousel */}
-              {leafImages.length > 0 && (
-                <div className="col-md-12">
-                  <h2>Leaf Images</h2>
-                  <Carousel showArrows={true} infiniteLoop={true}>
-                    {leafImages.map((imageUrl, index) => (
-                      <div key={index}>
-                        <img
-                          src={imageUrl}
-                          alt={`Leaf Image ${index}`}
-                          style={{
-                            maxHeight: '500px',
-                            maxWidth: '300px',
-                          }}
-                        />
-                      </div>
-                    ))}
-                  </Carousel>
-                </div>
-              )}
+                ))}
+              </div>
             </div>
-            <div className="col-md-6">
-              {/* Wikipedia Description */}
-              <h2>Wikipedia Description</h2>
-              {wikipediaDescription.split('\n\n').map((paragraph, index) => (
-                <p key={index}>{paragraph}</p>
-              ))}
+          )}
+        
+          {/* Genus */}
+          {genus && (
+            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
+              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize:'24px' }}>Genus:</label>
+              <h5 style={{ fontWeight: 'normal', fontSize:'18px', fontStyle: 'italic' }}>{genus}</h5>
             </div>
+          )}
+        
+          {/* Family */}
+          {family && (
+            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
+              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize:'24px' }}>Family:</label>
+              <h5 style={{ fontWeight: 'normal', fontSize:'18px', fontStyle: 'italic' }}>{family}</h5>
+            </div>
+          )}
+        
+          {/* Scientific Name */}
+          {scientificName && (
+            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
+              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize:'24px' }}>Scientific Name:</label>
+              <h5 style={{ fontWeight: 'normal', fontSize:'18px', fontStyle: 'italic' }}>{scientificName}</h5>
+            </div>
+          )}
+        
+          {/* Leaf Carousel */}
+          {leafImages.length > 0 && (
+            <div className="col-md-12">
+             
+              <Carousel showArrows={true} infiniteLoop={true}>
+                {leafImages.map((imageUrl, index) => (
+                  <div key={index}>
+                    <img
+                      src={imageUrl}
+                      alt={`Leaf Image ${index}`}
+                      style={{
+                        maxHeight: '500px',
+                        maxWidth: '300px',
+                      }}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )}
+        </div>
+        <div className="col-md-6 text-center">
+          <h2>Description</h2>
+          {wikipediaDescription.split('\n\n').map((paragraph, index) => (
+            <p style={{ fontSize: '20px' }} key={index}>{paragraph}</p>
+          ))}
+        </div>
           </div>
 
           <div className="row">
@@ -123,7 +125,9 @@ const PlantDetailPage = () => {
             {/* Flower Carousel */}
             {flowerImages.length > 0 && (
               <div>
-                <h2>Flower Images</h2>
+                <div className="text-center"> {/* Center the header */}
+                  <h2>Flower Images</h2>
+                </div>
                 <Carousel showArrows={true} infiniteLoop={true}>
                   {flowerImages.map((imageUrl, index) => (
                     <div key={index}>
@@ -147,7 +151,9 @@ const PlantDetailPage = () => {
             {/* Bark Carousel */}
             {barkImages.length > 0 && (
               <div>
-                <h2>Bark Images</h2>
+                <div className="text-center"> {/* Center the header */}
+                  <h2>Bark Images</h2>
+                </div>
                 <Carousel showArrows={true} infiniteLoop={true}>
                   {barkImages.map((imageUrl, index) => (
                     <div key={index}>
