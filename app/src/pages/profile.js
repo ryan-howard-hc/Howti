@@ -7,25 +7,45 @@ import axios from 'axios';
 
 const ProfilePage = () => {
   const [postData, setPostData] = useState({ title: '', content: '' });
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault();
-
+  const [fetchedData, setFetchedData] = useState([]);
+  const [userLogs, setUserLogs] = useState([]);
+  const {state, dispatch} = useGlobalState();
+  
+  // useEffect(() => {
+  //   fetchPosts();
+  // }, []);
+  // ---------------------------------------------------------------------------------------------------------// ---------------------------------------------------------------------------------------------------------
+  const getName = async () => {
     try {
-      const response = await axios.post('http://127.0.0.1:8000/api/test/', postData);
-      console.log('Post request response:', response.data);
+      console.log(state)
+      const user_id = state.user.user_id
+      // const response = await axios.get('http://127.0.0.1:8000/api/huh/' + user_id); 
+      const newUser = state.user;
+      newUser.data = response.data;
+      await dispatch({
+      currentUser: newUser
+      });
+      console.log(response.data)
+      setFetchedData(response.data);
     } catch (error) {
-      console.error('Error making post request:', error);
+      console.error('Error fetching data:', error);
     }
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setPostData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const fetchUserLogs = async () => {
+    try {
+      const user_id = state.user.user_id; 
+      // const response = await axios.get(`http://127.0.0.1:8000/api/user-logs/?user_id=${user_id}`);
+      setUserLogs(response.data);
+    } catch (error) {
+      console.error('Error fetching user logs:', error);
+    }
   };
+
+  useEffect(() => {
+    getName();
+    fetchUserLogs(); 
+  }, []);
 
   return (
     <div>

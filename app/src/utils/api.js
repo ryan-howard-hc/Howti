@@ -18,7 +18,7 @@ export const handleSearchClick = (searchValue, setPlantData, setFlowerData, setF
   fetchFoliageData(searchValue, setFoliageData);
   fetchGrowthData(searchValue, setGrowthData);
 };
-
+// ---------------------------------------------------------------------------------------------------------// ---------------------------------------------------------------------------------------------------------
 export const fetchFlowerData = (searchValue, setFlowerData) => {
   const API_KEY = 'eYAFPMrYTYRUvLTle8cNaBjynNmAeqmcfI-iNDcfwMI';
   const apiUrl = `https://trefle.io/api/v1/plants/search?token=${API_KEY}&q=${searchValue}&fields=flower.color`;
@@ -31,7 +31,7 @@ export const fetchFlowerData = (searchValue, setFlowerData) => {
       console.error('Error fetching flower data:', error);
     });
 };
-
+// ---------------------------------------------------------------------------------------------------------// ---------------------------------------------------------------------------------------------------------
 export const fetchFoliageData = (searchValue, setFoliageData) => {
   const API_KEY = 'eYAFPMrYTYRUvLTle8cNaBjynNmAeqmcfI-iNDcfwMI';
   const apiUrl = `https://trefle.io/api/v1/plants/search?token=${API_KEY}&q=${searchValue}&fields=foliage.color`;
@@ -44,7 +44,7 @@ export const fetchFoliageData = (searchValue, setFoliageData) => {
       console.error('Error fetching foliage data:', error);
     });
 };
-
+// ---------------------------------------------------------------------------------------------------------// ---------------------------------------------------------------------------------------------------------
 export const fetchGrowthData = (searchValue, setGrowthData) => {
   const API_KEY = 'eYAFPMrYTYRUvLTle8cNaBjynNmAeqmcfI-iNDcfwMI';
   const apiUrl = `https://trefle.io/api/v1/plants/search?token=${API_KEY}&q=${searchValue}&fields=minimum_temperature,maximum_temperature,soil_nutriments,soil_salinity,soil_texture,soil_humidity,description`;
@@ -57,7 +57,7 @@ export const fetchGrowthData = (searchValue, setGrowthData) => {
       console.error('Error fetching growth data:', error);
     });
 };
-
+// ---------------------------------------------------------------------------------------------------------// ---------------------------------------------------------------------------------------------------------
 export const fetchSlug = async (slug) => {
   const API_KEY = 'eYAFPMrYTYRUvLTle8cNaBjynNmAeqmcfI-iNDcfwMI';
   const apiUrl = `https://trefle.io/api/v1/plants/${slug}?token=${API_KEY}`;
@@ -140,7 +140,7 @@ export const fetchSlug = async (slug) => {
     };
   }
 };
-
+// ---------------------------------------------------------------------------------------------------------// ---------------------------------------------------------------------------------------------------------
 export const fetchWikipediaDescription = async (commonName) => {
   try {
     const googleSearchUrl = `https://www.google.com/search?q=${commonName}+site:wikipedia.org`;
