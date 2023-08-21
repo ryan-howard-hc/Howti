@@ -6,20 +6,24 @@ import { fetchSlug } from '../../utils/api';
 
 const PlantDetailPage = () => {
   const router = useRouter();
-  
 
   const plantDataJson = router.query.plantData;
   const plantData = plantDataJson ? JSON.parse(plantDataJson) : null;
-  const plantSlug = plantData ? plantData.slug : null; 
+  const plantSlug = plantData ? plantData.slug : null;
 
-  const [plantImages, setPlantImages] = useState([]); 
+  const [leafImages, setLeafImages] = useState([]);
+  const [flowerImages, setFlowerImages] = useState([]);
+  const [barkImages, setBarkImages] = useState([]);
 
   useEffect(() => {
     const plantSlug = router.query.slug;
 
     if (plantSlug) {
       fetchSlug(plantSlug).then((images) => {
-        setPlantImages(images);
+        // Separate images into leaf, flower, and bark arrays
+        setLeafImages(images.leaf || []);
+        setFlowerImages(images.flower || []);
+        setBarkImages(images.bark || []);
       });
     }
   }, [router.query.slug]);
@@ -31,24 +35,67 @@ const PlantDetailPage = () => {
       <h1>Plant Details</h1>
       {plantData ? (
         <div className="card">
-          {plantImages && plantImages.length > 0 ? (
-            <Carousel showArrows={true} infiniteLoop={true}>
-              {plantImages.map((imageUrl, index) => (
-                <div key={index}>
-                  {/* Apply fixed height and width here */}
-                  <img
-                    src={imageUrl}
-                    alt={`Image ${index}`}
-                    style={{
-                      maxHeight: '300px', // Adjust the height as needed
-                      maxWidth: '300px', // Adjust the width as needed
-                    }}
-                  />
-                </div>
-              ))}
-            </Carousel>
-          ) : (
-            <p>No images available</p>
+          {/* Display Leaf Images */}
+          {leafImages.length > 0 && (
+            <div>
+              <h2>Leaf Images</h2>
+              <Carousel showArrows={true} infiniteLoop={true}>
+                {leafImages.map((imageUrl, index) => (
+                  <div key={index}>
+                    <img
+                      src={imageUrl}
+                      alt={`Leaf Image ${index}`}
+                      style={{
+                        maxHeight: '300px',
+                        maxWidth: '300px',
+                      }}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )}
+
+          {/* Display Flower Images */}
+          {flowerImages.length > 0 && (
+            <div>
+              <h2>Flower Images</h2>
+              <Carousel showArrows={true} infiniteLoop={true}>
+                {flowerImages.map((imageUrl, index) => (
+                  <div key={index}>
+                    <img
+                      src={imageUrl}
+                      alt={`Flower Image ${index}`}
+                      style={{
+                        maxHeight: '300px',
+                        maxWidth: '300px',
+                      }}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
+          )}
+
+          {/* Display Bark Images */}
+          {barkImages.length > 0 && (
+            <div>
+              <h2>Bark Images</h2>
+              <Carousel showArrows={true} infiniteLoop={true}>
+                {barkImages.map((imageUrl, index) => (
+                  <div key={index}>
+                    <img
+                      src={imageUrl}
+                      alt={`Bark Image ${index}`}
+                      style={{
+                        maxHeight: '300px',
+                        maxWidth: '300px',
+                      }}
+                    />
+                  </div>
+                ))}
+              </Carousel>
+            </div>
           )}
         </div>
       ) : (
@@ -60,6 +107,102 @@ const PlantDetailPage = () => {
 
 export default PlantDetailPage;
 
+
+
+// const PlantDetailPage = () => {
+//   const router = useRouter();
+//   const [plantImages, setPlantImages] = useState({ leaf: [], flower: [], bark: [] }); // Store images for different parts
+//   const [loading, setLoading] = useState(true); // Add loading state
+
+//   useEffect(() => {
+//     const plantSlug = router.query.slug;
+
+//     if (plantSlug) {
+//       fetchSlug(plantSlug).then((images) => {
+//         setPlantImages(images);
+//         setLoading(false); // Set loading to false when images are fetched
+//       }).catch((error) => {
+//         console.error('Error fetching plant images:', error);
+//         setLoading(false); // Set loading to false in case of an error
+//       });
+//     }
+//   }, [router.query.slug]);
+
+//   console.log(plantImages);
+
+//   return (
+//     <div style={{ textAlign: 'center' }}>
+//       <h1>Plant Details</h1>
+//       {loading ? (
+//         <p>Loading...</p>
+//       ) : (
+//         <div className="card">
+//           {plantImages.leaf.length > 0 && (
+//             <div>
+//               <h2>Leaf Images</h2>
+//               <Carousel showArrows={true} infiniteLoop={true}>
+//                 {plantImages.leaf.map((imageUrl, index) => (
+//                   <div key={index}>
+//                     <img
+//                       src={imageUrl}
+//                       alt={`Leaf Image ${index}`}
+//                       style={{
+//                         maxHeight: '300px',
+//                         maxWidth: '300px',
+//                       }}
+//                     />
+//                   </div>
+//                 ))}
+//               </Carousel>
+//             </div>
+//           )}
+
+//           {plantImages.flower.length > 0 && (
+//             <div>
+//               <h2>Flower Images</h2>
+//               <Carousel showArrows={true} infiniteLoop={true}>
+//                 {plantImages.flower.map((imageUrl, index) => (
+//                   <div key={index}>
+//                     <img
+//                       src={imageUrl}
+//                       alt={`Flower Image ${index}`}
+//                       style={{
+//                         maxHeight: '300px',
+//                         maxWidth: '300px',
+//                       }}
+//                     />
+//                   </div>
+//                 ))}
+//               </Carousel>
+//             </div>
+//           )}
+
+//           {plantImages.bark.length > 0 && (
+//             <div>
+//               <h2>Bark Images</h2>
+//               <Carousel showArrows={true} infiniteLoop={true}>
+//                 {plantImages.bark.map((imageUrl, index) => (
+//                   <div key={index}>
+//                     <img
+//                       src={imageUrl}
+//                       alt={`Bark Image ${index}`}
+//                       style={{
+//                         maxHeight: '300px',
+//                         maxWidth: '300px',
+//                       }}
+//                     />
+//                   </div>
+//                 ))}
+//               </Carousel>
+//             </div>
+//           )}
+//         </div>
+//       )}
+//     </div>
+//   );
+// };
+
+// export default PlantDetailPage;
 
 // const PlantDetailPage = () => {
 //   const router = useRouter();

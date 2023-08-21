@@ -64,18 +64,40 @@ export const fetchSlug = async (slug) => {
     const response = await axios.get(apiUrl);
     const plantData = response.data.data;
 
-    // Extract images from the plantData object
-    const images = [];
+    // Extract images for leaf, flower, and bark from the plantData object
+    const images = {
+      leaf: [],
+      flower: [],
+      bark: [],
+    };
 
-    if (plantData.main_species && plantData.main_species.images && plantData.main_species.images.leaf) {
-      plantData.main_species.images.leaf.forEach((image) => {
-        images.push(image.image_url);
-      });
+    if (plantData.main_species) {
+      if (plantData.main_species.images && plantData.main_species.images.leaf) {
+        plantData.main_species.images.leaf.forEach((image) => {
+          images.leaf.push(image.image_url);
+        });
+      }
+
+      if (plantData.main_species.images && plantData.main_species.images.flower) {
+        plantData.main_species.images.flower.forEach((image) => {
+          images.flower.push(image.image_url);
+        });
+      }
+
+      if (plantData.main_species.images && plantData.main_species.images.bark) {
+        plantData.main_species.images.bark.forEach((image) => {
+          images.bark.push(image.image_url);
+        });
+      }
     }
 
     return images;
   } catch (error) {
     console.error('Error fetching plant data by slug:', error);
-    return [];
+    return {
+      leaf: [],
+      flower: [],
+      bark: [],
+    };
   }
 };
