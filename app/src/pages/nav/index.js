@@ -1,6 +1,7 @@
 import React, { useState }  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { handleSearchClick } from '../../utils/api'; // Import the function from the utility file
+import { handleSearchClick } from '../../utils/api'; 
+import styles from '../../styles/global.module.css'
 
 // Add a hover effect by changing the link color on hover
 // linkStyle[':hover'] = {
@@ -11,7 +12,7 @@ import { handleSearchClick } from '../../utils/api'; // Import the function from
 const Navbar = () => {
   const fontStyles = `
   @font-face {
-    font-family: 'ClimbingPlant';
+    font-family: 'ClimbingPlant ' !important;
     src: url('./pete.ttf') format('truetype');
   }
 `;

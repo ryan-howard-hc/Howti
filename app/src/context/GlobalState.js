@@ -1,4 +1,5 @@
 import { createContext, useReducer, useContext } from 'react';
+
 // Define the initial state
 const initialState = {
   user: null,

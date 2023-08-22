@@ -72,7 +72,7 @@ const Main = () => {
       type="text"
       placeholder="Search for plants..."
       value={searchValue}
-      onChange={event => setSearchValue(event.target.value)} // Update the searchValue state
+      onChange={event => setSearchValue(event.target.value)} 
     />
     <svg
       style={{

@@ -42,6 +42,7 @@ import {
       lastName,
       image
     }) {
+      username=email
       try {
         await request({
           url: REGISTER_ENDPOINT,
@@ -52,7 +53,7 @@ import {
             password,
             first_name: firstName,
             last_name: lastName,
-            image
+            image,
           },
         });
   
