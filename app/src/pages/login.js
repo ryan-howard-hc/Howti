@@ -31,56 +31,66 @@ function Login() {
       }
     });
   };
-
+  const mutedGreenButtonStyle = {
+    backgroundColor: '#8B4510',
+    color: '#fff',
+    borderColor: '#8B4513',
+    letterSpacing: '5px'
+  };
+  const mutedGreenButtonHoverStyle = {
+    backgroundColor: '#734f0e', 
+  };
   return (
-    <div>
+    <div className="container">
       <Navbar />
-      <div
-      >
-        <h1 className='text-center'>Login</h1>
-        <div className="row">
-          <form
-            onSubmit={handleLogin}
-            className="mx-auto my-auto border-2 bg-mtgray p-4 rounded-md flex flex-col" 
-          >
-            <div className="flex flex-col m-2 space-y-2">
-              <label htmlFor="email">Email:</label>
+      <div className="row justify-content-center">
+        <div className="col-9 col-md-9">
+          <h1 className="text-center" style ={{fontFamily: 'ClimbingPlant', marginTop: "100px", marginBottom: '30px'}}>Login</h1>
+          <div>
+          <form onSubmit={handleLogin}>
+            <div className="mb-3" >
+              <label style ={{fontWeight: "bolder", fontSize: '20px'}}htmlFor="email" className="form-label">Email:</label>
               <input
-                className="border p-2 rounded-md"
-
                 type="text"
                 id="email"
                 name="email"
+                className="form-control"
                 onChange={(e) => setEmail(e.target.value)}
+                
                 required
               />
             </div>
-            <div className="flex flex-col m-2 space-y-2">
-              <label htmlFor="pass">Password:</label>
+            <div className="mb-3">
+              <label style ={{fontWeight: "bolder", fontSize: '20px'}}htmlFor="pass" className="form-label">Password:</label>
               <input
-                className="border p-2 rounded-md"
-
                 type="password"
                 id="pass"
                 name="password"
+                className="form-control"
                 minLength="8"
                 required
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="flex justify-center">
-              <input
-                className="border-2 p-2 rounded-md bg-blue-500 text-white font-semibold hover:bg-blue-700"
+            
+            <div className="text-center" style ={{fontFamily: 'ClimbingPlant', marginTop:'20px'}}>
+              <input 
                 type="submit"
                 value="Sign in"
+                className="btn muted-green-btn btn-lg rounded-pill"
+                style={mutedGreenButtonStyle}
               />
             </div>
           </form>
-          <Link href="/register">Register Here</Link>
+          </div>
+          <div style = {{fontFamily: 'ClimbingPlant', marginTop: '20px'}}className="text-center">
+          <Link href="/register" style={mutedGreenButtonStyle} className="btn btn-primary btn-lg rounded-pill">Register Here</Link>
+        </div>
         </div>
       </div>
     </div>
   );
+  
   
             }  
 
