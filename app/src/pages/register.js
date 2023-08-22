@@ -49,7 +49,7 @@ function Register() {
     <Layout>
       <div className="col-12 col-md-6 container d-flex align-items-center justify-content-center h-100">
         <div className="col-6 col-md-6" style = {{marginTop:"100px"}}>
-          <h1 style={{marginBottom: '20px',fontFamily: 'ClimbingPlant', textAlign: 'center'}}>Register</h1>
+          <h1 style={{marginBottom: '20px',fontFamily: 'ClimbingPlant', textAlign: 'center'}}>Join the Community!</h1>
           <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column' }}>
           <div className="mb-3" style={{ display: "flex", alignItems: "center" }}>
           <label
@@ -146,7 +146,8 @@ function Register() {
               style={{    backgroundColor: '#8B4510',
               color: '#fff',
               borderColor: '#8B4513',
-              letterSpacing: '5px'}}
+              letterSpacing: '5px',
+              fontSize: '25px'}}
                 type="submit"
                 value="Register!"
                 className="btn btn-primary btn-lg rounded-pill"

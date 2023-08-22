@@ -50,9 +50,11 @@ const Main = () => {
     <h1
     style={{
       letterSpacing: '5px',
-      fontSize:'50px',
+      fontSize: '80px',
       padding: '8px 0',
       fontFamily: 'JFWildWood, sans-serif',
+      borderBottom: '1px solid #000',
+      borderTop: '1px solid #000',
     }}
   >
     Plant Database
@@ -86,7 +88,9 @@ const Main = () => {
           borderColor: '#8B4513',
           letterSpacing: '5px',
           fontFamily: 'ClimbingPlant',
-          marginTop:'10px'
+          marginTop:'10px',
+          
+          fontSize: '25px'
         }}
 
         className="btn btn-lg rounded-pill"

@@ -38,7 +38,8 @@ function Login() {
     backgroundColor: '#8B4510',
     color: '#fff',
     borderColor: '#8B4513',
-    letterSpacing: '5px'
+    letterSpacing: '5px',
+    fontSize: '25px'
   };
   const mutedGreenButtonHoverStyle = {
     backgroundColor: '#734f0e', 
@@ -100,7 +101,7 @@ function Login() {
       </div>
 
             
-            <div className="text-center" style ={{fontFamily: 'ClimbingPlant', marginTop:'20px'}}>
+            <div className="text-center" style ={{fontFamily: 'ClimbingPlant', marginTop:'20px' }}>
               <input 
                 type="submit"
                 value="Sign in"
