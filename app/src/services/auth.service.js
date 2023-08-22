@@ -13,12 +13,15 @@ import {
   
     async login(email, password) {
       try {
+        const username=email
+
         const response = await request({
           url: LOGIN_ENDPOINT,
           method: 'POST',
           data: {
             email,
             password,
+            username
           },
         });
   
@@ -42,7 +45,9 @@ import {
       lastName,
       image
     }) {
+
       username=email
+
       try {
         await request({
           url: REGISTER_ENDPOINT,

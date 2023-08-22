@@ -25,6 +25,7 @@ function Register() {
     firstName: "",
     lastName: "",
     email: "",
+    username: "",
   });
 
   const handleChange = (key, value) => {
@@ -47,96 +48,110 @@ function Register() {
   return (
     <Layout>
       <div className="col-12 col-md-6 container d-flex align-items-center justify-content-center h-100">
-        <div className="col-6 col-md-6" style={{ marginTop: "100px" }}>
-          <h1 style={{ marginBottom: '20px', fontFamily: 'ClimbingPlant', textAlign: 'center' }}>Registration</h1>
+        <div className="col-5 col-md-5" style = {{marginTop:"100px"}}>
+          <h1 style={{marginBottom: '20px',fontFamily: 'ClimbingPlant', textAlign: 'center'}}>Register</h1>
           <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className="mb-3" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <label
-                htmlFor="firstName"
-                className="form-label"
-                style={{ ...label, whiteSpace: "nowrap", marginRight: "10px" }}
-              >
-                First Name:
-              </label>
+          <div className="mb-3" style={{ display: "flex", alignItems: "center" }}>
+          <label
+            htmlFor="firstName"
+            className="form-label"
+            style={label}
+          >
+            First Name:
+          </label>
+          <input
+          
+            type="text"
+            id="firstName"
+            className="form-control"
+            required
+            onChange={(e) => handleChange("firstName", e.target.value)}
+          />
+        </div>
+        
+        <div className="mb-4" style={{ display: "flex", alignItems: "center" }}>
+          <label
+            htmlFor="lastName"
+            className="form-label"
+            style={label}
+          >
+            Last Name:
+          </label>
+          <input
+            type="text"
+            id="lastName"
+            className="form-control"
+            required
+            onChange={(e) => handleChange("lastName", e.target.value)}
+          />
+        </div>
+        
+        <div className="mb-4" style={{ display: "flex", alignItems: "center" }}>
+          <label
+            htmlFor="email"
+            className="form-label"
+            style={label}
+          >
+            Email:
+          </label>
+          <input
+            type="text"
+            id="email"
+            className="form-control"
+            required
+            onChange={(e) => handleChange("email", e.target.value)}
+          />
+        </div>
+        
+        <div className="mb-4" style={{ display: "flex", alignItems: "center" }}>
+          <label
+            htmlFor="password"
+            className="form-label"
+            style={label}
+          >
+            Password:
+          </label>
+          <input
+            type="password"
+            id="password"
+            className="form-control"
+            required
+            onChange={(e) => handleChange("password", e.target.value)}
+          />
+        </div>
+        
+        <div className="mb-4" style={{ display: "flex", alignItems: "center" }}>
+          <label
+            htmlFor="passwordConf"
+            className="form-label"
+            style={label}
+          >
+            Confirm Password:
+          </label>
+          <input
+            type="password"
+            id="passwordConf"
+            className="form-control"
+            required
+            onChange={(e) => handleChange("passwordConf", e.target.value)}
+          />
+        </div>
+            <div className="text-center" style = {{fontFamily: 'ClimbingPlant'}}>
               <input
-                type="text"
-                id="firstName"
-                className="form-control"
-                style={{ width: '300px' }}
-                required
-                onChange={(e) => handleChange("firstName", e.target.value)}
-              />
-            </div>
-
-            <div className="mb-3" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <label
-                htmlFor="lastName"
-                className="form-label"
-                style={{ ...label, whiteSpace: "nowrap", marginRight: "10px" }}
-              >
-                Last Name:
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                className="form-control"
-                style={{ width: '300px' }}
-                required
-                onChange={(e) => handleChange("lastName", e.target.value)}
-              />
-            </div>
-
-            <div className="mb-3" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <label
-                htmlFor="email"
-                className="form-label"
-                style={{ ...label, whiteSpace: "nowrap", marginRight: "10px" }}
-              >
-                Email:
-              </label>
-              <input
-                type="text"
-                id="email"
-                className="form-control"
-                style={{ width: '300px' }}
-                required
-                onChange={(e) => handleChange("email", e.target.value)}
-              />
-            </div>
-
-            <div className="mb-3" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <label
-                htmlFor="password"
-                className="form-label"
-                style={{ ...label, whiteSpace: "nowrap", marginRight: "10px" }}
-              >
-                Password:
-              </label>
-              <input
-                type="password"
-                id="password"
-                className="form-control"
-                style={{ width: '300px' }}
-                required
-                onChange={(e) => handleChange("password", e.target.value)}
-              />
-            </div>
-
-            <div className="mb-3" style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-              <label
-                htmlFor="passwordConf"
-                className="form-label"
-                style={{ ...label, whiteSpace: "nowrap", marginRight: "10px" }}
-              >
-                Confirm Password:
-              </label>
-              <input
-                type="password"
-                id="passwordConf"
-                className="form-control"
-                style={{ width: '300px' }}
-                required
-                onChange={(e) => handleChange("passwordConf", e.target.value)}
+              style={mutedGreenButtonStyle}
+                type="submit"
+                value="Register!"
+                className="btn btn-primary"
+                disabled={
+                  user.password &&
+                  user.password.length >= 8 &&
+                  user.password === user.passwordConf &&
+                  user.firstName &&
+                  user.lastName &&
+                  user.email
+                    ? false
+                    : true
+                }
               />
             </div>
           </form>
