@@ -1,6 +1,6 @@
 import axios from 'axios'
 import authHeader from './auth.headers';
-import { API_URL, REFRESH_ENDPOINT } from './auth.constants';
+import { API_URL, REFRESH_ENDPOINT, API_ALT } from './auth.constants';
 
 /**
  * Create an Axios Client with defaults
@@ -72,7 +72,12 @@ const request = (opts) => {
     ...opts,
     headers: authHeader(),
   }
-
+// const request = (opts, baseURL) => {
+//   let options = {
+//     ...opts,
+//     baseURL: baseURL || API_URL, // Use the primary API URL by default
+//     headers: authHeader(),
+//   }
   const onSuccess = (response) => {
     console.debug('Request Successful!', response);
     return response;

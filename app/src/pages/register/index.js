@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
-import AuthService from "../../services/auth.service";
-import { useRouter } from "next/navigation";
+import { useRouter } from 'next/navigation';
+import React, { useState } from 'react'
+import AuthService from '../../services/auth.service';
+import jwtDecode from 'jwt-decode';
 import { useGlobalState } from "../../context/GlobalState";
 import Layout from "../layout";
 
@@ -91,7 +92,7 @@ function Register() {
             <input
               type="submit"
               value="Register!"
-              className="bg-mtpurple text-white py-2 px-4 rounded-lg mx-auto my-2 font-bold disabled:opacity-60"
+              className="bg-mtpurple text-white py-2 px-4 rounded-lg mx-auto my-2 font-bold"
               disabled={
                 user.password &&
                 user.password.length >= 8 &&

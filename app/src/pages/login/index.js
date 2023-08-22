@@ -24,7 +24,9 @@ function Page() {
           .then(async (resp) => {
             console.log(resp);
             if (resp.access) {
+                console.log(resp);
               let data = jwtDecode(resp.access);
+              console.log(resp); 
               await dispatch({
                 type: 'SET_USER',
                 payload: data,
@@ -78,7 +80,7 @@ function Page() {
                         />
                     </div>
                 </form>
-                <Link href="/register" classname={styles.link}>
+                <Link href="/register" className={styles.link}>
             Register Here
           </Link>
             </div>
