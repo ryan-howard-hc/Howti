@@ -5,6 +5,7 @@ import authService from '../services/auth.service';
 import jwtDecode from 'jwt-decode';
 import Link from 'next/link';
 import Navbar from './nav/index';
+import Layout from "./layout";
 
 function Login() {
   const router = useRouter();
@@ -41,31 +42,35 @@ function Login() {
     backgroundColor: '#734f0e', 
   };
   return (
-    <div className="container">
-      <Navbar />
-      <div className="row justify-content-center">
-        <div className="col-9 col-md-9">
+    <Layout>
+
+    <div className="col-12 col-md-6 container d-flex align-items-center justify-content-center h-100">
+    <div className="col-6 col-md-6" style = {{marginTop:"100px"}}>
           <h1 className="text-center" style ={{fontFamily: 'ClimbingPlant', marginTop: "100px", marginBottom: '30px'}}>Login</h1>
-          <div>
-          <form onSubmit={handleLogin}>
-          <div style={{ margin: '0 auto', width: '50%' }}>
-          <div className="mb-3" style={{ display: "flex", alignItems: "center" }}>
+          
+
+          <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleLogin}>
+          <div className="mb-3" style={{ display: "flex"}}>
           <label
-            style={{ fontWeight: "bolder", fontSize: "20px", flex: "1" }}
+            style={{ marginLeft: 'auto', fontWeight: "bolder", fontSize: "20px", flex: "1" }}
             htmlFor="email"
             className="form-label"
           >
             Email:
           </label>
+
           <input
+          style ={{ width: '300px', marginLeft: 'auto', borderColor: '#333' }}
             type="text"
             id="email"
             name="email"
-            className="form-control"
+            className="form-control rounded-pill"
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div>
+          </div>
+
+
         <div className="mb-3" style={{ display: "flex", alignItems: "center" }}>
         <label
           style={{ fontWeight: "bolder", fontSize: "20px", flex: "1" }}
@@ -74,17 +79,20 @@ function Login() {
         >
           Password:
         </label>
+
         <input
           type="password"
           id="pass"
           name="password"
-          className="form-control"
+          className="form-control rounded-pill"
+          style ={{ width: '300px', marginLeft: 'auto', borderColor: '#333' }}
+
           minLength="8"
           required
           onChange={(e) => setPassword(e.target.value)}
         />
       </div>
-            </div>
+
             
             <div className="text-center" style ={{fontFamily: 'ClimbingPlant', marginTop:'20px'}}>
               <input 
@@ -95,16 +103,15 @@ function Login() {
               />
             </div>
           </form>
-          </div>
+
+
           <div style = {{fontFamily: 'ClimbingPlant', marginTop: '20px'}}className="text-center">
           <Link href="/register" style={mutedGreenButtonStyle} className="btn btn-primary btn-lg rounded-pill">Register Here</Link>
         </div>
-        </div>
       </div>
     </div>
+    </Layout>
   );
-  
-  
-            }  
+ }  
 
 export default Login;

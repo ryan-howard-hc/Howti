@@ -48,7 +48,7 @@ function Register() {
   return (
     <Layout>
       <div className="col-12 col-md-6 container d-flex align-items-center justify-content-center h-100">
-        <div className="col-5 col-md-5" style = {{marginTop:"100px"}}>
+        <div className="col-6 col-md-6" style = {{marginTop:"100px"}}>
           <h1 style={{marginBottom: '20px',fontFamily: 'ClimbingPlant', textAlign: 'center'}}>Register</h1>
           <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column' }}>
           <div className="mb-3" style={{ display: "flex", alignItems: "center" }}>
@@ -63,7 +63,8 @@ function Register() {
           
             type="text"
             id="firstName"
-            className="form-control"
+            className="form-control rounded-pill justify-content-end"
+            style={{ width: '300px', marginLeft: 'auto', borderColor: '#333' }} 
             required
             onChange={(e) => handleChange("firstName", e.target.value)}
           />
@@ -79,8 +80,9 @@ function Register() {
           </label>
           <input
             type="text"
-            id="lastName"
-            className="form-control"
+            id="lastName" 
+            className="form-control rounded-pill"
+            style={{ width: '300px', marginLeft: 'auto', borderColor: '#333' }} 
             required
             onChange={(e) => handleChange("lastName", e.target.value)}
           />
@@ -97,7 +99,8 @@ function Register() {
           <input
             type="text"
             id="email"
-            className="form-control"
+            className="form-control rounded-pill"
+            style={{ width: '300px', marginLeft: 'auto', borderColor: '#333' }} 
             required
             onChange={(e) => handleChange("email", e.target.value)}
           />
@@ -114,7 +117,8 @@ function Register() {
           <input
             type="password"
             id="password"
-            className="form-control"
+            className="form-control rounded-pill"
+            style={{ width: '300px', marginLeft: 'auto', borderColor: '#333' }} 
             required
             onChange={(e) => handleChange("password", e.target.value)}
           />
@@ -131,17 +135,21 @@ function Register() {
           <input
             type="password"
             id="passwordConf"
-            className="form-control"
+            className="form-control rounded-pill"
+            style={{ width: '300px', marginLeft: 'auto', borderColor: '#333' }} 
             required
             onChange={(e) => handleChange("passwordConf", e.target.value)}
           />
         </div>
             <div className="text-center" style = {{fontFamily: 'ClimbingPlant'}}>
               <input
-              style={mutedGreenButtonStyle}
+              style={{    backgroundColor: '#8B4510',
+              color: '#fff',
+              borderColor: '#8B4513',
+              letterSpacing: '5px'}}
                 type="submit"
                 value="Register!"
-                className="btn btn-primary"
+                className="btn btn-primary btn-lg rounded-pill"
                 disabled={
                   user.password &&
                   user.password.length >= 8 &&
