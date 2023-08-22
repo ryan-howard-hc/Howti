@@ -20,3 +20,7 @@
   .nav-link {
     font-weight: 900;
   }
+
+  .link:hover {
+    color: #000000; /* Change to the color you want on hover */
+  }

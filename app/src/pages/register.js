@@ -6,7 +6,7 @@ import { useGlobalState } from "../context/GlobalState";
 import Layout from "./layout";
 
 const label = {
-  fontWeight: "bolder",
+  marginLeft: 'auto', fontWeight: "bolder", fontSize: "20px", flex: "1"
 }
 
 const mutedGreenButtonStyle = {

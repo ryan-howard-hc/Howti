@@ -1,7 +1,8 @@
 import React, { useState }  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { handleSearchClick } from '../../utils/api'; 
-import styles from '../../styles/global.module.css'
+import styles from '../../styles/global.module.css';
+
 
 // Add a hover effect by changing the link color on hover
 // linkStyle[':hover'] = {
@@ -10,19 +11,15 @@ import styles from '../../styles/global.module.css'
 
 
 const Navbar = () => {
-  const fontStyles = `
-  @font-face {
-    font-family: 'ClimbingPlant ' !important;
-    src: url('./pete.ttf') format('truetype');
-  }
-`;
+
 
   const navbarStyle = {
+    backgroundColor: ' #FFFFFF',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     height: '50px',
-    borderBottom: '1px solid #E0E0E0',
+    borderBottom: '3px solid #E0E0E0',
     padding: '0 20px',
   };
 
@@ -44,7 +41,9 @@ const Navbar = () => {
   };
 
   const linkStyle = {
-    color: '#9E9E9E',
+    color: 'black',
+    fontWeight:'bolder',
+    letterSpacing:'1px',
     textDecoration: 'none',
     fontSize: '20px',
     margin: '0 10px',
@@ -60,7 +59,7 @@ const Navbar = () => {
         
       <ul style={linkContainerStyle}>
         <li className='nav-link'><a href="/login" style={linkStyle}>Login</a></li>
-        <li className='nav-link'><a href="/" style={linkStyle}>Home</a></li>
+        <li className='nav-link'><a href="/" style={linkStyle} >Home</a></li>
         <li className='nav-link'><a href="/about" style={linkStyle}>About</a></li>
         <li className='nav-link'><a href="/community" style={linkStyle}>Community</a></li>
       </ul>

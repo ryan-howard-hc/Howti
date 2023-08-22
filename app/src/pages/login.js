@@ -4,8 +4,10 @@ import { useGlobalState } from '../context/GlobalState';
 import authService from '../services/auth.service';
 import jwtDecode from 'jwt-decode';
 import Link from 'next/link';
+import Image from 'next/image';
 import Navbar from './nav/index';
 import Layout from "./layout";
+import background from '../../public/background.png';
 
 function Login() {
   const router = useRouter();
@@ -41,12 +43,16 @@ function Login() {
   const mutedGreenButtonHoverStyle = {
     backgroundColor: '#734f0e', 
   };
+
+
   return (
+    <div style ={{backgroundImage: `url(./background.png)`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat',minHeight: '100vh',  }}>
+
     <Layout>
 
     <div className="col-12 col-md-6 container d-flex align-items-center justify-content-center h-100">
-    <div className="col-6 col-md-6" style = {{marginTop:"100px"}}>
-          <h1 className="text-center" style ={{fontFamily: 'ClimbingPlant', marginTop: "100px", marginBottom: '30px'}}>Login</h1>
+    <div className="col-6 col-md-6" style={{ marginTop: "100px", background: 'white', borderRadius: '50px', padding: '20px', border: '20px solid black' }}>
+    <h1 className="text-center" style ={{fontFamily: 'ClimbingPlant', marginTop: "50px", marginBottom: '30px', fontWeight: "bolder", }}>Login</h1>
           
 
           <form style={{ display: 'flex', flexDirection: 'column' }} onSubmit={handleLogin}>
@@ -100,17 +106,32 @@ function Login() {
                 value="Sign in"
                 className="btn muted-green-btn btn-lg rounded-pill"
                 style={mutedGreenButtonStyle}
+                onMouseEnter={event => event.target.style.backgroundColor = '#753a08'} 
+                onMouseLeave={event => event.target.style.backgroundColor = '#8B4510'} 
               />
             </div>
           </form>
 
 
-          <div style = {{fontFamily: 'ClimbingPlant', marginTop: '20px'}}className="text-center">
-          <Link href="/register" style={mutedGreenButtonStyle} className="btn btn-primary btn-lg rounded-pill">Register Here</Link>
+          <div style = {{fontFamily: 'ClimbingPlant', marginTop: '20px' , marginBottom: '50px'}}className="text-center">
+          <Link
+          href="/register"
+          style={{
+            ...mutedGreenButtonStyle,
+            transition: 'background-color 0.3s', 
+          }}
+          className="btn btn-primary btn-lg rounded-pill"
+          onMouseEnter={event => event.target.style.backgroundColor = '#753a08'} 
+          onMouseLeave={event => event.target.style.backgroundColor = '#8B4510'}
+        >
+          Register Here
+        </Link>
         </div>
       </div>
     </div>
+    
     </Layout>
+    </div>
   );
  }  
 
