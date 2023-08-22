@@ -48,29 +48,42 @@ function Login() {
           <h1 className="text-center" style ={{fontFamily: 'ClimbingPlant', marginTop: "100px", marginBottom: '30px'}}>Login</h1>
           <div>
           <form onSubmit={handleLogin}>
-            <div className="mb-3" >
-              <label style ={{fontWeight: "bolder", fontSize: '20px'}}htmlFor="email" className="form-label">Email:</label>
-              <input
-                type="text"
-                id="email"
-                name="email"
-                className="form-control"
-                onChange={(e) => setEmail(e.target.value)}
-                
-                required
-              />
-            </div>
-            <div className="mb-3">
-              <label style ={{fontWeight: "bolder", fontSize: '20px'}}htmlFor="pass" className="form-label">Password:</label>
-              <input
-                type="password"
-                id="pass"
-                name="password"
-                className="form-control"
-                minLength="8"
-                required
-                onChange={(e) => setPassword(e.target.value)}
-              />
+          <div style={{ margin: '0 auto', width: '50%' }}>
+          <div className="mb-3" style={{ display: "flex", alignItems: "center" }}>
+          <label
+            style={{ fontWeight: "bolder", fontSize: "20px", flex: "1" }}
+            htmlFor="email"
+            className="form-label"
+          >
+            Email:
+          </label>
+          <input
+            type="text"
+            id="email"
+            name="email"
+            className="form-control"
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+        </div>
+        <div className="mb-3" style={{ display: "flex", alignItems: "center" }}>
+        <label
+          style={{ fontWeight: "bolder", fontSize: "20px", flex: "1" }}
+          htmlFor="pass"
+          className="form-label"
+        >
+          Password:
+        </label>
+        <input
+          type="password"
+          id="pass"
+          name="password"
+          className="form-control"
+          minLength="8"
+          required
+          onChange={(e) => setPassword(e.target.value)}
+        />
+      </div>
             </div>
             
             <div className="text-center" style ={{fontFamily: 'ClimbingPlant', marginTop:'20px'}}>
