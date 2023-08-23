@@ -5,6 +5,10 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import { fetchSlug, fetchWikipediaDescription } from '../../utils/api';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../layout';
+import Head from 'next/head';
+import Image from 'next/image';
+
+import '../../../public/heart.png';
 
 
 const PlantDetailPage = () => {
@@ -22,6 +26,9 @@ const PlantDetailPage = () => {
   const [genus, setGenus] = useState('');
   const [family, setFamily] = useState('');
   const [scientificName, setScientificName] = useState('');
+  const [favoritePlants, setFavoritePlants] = useState([]);
+
+
 
   
   useEffect(() => {
@@ -46,15 +53,40 @@ const PlantDetailPage = () => {
   }, [router.query.slug]);
 
 
+  const handleAddToFavorites = () => {
+    // Update favoritePlants or add the current plant to it
+    const updatedFavorites = [...favoritePlants, plantData];
+    setFavoritePlants(updatedFavorites);
+
+    // Encode the updated favoritePlants and navigate to ProfilePage
+    const favoritesParam = encodeURIComponent(JSON.stringify(updatedFavorites));
+
+    // Navigate back to the ProfilePage with the updated favorites data
+    router.push(`/profile?favorites=${favoritesParam}`);
+  };
+
+
   
   return (
     <Layout>
+
     <div style = {{marginTop: '50px'}}className="container">
 
+    <div className="row">
+    <div className="col-md-2">
+      <a  onClick={handleAddToFavorites} style={{ cursor: 'pointer' }}>
+        <Image src="/heart.png" alt="Heart" width={100} height={100} />
+        <p>Click to like!</p>
+      </a>
+    </div>
+    <div className="col-md-10">
       <div className="text-center">
-      <h1 style ={{marginBottom: '30px' , fontFamily: 'KitschyRetro', letterSpacing: "3px", fontSize:'80px'}}>{scientificName || 'Loading...'}</h1>
+        <h1 style={{ marginBottom: '30px', fontFamily: 'KitschyRetro', letterSpacing: '3px', fontSize: '80px' }}>
+          {scientificName || 'Loading...'}
+        </h1>
       </div>
-
+    </div>
+  </div>
       {plantData ? (
         <div className="card">
           <div className="row">
@@ -199,6 +231,7 @@ const PlantDetailPage = () => {
     <p>Loading...</p>
   )}
 </div>
+
 </Layout>
 );
 };

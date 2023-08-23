@@ -4,13 +4,17 @@ import authService from '../services/auth.service';
 import jwtDecode from 'jwt-decode';
 import Link from 'next/link';
 import axios from 'axios'; 
+import Layout from './layout';
+import { useRouter } from 'next/router';
 
 const ProfilePage = () => {
+  const router = useRouter();
   const [postData, setPostData] = useState({ title: '', content: '' });
   const [fetchedData, setFetchedData] = useState([]);
   const [userLogs, setUserLogs] = useState([]);
   const {state, dispatch} = useGlobalState();
-  
+
+
   const handleFormSubmit = async (e) => {
     e.preventDefault(); // Prevent the default form submission behavior
   
@@ -91,32 +95,40 @@ const ProfilePage = () => {
     });
   };
   
+
+
+
+  const { favorites } = router.query;
+
+  const favoritePlants = JSON.parse(favorites || '[]');
+
   return (
+    <Layout>
     <div>
-      <h2>Create a New Post</h2>
-      <form onSubmit={handleFormSubmit}>
+
+
+
         <div>
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={postData.title}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="content">Content</label>
-          <textarea
-            id="content"
-            name="content"
-            value={postData.content}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button type="submit">Create Post</button>
-      </form>
+        <h2>User Profile</h2>
+        {state.user ? (
+          <>
+            <p>Name: {state.user.username}</p>
+            <p>Email: {state.user.email}</p>
+          </>
+        ) : (
+          <p>User information is not available.</p>
+        )}
+      </div>
+      
+      <h2>Favorite Plants</h2>
+      <ul>
+        {favoritePlants.map((plant, index) => (
+          <li key={index}>{plant.common_name}</li>
+        ))}
+      </ul>
+
     </div>
+    </Layout>
   );
 };
 
