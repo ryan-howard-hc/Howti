@@ -1,6 +1,11 @@
 @font-face {
-  font-family: 'Kitschy Retro';
+  font-family: 'KitschyRetro';
   src:url('../../public/KitschyRetroRegular-9YnqB.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'PlantOnLawn';
+  src: url(../../public/PlantOnLawn.ttf) format('truetype');
 }
 
 @font-face {

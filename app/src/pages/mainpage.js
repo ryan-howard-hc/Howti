@@ -47,7 +47,8 @@ const Main = () => {
 
   return (
     <Layout>
-    <div style={{ textAlign: 'center' }}>
+    <div style={{backgroundColor:'#ECFAF5' }}></div>
+    <div style={{ textAlign: 'center', backgroundColor:'#ECFAF5' }}>
     
     <h1
     style={{
@@ -55,8 +56,7 @@ const Main = () => {
       fontSize: '80px',
       padding: '8px 0',
       fontFamily: 'JFWildWood, sans-serif',
-      borderBottom: '1px solid #000',
-      borderTop: '1px solid #000',
+      borderBottom: '2px solid #000',
     }}
   >
     Plant Database

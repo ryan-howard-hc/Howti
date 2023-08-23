@@ -45,12 +45,14 @@ const PlantDetailPage = () => {
     }
   }, [router.query.slug]);
 
+
+  
   return (
     <Layout>
-    <div className="container">
+    <div style = {{marginTop: '50px'}}className="container">
 
       <div className="text-center">
-      <h1>{scientificName || 'Loading...'}</h1>
+      <h1 style ={{marginBottom: '30px' , fontFamily: 'KitschyRetro', letterSpacing: "3px", fontSize:'80px'}}>{scientificName || 'Loading...'}</h1>
       </div>
 
       {plantData ? (
@@ -58,47 +60,12 @@ const PlantDetailPage = () => {
           <div className="row">
 
           <div className="col-md-6 text-center">
-          
-          {commonNames.length > 0 && (
-            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
-              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize: '24px' }}>Common Names:</label>
-              <div>
-                {commonNames.map((name, index) => (
-                  <div key={index} style={{ fontSize: '18px', fontStyle: 'italic', textAlign: 'center' }}>
-                    <span style={{ fontWeight: 'bold' }}>{index + 1}.</span> {name} {/* Add number before each entry */}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
-        
-          {/* Genus */}
-          {genus && (
-            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
-              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize:'24px' }}>Genus:</label>
-              <h5 style={{ fontWeight: 'normal', fontSize:'18px', fontStyle: 'italic' }}>{genus}</h5>
-            </div>
-          )}
-        
-          {/* Family */}
-          {family && (
-            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
-              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize:'24px' }}>Family:</label>
-              <h5 style={{ fontWeight: 'normal', fontSize:'18px', fontStyle: 'italic' }}>{family}</h5>
-            </div>
-          )}
-        
-          {/* Scientific Name */}
-          {scientificName && (
-            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
-              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize:'24px' }}>Scientific Name:</label>
-              <h5 style={{ fontWeight: 'normal', fontSize:'18px', fontStyle: 'italic' }}>{scientificName}</h5>
-            </div>
-          )}
           {/* Leaf Carousel */}
           {leafImages.length > 0 && (
-            <div className="col-md-12">
-             
+            <div>
+            <div className="text-center">
+            <h2 style={{marginBottom: '30px' , marginTop: '20px', fontFamily: 'ClimbingPlant', letterSpacing: "3px", fontWeight:'bold'}}>Foliage</h2>
+          </div>
               <Carousel showArrows={true} infiniteLoop={true}>
                 {leafImages.map((imageUrl, index) => (
                   <div key={index}>
@@ -115,77 +82,125 @@ const PlantDetailPage = () => {
               </Carousel>
             </div>
           )}
+          {commonNames.length > 0 && (
+            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
+              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize: '24px',marginBottom: '10px',fontFamily: 'KitschyRetro',letterSpacing:'2px' }}>Common Names:</label>
+              <div>
+                {commonNames.map((name, index) => (
+                  <div key={index} style={{ fontSize: '18px', fontStyle: 'italic', textAlign: 'center' }}>
+                    <span style={{ fontWeight: 'bold' }}>{index + 1}.</span> {name} {/* Add number before each entry */}
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+        
+          {/* Genus */}
+          {genus && (
+            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
+              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize:'24px',marginBottom: '10px',fontFamily: 'KitschyRetro',letterSpacing:'2px' }}>Genus:</label>
+              <h5 style={{ fontWeight: 'normal', fontSize:'18px', fontStyle: 'italic' }}>{genus}</h5>
+            </div>
+          )}
+        
+          {/* Family */}
+          {family && (
+            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
+              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize:'24px',marginBottom: '10px',fontFamily: 'KitschyRetro',letterSpacing:'2px' }}>Family:</label>
+              <h5 style={{ fontWeight: 'normal', fontSize:'18px', fontStyle: 'italic' }}>{family}</h5>
+            </div>
+          )}
+        
+          {/* Scientific Name */}
+          {scientificName && (
+            <div className="rounded-xl py-2 px-4 m-2" style={{ backgroundColor: '#F5F4FC' }}>
+              <label className="font-medium text-sm" style={{ fontWeight: 'bold', fontSize:'24px',marginBottom: '10px',fontFamily: 'KitschyRetro',letterSpacing:'2px' }}>Scientific Name:</label>
+              <h5 style={{ fontWeight: 'normal', fontSize:'18px', fontStyle: 'italic' }}>{scientificName}</h5>
+            </div>
+          )}
+
         </div>
 
-        <div className="col-md-6 text-center">
-          <h2>Description</h2>
-          {wikipediaDescription.split('\n\n').map((paragraph, index) => (
-            <p style={{ fontSize: '20px' }} key={index}>{paragraph}</p>
-          ))}
-        </div>
+        {/* Right Column */}
+        <div style={{ marginTop: '20px'}}className="col-md-6">
+          <div style={{marginBottom: '30px' }} className="row">
 
-          </div>
 
-          <div className="row">
-          {/* Left Column */}
-          <div className="col-md-6">
             {/* Flower Carousel */}
-            {flowerImages.length > 0 && (
-              <div>
-                <div className="text-center"> {/* Center the header */}
-                  <h2>Flower Images</h2>
+            <div className="col-md-6">
+              {flowerImages.length > 0 && (
+                <div>
+                  <div className="text-center">
+                    <h2 style={{marginBottom: '30px', fontFamily: 'ClimbingPlant', letterSpacing: "3px", fontWeight:'bold' }}>Flower</h2>
+                  </div>
+                  <Carousel showArrows={true} infiniteLoop={true}>
+                    {flowerImages.map((imageUrl, index) => (
+                      <div key={index}>
+                        <img
+                          src={imageUrl}
+                          alt={`Flower Image ${index}`}
+                          style={{
+                            maxHeight: '300px',
+                            maxWidth: '300px',
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </Carousel>
                 </div>
-                <Carousel showArrows={true} infiniteLoop={true}>
-                  {flowerImages.map((imageUrl, index) => (
-                    <div key={index}>
-                      <img
-                        src={imageUrl}
-                        alt={`Flower Image ${index}`}
-                        style={{
-                          maxHeight: '300px',
-                          maxWidth: '300px',
-                        }}
-                      />
-                    </div>
-                  ))}
-                </Carousel>
-              </div>
-            )}
-          </div>
-          
-          {/* Right Column */}
-          <div className="col-md-6">
+              )}
+            </div>
+
             {/* Bark Carousel */}
-            {barkImages.length > 0 && (
-              <div>
-                <div className="text-center"> {/* Center the header */}
-                  <h2>Bark Images</h2>
+            <div className="col-md-6">
+              {barkImages.length > 0 && (
+                <div>
+                  <div className="text-center">
+                    <h2 style={{marginBottom: '30px', fontFamily: 'ClimbingPlant', letterSpacing: "3px", fontWeight:'bold' }}>Bark</h2>
+                  </div>
+                  <Carousel showArrows={true} infiniteLoop={true}>
+                    {barkImages.map((imageUrl, index) => (
+                      <div key={index}>
+                        <img
+                          src={imageUrl}
+                          alt={`Bark Image ${index}`}
+                          style={{
+                            maxHeight: '300px',
+                            maxWidth: '300px',
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </Carousel>
                 </div>
-                <Carousel showArrows={true} infiniteLoop={true}>
-                  {barkImages.map((imageUrl, index) => (
-                    <div key={index}>
-                      <img
-                        src={imageUrl}
-                        alt={`Bark Image ${index}`}
-                        style={{
-                          maxHeight: '300px',
-                          maxWidth: '300px',
-                        }}
-                      />
-                    </div>
-                  ))}
-                </Carousel>
-              </div>
-            )}
+              )}
+            </div>
+
+
           </div>
+
+
+
+
+          <div className="col-md-12 text-center">
+            <h2 style={{marginBottom: '30px', fontFamily: 'ClimbingPlant', letterSpacing: "3px", fontWeight:'bold' }}>Description</h2>
+            {wikipediaDescription.split('\n\n').map((paragraph, index) => (
+              <p style={{ fontSize: '20px' }} key={index}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
         </div>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+
+      </div>
     </div>
-    </Layout>
-  );
+  ) : (
+    <p>Loading...</p>
+  )}
+</div>
+</Layout>
+);
 };
 
 export default PlantDetailPage;

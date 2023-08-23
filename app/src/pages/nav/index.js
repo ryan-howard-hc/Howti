@@ -30,20 +30,20 @@ const Navbar = () => {
     alignItems: 'center',
     marginLeft: '300px',
     letterSpacing: '5px',
-    fontFamily: 'ClimbingPlant',
+    fontFamily: 'ClimbingPlant ',
   };
 
   const linkContainerStyle = {
     display: 'flex',
     listStyleType: 'none',
     margin: 0,
-    marginRight: '300px'
+    marginRight: '300px',
+    fontFamily:'KitchyRetro',
   };
 
   const linkStyle = {
     color: 'black',
     fontWeight:'bolder',
-    fontfamily: 'Kitschy Retro',
     letterSpacing:'1px',
     textDecoration: 'none',
     fontSize: '25px',
@@ -58,13 +58,17 @@ const Navbar = () => {
         <img src="/favicon.ico" style={{ width: '30px', height: '30px', marginRight: '10px' }} alt="Icon" />
         Howticulture
       </div>
-        
+        <div style = {{fontFamily: 'KitschyRetro'}}>
+
       <ul style={linkContainerStyle}>
+
         <li className='nav-link'><a href="/login" style={linkStyle}>Login</a></li>
         <li className='nav-link'><a href="/" style={linkStyle} >Home</a></li>
         <li className='nav-link'><a href="/about" style={linkStyle}>About</a></li>
         <li className='nav-link'><a href="/community" style={linkStyle}>Community</a></li>
+        
       </ul>
+      </div>
     </nav>
 
 
