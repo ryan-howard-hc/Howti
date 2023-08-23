@@ -57,7 +57,7 @@ const Community = () => {
         <div className="row justify-content-center mb-4 mt-4" >
         <div className="col-md-8 col-7" >
             <div style={{ marginLeft: '50px',marginTop: '5px' }}> 
-                <h2 className="community-title" style={{fontFamily: 'ClimbingPlant', fontSize: '80px'}}>Community</h2>
+                <h2 className="community-title" style={{fontFamily: 'JFWildWood', fontSize: '80px', letterSpacing:'4px'}}>Community</h2>
             </div>
         </div>
 
