@@ -54,13 +54,12 @@ const PlantDetailPage = () => {
 
 
   const handleAddToFavorites = () => {
-    // Update favoritePlants or add the current plant to it
-    const updatedFavorites = [...favoritePlants, plantData];
-    setFavoritePlants(updatedFavorites);
-
+    // Add the current plant to the list of favorites
+    setFavoritePlants([...favoritePlants, plantData]);
+  
     // Encode the updated favoritePlants and navigate to ProfilePage
-    const favoritesParam = encodeURIComponent(JSON.stringify(updatedFavorites));
-
+    const favoritesParam = encodeURIComponent(JSON.stringify([...favoritePlants, plantData]));
+  
     // Navigate back to the ProfilePage with the updated favorites data
     router.push(`/profile?favorites=${favoritesParam}`);
   };

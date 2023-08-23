@@ -234,7 +234,7 @@ const Community = () => {
                             <img src={receivedImageUrl} alt="Uploaded" />
                         </div>
                     </div>
-                )}
+                )} 
             </div>
             <div className="row justify-content-center">
                 <div className="col-md-10 col-12">
@@ -287,6 +287,19 @@ const Community = () => {
 
 export default Community;
 
+
+
+// from django.http import HttpResponse
+// from django.views.decorators.http import require_POST
+// @require_POST
+// def upload_file(request):
+//     # Get the file from the request
+//     file = request.FILES['file']
+//     # Save the file to a location
+//     with open('path/to/file', 'wb') as f:
+//         f.write(file.read())
+//     # Return a success response
+//     return HttpResponse('File uploaded successfully.')
 
 // <div className="row justify-content-center">
 //     <div className="col-md-10 col-12">
