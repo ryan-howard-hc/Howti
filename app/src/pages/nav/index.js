@@ -49,6 +49,7 @@ const Navbar = () => {
     fontSize: '25px',
     margin: '0 10px',
     transition: 'color 0.3s ease',
+    wordSpacing: '10px',
   };
 
   return (

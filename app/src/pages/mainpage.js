@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useRouter } from 'next/router';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { handleSearchClick, fetchFlowerData, fetchFoliageData, fetchGrowthData } from '../utils/api'; 
+import { handleSearchClick, fetchFlowerData, fetchFoliageData, fetchGrowthData } from '../utils/api'; // Import the function from the utility file
+import Navbar from './nav';
 import Link from 'next/link';
 import Layout from './layout';
 
@@ -13,7 +14,7 @@ const Main = () => {
   const [foliageData, setFoliageData] = useState([]);
   const [growthData, setGrowthData] = useState([]);
   
-  const router = useRouter(); 
+  const router = useRouter(); // Initialize the useRouter hook
 
   const handleSearch = async () => {
     try {
@@ -22,6 +23,7 @@ const Main = () => {
       await fetchFoliageData(searchValue, setFoliageData);
       await fetchGrowthData(searchValue, setGrowthData);
   
+      // Fetch Wikipedia descriptions and add them to the plant data
       const updatedPlantData = await Promise.all(
         Object.values(plantData).map(async (plant) => {
           const description = await fetchWikipediaDescription(plant.common_name);
@@ -45,7 +47,6 @@ const Main = () => {
 
   return (
     <Layout>
-    <div style ={{backgroundImage: `url(./background.png)`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat',minHeight: '100vh',  }}>
     <div style={{ textAlign: 'center' }}>
     
     <h1
@@ -138,7 +139,6 @@ const Main = () => {
   
   
 
-  </div>
   </div>
   </Layout>
 );

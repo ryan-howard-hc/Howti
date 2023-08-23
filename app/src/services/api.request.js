@@ -1,6 +1,8 @@
 import axios from 'axios'
 import authHeader from './auth.headers';
 import { API_URL, REFRESH_ENDPOINT, API_ALT } from './auth.constants';
+import jwtDecode from 'jwt-decode';
+
 
 /**
  * Create an Axios Client with defaults

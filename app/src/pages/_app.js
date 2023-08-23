@@ -1,4 +1,5 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
+import jwtDecode from 'jwt-decode';
 
 import styles from '../styles/global.module.css';
 import { GlobalStateProvider } from '../context/GlobalState';
