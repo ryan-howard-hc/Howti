@@ -52,7 +52,7 @@ const Main = () => {
     
     <h1
     style={{
-      letterSpacing: '5px',
+      letterSpacing: '8px',
       fontSize: '80px',
       padding: '8px 0',
       fontFamily: 'JFWildWood, sans-serif',
@@ -91,7 +91,7 @@ const Main = () => {
           borderColor: '#8B4513',
           letterSpacing: '8px',
           fontFamily: 'ClimbingPlant',
-          marginTop:'10px',
+          marginTop:'20px',
           
           fontSize: '25px'
         }}
@@ -122,12 +122,12 @@ const Main = () => {
               <img src={plant.image_url} alt={plant.common_name} className="card-img-top" style={{ maxHeight: '200px', objectFit: 'cover', height: '200px' }} />
     
               <div className="card-body" style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
-                <h3 className="card-title">{plant.common_name}</h3>
+                <h3 style={{fontSize:'40px',fontWeight:'bold'}}className="card-title">{plant.common_name}</h3>
                 <div style={{ marginTop: 'auto' }}>
-                  <p className="card-text" style={{ margin: '0', marginBottom: '0px', fontWeight: 'bold' }}>Scientific Name:</p>
-                  <p className="card-text" style={{ margin: '0' }}><i>{plant.scientific_name}</i></p>
-                  <p className="card-text" style={{ margin: '0', marginBottom: '0px', fontWeight: 'bold' }}>Family:</p>
-                  <p className="card-text" style={{ margin: '0' }}><i>{plant.family}</i></p>
+                  <p className="card-text" style={{ margin: '0', marginBottom: '1px', fontWeight: 'bold', fontSize: '28px', letterSpacing: '1px' }}>Scientific Name:</p>
+                  <p className="card-text" style={{ margin: '0', fontSize: '25px', marginBottom: '20px' }}><i>{plant.scientific_name}</i></p>
+                  <p className="card-text" style={{ margin: '0', marginBottom: '1px', fontWeight: 'bold', fontSize: '28px', letterSpacing: '1px' }}>Family:</p>
+                  <p className="card-text" style={{ margin: '0' , fontSize: '25px', marginBottom: '1px'}}><i>{plant.family}</i></p>
                 </div>
               </div>
             </div>
