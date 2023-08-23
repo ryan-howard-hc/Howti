@@ -18,13 +18,13 @@ const Navbar = () => {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
-    height: '50px',
+    height: '60px',
     borderBottom: '3px solid #E0E0E0',
     padding: '0 20px',
   };
 
   const titular = {
-    fontSize: '22px',
+    fontSize: '28px',
     fontWeight: 'bold',
     display: 'flex',
     alignItems: 'center',
@@ -43,9 +43,10 @@ const Navbar = () => {
   const linkStyle = {
     color: 'black',
     fontWeight:'bolder',
+    fontfamily: 'Kitschy Retro',
     letterSpacing:'1px',
     textDecoration: 'none',
-    fontSize: '20px',
+    fontSize: '25px',
     margin: '0 10px',
     transition: 'color 0.3s ease',
   };
@@ -53,7 +54,7 @@ const Navbar = () => {
   return (
     <nav style={navbarStyle}>
       <div className="howticulture-nav-title" style={titular}>
-        <img src="/favicon.ico" style={{ width: '24px', height: '24px', marginRight: '10px' }} alt="Icon" />
+        <img src="/favicon.ico" style={{ width: '30px', height: '30px', marginRight: '10px' }} alt="Icon" />
         Howticulture
       </div>
         

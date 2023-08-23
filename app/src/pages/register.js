@@ -46,10 +46,11 @@ function Register() {
   }
 
   return (
+    <div style ={{backgroundImage: `url(./background.png)`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat',minHeight: '100vh',  }}>
     <Layout>
       <div className="col-12 col-md-6 container d-flex align-items-center justify-content-center h-100">
-        <div className="col-6 col-md-6" style = {{marginTop:"100px"}}>
-          <h1 style={{marginBottom: '20px',fontFamily: 'ClimbingPlant', textAlign: 'center'}}>Join the Community!</h1>
+        <div className="col-6 col-md-6" style={{ marginTop: "100px", background: 'white', borderRadius: '50px', padding: '20px', border: '20px solid black' }}>
+          <h1 style={{marginBottom: '20px',fontFamily: 'ClimbingPlant', textAlign: 'center', fontWeight:'bold'}}>Join the Community!</h1>
           <form onSubmit={handleRegister} style={{ display: 'flex', flexDirection: 'column' }}>
           <div className="mb-3" style={{ display: "flex", alignItems: "center" }}>
           <label
@@ -167,6 +168,7 @@ function Register() {
         </div>
       </div>
     </Layout>
+    </div>
   );
 }
 

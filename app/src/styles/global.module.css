@@ -1,4 +1,7 @@
-
+@font-face {
+  font-family: 'Kitschy Retro';
+  src:url('../../public/KitschyRetroRegular-9YnqB.ttf') format('truetype');
+}
 
 @font-face {
     font-family: 'JFWildWood';
