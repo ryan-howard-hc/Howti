@@ -44,10 +44,10 @@ const Navbar = () => {
   const linkStyle = {
     color: 'black',
     fontWeight:'bolder',
-    letterSpacing:'1px',
+    letterSpacing:'3px',
     textDecoration: 'none',
     fontSize: '25px',
-    margin: '0 10px',
+    margin: '0 20px',
     transition: 'color 0.3s ease',
     wordSpacing: '10px',
   };
@@ -62,11 +62,11 @@ const Navbar = () => {
 
       <ul style={linkContainerStyle}>
 
-        <li className='nav-link'><a href="/login" style={linkStyle}>Login</a></li>
-        <li className='nav-link'><a href="/" style={linkStyle} >Home</a></li>
-        <li className='nav-link'><a href="/about" style={linkStyle}>About</a></li>
-        <li className='nav-link'><a href="/community" style={linkStyle}>Community</a></li>
-        
+        <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/" style={linkStyle} >Home</a></li>
+        <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/about" style={linkStyle}>About</a></li>
+        <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/community" style={linkStyle}>Community</a></li>
+        <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/login" style={linkStyle}>Login</a></li>
+
       </ul>
       </div>
     </nav>
