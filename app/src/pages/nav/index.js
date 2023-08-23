@@ -66,6 +66,7 @@ const Navbar = () => {
         <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/about" style={linkStyle}>About</a></li>
         <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/community" style={linkStyle}>Community</a></li>
         <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/login" style={linkStyle}>Login</a></li>
+        <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/profile" style={linkStyle}>Profile</a></li>
 
       </ul>
       </div>
