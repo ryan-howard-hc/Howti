@@ -95,8 +95,8 @@ const Main = () => {
 
         className="btn btn-lg rounded-pill"
         onClick={handleSearch}
-        onMouseEnter={event => event.target.style.backgroundColor = '#753a08'} // Darker color on enter
-  onMouseLeave={event => event.target.style.backgroundColor = '#8B4510'} // Original color on leave
+        onMouseEnter={event => event.target.style.backgroundColor = '#753a08'} 
+  onMouseLeave={event => event.target.style.backgroundColor = '#8B4510'} 
       >
         Search
       </button>

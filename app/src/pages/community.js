@@ -3,6 +3,7 @@ import '../../public/heart.png';
 import '../../public/chat.png';
 import Layout from './layout';
 import '../../public/explore.png'
+import Link from 'next/link';
 
 const Community = () => {
 
@@ -55,15 +56,35 @@ const Community = () => {
         <div className="container " style={{ marginTop: '50px' }}>
         <div className="row justify-content-center mb-4 mt-4" >
         <div className="col-md-8 col-7" >
-            <div style={{ marginLeft: '50px' }}> 
-                <h2 className="community-title" style={{fontFamily: 'ClimbingPlant'}}>Community</h2>
+            <div style={{ marginLeft: '50px',marginTop: '5px' }}> 
+                <h2 className="community-title" style={{fontFamily: 'ClimbingPlant', fontSize: '80px'}}>Community</h2>
             </div>
         </div>
+
         <div className="col-md-2 col-2 text-end">
-            <div style={{ marginRight: '50px' }}>
-                <a href="/login" className="btn btn-primary">Login</a>
+            <div style={{ marginRight: '50px'}}>
+            <div style = {{fontFamily: 'ClimbingPlant', marginBottom: '20px', marginTop: '30px' }}>
+            <Link
+            href="/login"
+            style={{
+              transition: 'background-color 0.3s', 
+              fontFamily: 'ClimbingPlant',    
+              backgroundColor: '#8B4510',
+              color: '#fff',
+              borderColor: '#8B4513',
+              letterSpacing: '5px',
+              fontSize: '25px'
+            }}
+            className="btn btn-primary btn-lg rounded-pill"
+            onMouseEnter={event => event.target.style.backgroundColor = '#753a08'} 
+            onMouseLeave={event => event.target.style.backgroundColor = '#8B4510'}
+          >
+            Login
+          </Link>
+          </div>
             </div>
         </div>
+        
     </div>
 
     <div className="row justify-content-center">
