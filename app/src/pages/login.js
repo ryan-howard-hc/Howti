@@ -7,7 +7,6 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from './nav/index';
 import Layout from "./layout";
-import background from '../../public/background.png';
 
 function Login() {
   const router = useRouter();

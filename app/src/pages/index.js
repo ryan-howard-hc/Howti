@@ -9,13 +9,8 @@ import cheerio from 'cheerio';
 
 export default function Page() {
   return (
-    <Layout>
-    <div className="d-flex flex-column align-items-center min-vh-100">
-      <div className="container mt-4">
-        
+
         <Main />
-      </div>
-    </div>
-    </Layout>
+
   );
 }
