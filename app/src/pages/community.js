@@ -7,15 +7,17 @@ import '../../public/explore.png'
 const Community = () => {
 
     const iconStyle = {
-        width: '20px',
-        height: '20px',
+        width: '30px',
+        height: '30px',
         marginRight: '5px',
         marginBottom: "10px"
+        
     };
 
     const counterStyle = {
         verticalAlign: 'middle',
         marginLeft: '5px',
+        marginBottom:'10px'
     };
 
     const tinyContainerStyle = {
@@ -23,7 +25,7 @@ const Community = () => {
         flexDirection: 'row',
         alignItems: 'center',
         marginTop: '5px',
-        marginLeft: '60px',
+        marginLeft: '50px',
     };
 
     const background = {
@@ -34,12 +36,17 @@ const Community = () => {
         width: '100px',
         height: '100px',
         borderRadius: '10px'
+        
     }
 
     const communityCard = {
         height: '150px',
         
         
+    }
+    
+    const textbox = {
+        textAlign: 'left'
     }
 
     return (
@@ -59,11 +66,12 @@ const Community = () => {
         </div>
     </div>
 
-    <div className="row justify-content-center" >
-    <div className="col-md-10 col-12" >
+    <div className="row justify-content-center">
+    <div className="col-md-10 col-12">
         <div className="card mb-4" style={communityCard}>
-            <div className="row g-0 align-items-center" style={{marginTop:'23px'}}>
-                <div className="col-md-3 col-3">
+            <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
+
+                <div className="col-md-2 col-2">
                     <div style={tinyContainerStyle}>
                         <a href="heart-link">
                             <img src="./heart.png" alt="Heart" style={iconStyle} />
@@ -77,33 +85,38 @@ const Community = () => {
                         <span style={counterStyle}>2</span>
                     </div>
                 </div>
-                <div className="col-md-3 col-3">
-                    <img src="./explore.png" alt="Community" style = {postedPic}className="img-fluid" />
+
+                <div className="col-md-2 col-2">
+                    <img src="./explore.png" alt="Community" style={postedPic} className="img-fluid" />
                 </div>
-                <div className="col-md-3 col-3">
-                    <div className="card-body">
-                        <h5 className="card-title">Here's my plant!</h5>
+
+                <div className="col-md-5 col-5">
+                    <div className="card-body text-start" style={textbox}>
+                        <h5 className="card-title">aaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
                         <p className="card-text">
                             Blah blah blah
                         </p>
                     </div>
                 </div>
+
                 <div className="col-md-3 col-3 text-end">
                     <div className="card-body">
-                        <a href="#" className="btn btn-lg rounded-pill " style = {{marginRight: '30px'}}>Learn More</a>
+                        <a href="#" className="btn btn-lg rounded-pill " style={{ marginRight: '60px' }}>Learn More</a>
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </div>
 
 
-<div className="row justify-content-center" >
-<div className="col-md-10 col-12" >
+<div className="row justify-content-center">
+<div className="col-md-10 col-12">
     <div className="card mb-4" style={communityCard}>
-        <div className="row g-0 align-items-center" style={{marginTop:'23px'}}>
-            <div className="col-md-3 col-3">
+        <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
+
+            <div className="col-md-2 col-2">
                 <div style={tinyContainerStyle}>
                     <a href="heart-link">
                         <img src="./heart.png" alt="Heart" style={iconStyle} />
@@ -117,32 +130,37 @@ const Community = () => {
                     <span style={counterStyle}>2</span>
                 </div>
             </div>
-            <div className="col-md-3 col-3">
-                <img src="./explore.png" alt="Community" style = {postedPic}className="img-fluid" />
+
+            <div className="col-md-2 col-2">
+                <img src="./explore.png" alt="Community" style={postedPic} className="img-fluid" />
             </div>
-            <div className="col-md-3 col-3">
-                <div className="card-body">
-                    <h5 className="card-title">Here's my plant!</h5>
+
+            <div className="col-md-5 col-5">
+                <div className="card-body text-start" style={textbox}>
+                    <h5 className="card-title">aaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
                     <p className="card-text">
                         Blah blah blah
                     </p>
                 </div>
             </div>
+
             <div className="col-md-3 col-3 text-end">
                 <div className="card-body">
-                    <a href="#" className="btn btn-lg rounded-pill" style = {{marginRight: '30px'}}>Learn More</a>
+                    <a href="#" className="btn btn-lg rounded-pill " style={{ marginRight: '60px' }}>Learn More</a>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
 </div>
 
-<div className="row justify-content-center" >
-<div className="col-md-10 col-12" >
+<div className="row justify-content-center">
+<div className="col-md-10 col-12">
     <div className="card mb-4" style={communityCard}>
-        <div className="row g-0 align-items-center" style={{marginTop:'23px'}}>
-            <div className="col-md-3 col-3">
+        <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
+
+            <div className="col-md-2 col-2">
                 <div style={tinyContainerStyle}>
                     <a href="heart-link">
                         <img src="./heart.png" alt="Heart" style={iconStyle} />
@@ -156,22 +174,26 @@ const Community = () => {
                     <span style={counterStyle}>2</span>
                 </div>
             </div>
-            <div className="col-md-3 col-3">
-                <img src="./explore.png" alt="Community" style = {postedPic}className="img-fluid" />
+
+            <div className="col-md-2 col-2">
+                <img src="./explore.png" alt="Community" style={postedPic} className="img-fluid" />
             </div>
-            <div className="col-md-3 col-3">
-                <div className="card-body">
-                    <h5 className="card-title">Here's my plant!</h5>
+
+            <div className="col-md-5 col-5">
+                <div className="card-body text-start" style={textbox}>
+                    <h5 className="card-title">aaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
                     <p className="card-text">
                         Blah blah blah
                     </p>
                 </div>
             </div>
+
             <div className="col-md-3 col-3 text-end">
                 <div className="card-body">
-                    <a href="#" className="btn btn-lg rounded-pill " style = {{marginRight: '30px'}}>Learn More</a>
+                    <a href="#" className="btn btn-lg rounded-pill " style={{ marginRight: '60px' }}>Learn More</a>
                 </div>
             </div>
+
         </div>
     </div>
 </div>
