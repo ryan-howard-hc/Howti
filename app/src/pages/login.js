@@ -7,6 +7,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Navbar from './nav/index';
 import Layout from "./layout";
+import AuthService from '../services/auth.service';
 
 function Login() {
   const router = useRouter();
@@ -60,6 +61,11 @@ function Login() {
     backgroundColor: '#B8E7D8', 
   };
 
+  const handleLogout = () => {
+    AuthService.logout();
+    dispatch({ type: 'LOGOUT_USER' });
+    router.push('/');
+  };
 
   return (
     <div style ={{backgroundImage: `url(./background.png)`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat',minHeight: '100vh',  }}>
@@ -143,12 +149,23 @@ function Login() {
           Register Here
         </Link>
         </div>
+
+        <div style={{ fontFamily: 'ClimbingPlant', marginTop: '20px', marginBottom: '50px' }} className="text-center">
+        <button
+          onClick={handleLogout}
+          className="btn muted-green-btn btn-lg rounded-pill"
+          style={mutedGreenButtonStyle}
+          onMouseEnter={(event) => (event.target.style.backgroundColor = '#753a08')}
+          onMouseLeave={(event) => (event.target.style.backgroundColor = '#8B4510')}
+        >
+          Logout
+        </button>
       </div>
     </div>
-    
-    </Layout>
-    </div>
-  );
- }  
+  </div>
+</Layout>
+</div>
+);
+}
 
 export default Login;

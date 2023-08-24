@@ -6,8 +6,11 @@ import '../../public/explore.png'
 import Link from 'next/link';
 import { useGlobalState } from '../context/GlobalState';
 import authHeader from '../services/auth.headers';
+import AuthHeader from '../services/auth.service';
+
 import jwtDecode from 'jwt-decode';
 import axios from 'axios';
+import AuthService from '../services/auth.service';
 
 const Community = () => {
 
@@ -54,23 +57,25 @@ const Community = () => {
         textAlign: 'left'
     }
 
+    useEffect(() => {
+        const getUserFromLocalStorage = () => {
+            const userData = localStorage.getItem('user');
+            if (userData) {
+                const user = jwtDecode(userData);
+                console.log('User data:', user);
+                dispatch({
+                    type: 'SET_USER',
+                    payload: user
+                });
+            }
+        };
+        getUserFromLocalStorage();
+    }, []);
+
     const { state, dispatch } = useGlobalState();
 
     
-  useEffect(() => {
-    const getUserFromLocalStorage = () => {
-      const userData = localStorage.getItem('user');
-      if (userData) {
-        const user = jwtDecode(userData);
-        console.log('User data:', user);
-        dispatch({
-            type: 'SET_USER',
-            payload: user
-        });
-      }
-    };
-    getUserFromLocalStorage();
-  }, []);
+
 
 
     const [postData, setPostData] = useState({
@@ -126,13 +131,35 @@ const Community = () => {
         fetchCommunityPosts();
     }, []);
 
+
+    // const handleFormSubmit = () => {
+    //     const user = state.user.user_id
+    //     const data = {
+    //       title: postData.title,
+    //       content: postData.content,
+    //       image: postData.image,
+    //       user: user,
+    //     };
+    //     axios.post('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/', data)
+    //       .then(response => {
+    //         console.log('Post request successful:', response.data);
+    //         setLogButtonContent('Logged! Check Account For Details');
+    //         setTimeout(() => {
+    //           setLogButtonContent('Log Exercise');
+    //         }, 1500);
+    //       })
+    //       .catch(error => {
+    //         console.error('Error posting data:', error);
+    //       });
+    //   };
+
 const handleFormSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append('title', postData.title);
     formData.append('content', postData.content);
     formData.append('image', postData.image);
-    console.log(state);
+    console.log(state.user);
     formData.append('user', state.user.user_id);
 
     try {
@@ -140,7 +167,13 @@ const handleFormSubmit = async (event) => {
         const response = await axios.post('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/create-community-posts/', formData, {
             headers: headers,
         });
-
+        // ;
+        // const headers = {
+        //     "Authorization": `Bearer ${access_token}`
+        // };
+        // const response = await axios.post('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/create-community-posts/', formData, {
+        //     headers: headers,
+        // });
         if (response.status === 200) {
             const responseData = response.data;
             setReceivedImageUrl(responseData.image_url);
