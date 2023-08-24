@@ -60,8 +60,8 @@ const PlantDetailPage = () => {
     // Encode the updated favoritePlants and navigate to ProfilePage
     const favoritesParam = encodeURIComponent(JSON.stringify([...favoritePlants, plantData]));
   
-    // Navigate back to the ProfilePage with the updated favorites data
-    router.push(`/profile?favorites=${favoritesParam}`);
+    // Navigate back to the ProfilePage with the updated favorites data and the plant's slug
+    router.push(`/profile?favorites=${favoritesParam}&slug=${plantData.slug}`);
   };
 
 

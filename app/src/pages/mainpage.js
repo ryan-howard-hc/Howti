@@ -7,6 +7,7 @@ import Navbar from './nav';
 import Link from 'next/link';
 import Layout from './layout';
 
+
 const Main = () => {
   const [searchValue, setSearchValue] = useState('');
   const [plantData, setPlantData] = useState([]);
