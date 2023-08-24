@@ -34,6 +34,13 @@ const ProfilePage = () => {
     }
   }, [router.query.slug]);
 
+
+
+
+
+
+
+
   useEffect(() => {
     const getUserFromLocalStorage = () => {
       const userData = localStorage.getItem('user');

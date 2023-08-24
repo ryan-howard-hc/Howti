@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Layout from '../layout';
 import Head from 'next/head';
 import Image from 'next/image';
-
+import axios from 'axios';
 import '../../../public/heart.png';
 
 
@@ -53,15 +53,22 @@ const PlantDetailPage = () => {
   }, [router.query.slug]);
 
 
-  const handleAddToFavorites = () => {
-    // Add the current plant to the list of favorites
-    setFavoritePlants([...favoritePlants, plantData]);
-  
-    // Encode the updated favoritePlants and navigate to ProfilePage
-    const favoritesParam = encodeURIComponent(JSON.stringify([...favoritePlants, plantData]));
-  
-    // Navigate back to the ProfilePage with the updated favorites data and the plant's slug
-    router.push(`/profile?favorites=${favoritesParam}&slug=${plantData.slug}`);
+  const handleAddToFavorites = async () => {
+    try {
+      // Add the current plant to the list of favorites
+      setFavoritePlants([...favoritePlants, plantData]);
+
+      // Encode the updated favoritePlants and navigate to ProfilePage
+      const favoritesParam = encodeURIComponent(JSON.stringify([...favoritePlants, plantData]));
+
+      // Make a POST request to add the plant to favorites
+      await axios.post('/api/add-favorite-plant/', { plant_id: plantData.id }); // Adjust the endpoint and payload as needed
+
+      // Navigate back to the ProfilePage with the updated favorites data and the plant's slug
+      router.push(`/profile?favorites=${favoritesParam}&slug=${plantData.slug}`);
+    } catch (error) {
+      console.error('Error adding plant to favorites:', error);
+    }
   };
 
 
