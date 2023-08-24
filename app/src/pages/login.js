@@ -19,6 +19,22 @@ function Login() {
   const handleLogin = (e) => {
     e.preventDefault();
     const username = email;
+
+
+//     const user = jwtDecode(resp.access);
+// localStorage.setItem('user', JSON.stringify(user));
+// const userData = localStorage.getItem('user');
+// if (userData) {
+//   const user = JSON.parse(userData); 
+//   console.log('User data:', user);
+//   dispatch({
+//     type: 'SET_USER',
+//     payload: user
+//   });
+// }
+
+
+
     authService.login(email, password, username).then(async (resp) => {
       if (resp.access) {
         let data = jwtDecode(resp.access);

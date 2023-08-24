@@ -18,6 +18,25 @@ const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
+
+  // useEffect(() => {
+  //   if (!state.user) {
+  //     router.push('/login');
+  //   } else {
+  //     getName();
+  //     fetchUserLogs();
+  //   }
+  // }, [state.user]);
+
+  // useEffect(() => {
+  //   if (!state.user) {
+  //     router.push('/login');
+  //   } else {
+  //     getName();
+  //     fetchUserLogs();
+  //   }
+  // }, [state.user]);
+  
   useEffect(() => {
     // Check if the query parameter 'slug' exists in the URL
     const { slug } = router.query;

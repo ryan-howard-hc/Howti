@@ -4,6 +4,9 @@ import '../../public/chat.png';
 import Layout from './layout';
 import '../../public/explore.png'
 import Link from 'next/link';
+import { useGlobalState } from '../context/GlobalState';
+import authHeader from '../services/auth.headers';
+import jwtDecode from 'jwt-decode';
 
 const Community = () => {
 
@@ -50,9 +53,26 @@ const Community = () => {
         textAlign: 'left'
     }
 
+    const { state, dispatch } = useGlobalState();
 
-    const apiUrl = 'https://8000-ryanhowardh-howticultur-foibcbubkx6.ws-us104.gitpod.io/api';
-    // Example: Fetching the list of users
+    
+  useEffect(() => {
+    const getUserFromLocalStorage = () => {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = jwtDecode(userData);
+        console.log('User data:', user);
+        dispatch({
+            type: 'SET_USER',
+            payload: user
+        });
+      }
+    };
+    getUserFromLocalStorage();
+  }, []);
+
+
+    const apiUrl = 'https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/';
     const fetchUsers = async () => {
         try {
             const response = await fetch(apiUrl + 'users/');
@@ -66,16 +86,16 @@ const Community = () => {
             console.error('Network error:', error);
         }
     };
-    
-    // Call the fetchUsers function to fetch the list of users
     fetchUsers();
 
     const [postData, setPostData] = useState({
         title: '',
         content: '',
-        image: null,
-        imageUrl: '', 
+        image: '',
+        user:'',
     });
+
+
 
     const handleInputChange = (event) => {
         const { name, value } = event.target;
@@ -97,10 +117,9 @@ const Community = () => {
     const [receivedImageUrl, setReceivedImageUrl] = useState('');
 
     useEffect(() => {
-        // Define an async function to fetch community posts
         const fetchCommunityPosts = async () => {
             try {
-                const response = await fetch('https://8000-ryanhowardh-howticultur-foibcbubkx6.ws-us104.gitpod.io/api/community-posts/');
+                const response = await fetch('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/');
                 if (response.ok) {
                     const data = await response.json();
                     setPosts(data);
@@ -111,9 +130,7 @@ const Community = () => {
                 console.error('Network error:', error);
             }
         };
-    
-        // Call the fetch function when the component mounts
-        fetchCommunityPosts();
+            fetchCommunityPosts();
     }, []);
 
     const handleFormSubmit = async (event) => {
@@ -121,26 +138,26 @@ const Community = () => {
         const formData = new FormData();
         formData.append('title', postData.title);
         formData.append('content', postData.content);
-        formData.append('image', postData.image); // Make sure this field name matches your Django form
-    
+        formData.append('image', postData.image); 
+        console.log(state);
+        formData.append('user', state.user.user_id );
         try {
-            const response = await fetch('https://8000-ryanhowardh-howticultur-foibcbubkx6.ws-us104.gitpod.io/api/community-posts/', {
+            const headers = authHeader ();
+            const response = await fetch('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/create-community-posts/', {
                 method: 'POST',
                 body: formData,
+                headers: headers
             });
     
             if (response.ok) {
                 const responseData = await response.json();
                 setReceivedImageUrl(responseData.image_url);
-                // Update the image URL in the post data
                 setPostData({
                     title: '',
                     content: '',
-                    image: null,
-                    imageUrl: responseData.image_url,
+                    image: responseData.image_url,
                 });
     
-                // Fetch the updated list of community posts
                 fetchCommunityPosts();
             } else {
                 console.error('Failed to create post');
@@ -190,7 +207,6 @@ const Community = () => {
                 </div>
             </div>
 
-            {/* Create a New Post Form */}
             <div className="container col-md-9 col-9">
                 <h2>Create a New Post</h2>
                 <form onSubmit={handleFormSubmit}>
@@ -226,7 +242,7 @@ const Community = () => {
                     <button type="submit">Create Post</button>
                 </form>
 
-                {/* Display uploaded image if available */}
+                {/* uploaded image */}
                 {receivedImageUrl && (
                     <div className="row justify-content-center">
                         <div className="col-md-9 col-9">
