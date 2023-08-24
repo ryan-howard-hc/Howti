@@ -53,22 +53,15 @@ const PlantDetailPage = () => {
   }, [router.query.slug]);
 
 
-  const handleAddToFavorites = async () => {
-    try {
-      // Add the current plant to the list of favorites
-      setFavoritePlants([...favoritePlants, plantData]);
-
-      // Encode the updated favoritePlants and navigate to ProfilePage
-      const favoritesParam = encodeURIComponent(JSON.stringify([...favoritePlants, plantData]));
-
-      // Make a POST request to add the plant to favorites
-      await axios.post('/api/add-favorite-plant/', { plant_id: plantData.id }); // Adjust the endpoint and payload as needed
-
-      // Navigate back to the ProfilePage with the updated favorites data and the plant's slug
-      router.push(`/profile?favorites=${favoritesParam}&slug=${plantData.slug}`);
-    } catch (error) {
-      console.error('Error adding plant to favorites:', error);
-    }
+  const handleAddToFavorites = () => {
+    // Add the current plant to the list of favorites
+    setFavoritePlants([...favoritePlants, plantData]);
+  
+    // Encode the updated favoritePlants and navigate to ProfilePage
+    const favoritesParam = encodeURIComponent(JSON.stringify([...favoritePlants, plantData]));
+  
+    // Navigate back to the ProfilePage with the updated favorites data and the plant's slug
+    router.push(`/profile?favorites=${favoritesParam}&slug=${plantData.slug}`);
   };
 
 
@@ -214,11 +207,7 @@ const PlantDetailPage = () => {
               )}
             </div>
 
-
           </div>
-
-
-
 
           <div className="col-md-12 text-center">
             <h2 style={{marginBottom: '30px', fontFamily: 'ClimbingPlant', letterSpacing: "3px", fontWeight:'bold' }}>Description</h2>
