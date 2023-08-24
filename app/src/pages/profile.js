@@ -39,7 +39,7 @@ const ProfilePage = () => {
     try {
       console.log(state)
       const user_id = state.user.user_id
-      const response = await axios.get('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/' + user_id); 
+      const response = await axios.get('https://8000-ryanhowardh-howticultur-foibcbubkx6.ws-us104.gitpod.io/api/user/' + user_id); 
       const newUser = state.user;
       newUser.data = response.data;
       await dispatch({
@@ -56,7 +56,7 @@ const ProfilePage = () => {
   const fetchUserLogs = async () => {
     try {
       const user_id = state.user.user_id; 
-      const response = await axios.get(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/${user_id}`);
+      const response = await axios.get(`https://8000-ryanhowardh-howticultur-foibcbubkx6.ws-us104.gitpod.io/api/user/${user_id}`);
       setUserLogs(response.data);
     } catch (error) {
       console.error('Error fetching user logs:', error);
@@ -71,7 +71,7 @@ const ProfilePage = () => {
   //-------------
   const deleteLog = async (logId) => {
     try {
-      const response = await axios.delete(`http://127.0.0.1:8000/api/user-logs/${logId}`);
+      const response = await axios.delete(`https://8000-ryanhowardh-howticultur-foibcbubkx6.ws-us104.gitpod.io/api/user-logs/${logId}`);
       setUserLogs((prevLogs) => prevLogs.filter((log) => log.log_id !== logId));
     } catch (error) {
       console.error('Error deleting user log:', error);

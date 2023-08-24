@@ -51,7 +51,7 @@ const Community = () => {
     }
 
 
-    const apiUrl = 'https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/';
+    const apiUrl = 'https://8000-ryanhowardh-howticultur-foibcbubkx6.ws-us104.gitpod.io/api';
     // Example: Fetching the list of users
     const fetchUsers = async () => {
         try {
@@ -100,7 +100,7 @@ const Community = () => {
         // Define an async function to fetch community posts
         const fetchCommunityPosts = async () => {
             try {
-                const response = await fetch('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/');
+                const response = await fetch('https://8000-ryanhowardh-howticultur-foibcbubkx6.ws-us104.gitpod.io/api/community-posts/');
                 if (response.ok) {
                     const data = await response.json();
                     setPosts(data);
@@ -124,7 +124,7 @@ const Community = () => {
         formData.append('image', postData.image); // Make sure this field name matches your Django form
     
         try {
-            const response = await fetch('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/', {
+            const response = await fetch('https://8000-ryanhowardh-howticultur-foibcbubkx6.ws-us104.gitpod.io/api/community-posts/', {
                 method: 'POST',
                 body: formData,
             });
