@@ -13,43 +13,33 @@ const ProfilePage = () => {
   const [fetchedData, setFetchedData] = useState([]);
   const [userLogs, setUserLogs] = useState([]);
   const {state, dispatch} = useGlobalState();
-
-
-  const handleFormSubmit = async (e) => {
-    e.preventDefault(); // Prevent the default form submission behavior
-      const { title, content } = postData;
-  
-    try {
-      if (!title || !content) {
-        alert('Please fill in all fields.');
-        return;
+  const [user, setUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  useEffect(() => {
+    const getUserFromLocalStorage = () => {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = jwtDecode(userData);
+        console.log('User data:', user);
+        dispatch({
+            type: 'SET_USER',
+            payload: user
+        });
       }
-  
-      const response = await axios.post('http://example.com/api/posts', {
-        title,
-        content,
-      });
-      
-        console.log('Post created:', response.data);
-        setPostData({ title: '', content: '' });
-        
-      } catch (error) {
-      // Handle error
-      console.error('Error creating post:', error);
-      alert('An error occurred while creating the post. Please try again later.');
-    }
-  };
+    };
+    getUserFromLocalStorage();
+  }, []);
 
-
-  // useEffect(() => {
-  //   fetchPosts();
-  // }, []);
-  // ---------------------------------------------------------------------------------------------------------// ---------------------------------------------------------------------------------------------------------
+  useEffect(() => {
+    getName();
+    fetchUserLogs();
+  }, [state.user]); 
+//----------------------
   const getName = async () => {
     try {
       console.log(state)
       const user_id = state.user.user_id
-      // const response = await axios.get('http://127.0.0.1:8000/api/huh/' + user_id); 
+      const response = await axios.get('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/' + user_id); 
       const newUser = state.user;
       newUser.data = response.data;
       await dispatch({
@@ -62,10 +52,11 @@ const ProfilePage = () => {
     }
   };
 
+
   const fetchUserLogs = async () => {
     try {
       const user_id = state.user.user_id; 
-      // const response = await axios.get(`http://127.0.0.1:8000/api/user-logs/?user_id=${user_id}`);
+      const response = await axios.get(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/${user_id}`);
       setUserLogs(response.data);
     } catch (error) {
       console.error('Error fetching user logs:', error);
@@ -77,13 +68,14 @@ const ProfilePage = () => {
     fetchUserLogs(); 
   }, []);
 
-
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setPostData({
-      ...postData,
-      [name]: value,
-    });
+  //-------------
+  const deleteLog = async (logId) => {
+    try {
+      const response = await axios.delete(`http://127.0.0.1:8000/api/user-logs/${logId}`);
+      setUserLogs((prevLogs) => prevLogs.filter((log) => log.log_id !== logId));
+    } catch (error) {
+      console.error('Error deleting user log:', error);
+    }
   };
   
 
@@ -95,30 +87,20 @@ const ProfilePage = () => {
 
   return (
     <Layout>
-    <div>
-
-
-
-        <div>
-        <h2>User Profile</h2>
-        {state.user ? (
-          <>
-            <p>Name: {state.user.username}</p>
-            <p>Email: {state.user.email}</p>
-          </>
-        ) : (
-          <p>User information is not available.</p>
-        )}
+      <div>
+      <p>
+      {state.user && state.user.data
+        ? `${state.user.data.first_name}, ${state.user.data.last_name}`
+        : 'User'}
+    </p>
+        
+        <h2>Favorite Plants</h2>
+        <ul>
+          {favoritePlants.map((plant, index) => (
+            <li key={index}>{plant.common_name}</li>
+          ))}
+        </ul>
       </div>
-      
-      <h2>Favorite Plants</h2>
-      <ul>
-        {favoritePlants.map((plant, index) => (
-          <li key={index}>{plant.common_name}</li>
-        ))}
-      </ul>
-
-    </div>
     </Layout>
   );
 };
