@@ -116,13 +116,14 @@ const Community = () => {
     const [posts, setPosts] = useState([]);
     const [receivedImageUrl, setReceivedImageUrl] = useState('');
 
+
     useEffect(() => {
         const fetchCommunityPosts = async () => {
             try {
                 const response = await fetch('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/');
                 if (response.ok) {
                     const data = await response.json();
-                    setPosts(data);
+                    setPosts(data); // Set the posts state with the fetched data
                 } else {
                     console.error('Failed to fetch community posts');
                 }
@@ -130,7 +131,7 @@ const Community = () => {
                 console.error('Network error:', error);
             }
         };
-            fetchCommunityPosts();
+        fetchCommunityPosts();
     }, []);
 
     const handleFormSubmit = async (event) => {
@@ -253,48 +254,52 @@ const Community = () => {
                 )} 
             </div>
             <div className="row justify-content-center">
-                <div className="col-md-10 col-12">
-                    <div className="card mb-4" style={communityCard}>
+            <div className="col-md-10 col-12">
+                {posts.map((post) => (
+                    <div className="card mb-4" style={communityCard} key={post.id}>
                         <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
-            
+                            {/* Left column with heart and chat */}
                             <div className="col-md-2 col-2">
                                 <div style={tinyContainerStyle}>
                                     <a href="heart-link">
                                         <img src="./heart.png" alt="Heart" style={iconStyle} />
                                     </a>
-                                    <span style={counterStyle}>3</span>
+                                    <span style={counterStyle}>{post.likes}</span>
                                 </div>
                                 <div style={tinyContainerStyle}>
                                     <a href="chat-link">
                                         <img src="./chat.png" alt="Chat" style={iconStyle} />
                                     </a>
-                                    <span style={counterStyle}>2</span>
+                                    <span style={counterStyle}>{post.comments}</span>
                                 </div>
                             </div>
-            
+                            
+                            {/* Middle column with post image */}
                             <div className="col-md-2 col-2">
-                                <img src="./explore.png" alt="Community" style={postedPic} className="img-fluid" />
+                                <img src={post.image} alt="Community" style={postedPic} className="img-fluid" />
                             </div>
-            
+
+                            {/* Right column with post title and content */}
                             <div className="col-md-5 col-5">
                                 <div className="card-body text-start" style={textbox}>
-                                    <h5 className="card-title">aaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
+                                    <h5 className="card-title">{post.title}</h5>
                                     <p className="card-text">
-                                        Blah blah blah
+                                        {post.content}
                                     </p>
                                 </div>
                             </div>
-            
+
+                            {/* Learn More button */}
                             <div className="col-md-3 col-3 text-end">
                                 <div className="card-body">
                                     <a href="#" className="btn btn-lg rounded-pill " style={{ marginRight: '60px' }}>Learn More</a>
                                 </div>
                             </div>
-            
                         </div>
                     </div>
-                </div>
+                ))}
             </div>
+        </div>
                             
             </Layout>
         </div>
@@ -302,20 +307,6 @@ const Community = () => {
 }
 
 export default Community;
-
-
-
-// from django.http import HttpResponse
-// from django.views.decorators.http import require_POST
-// @require_POST
-// def upload_file(request):
-//     # Get the file from the request
-//     file = request.FILES['file']
-//     # Save the file to a location
-//     with open('path/to/file', 'wb') as f:
-//         f.write(file.read())
-//     # Return a success response
-//     return HttpResponse('File uploaded successfully.')
 
 // <div className="row justify-content-center">
 //     <div className="col-md-10 col-12">
