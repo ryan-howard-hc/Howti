@@ -110,7 +110,19 @@ const user = state.user.user_id
             });
 
             if (response.status === 200) {
-                const data = response.data;
+                const data = response.data.map(post => {
+                    // Split the image_url by '/' and get the last part
+                    const parts = post.image_url.split('/');
+                    const imageName = parts[parts.length - 1];
+                    
+                    // Construct the GitHub URL
+                    const githubImageUrl = `https://raw.githubusercontent.com/ryan-howard-hc/Howticulture-Backend/main/community_posts/${imageName}`;
+                    
+                    return {
+                        ...post,
+                        image_url: githubImageUrl
+                    };
+                });
                 setPosts(data);
             } else {
                 console.error('Failed to fetch community posts');
@@ -122,7 +134,6 @@ const user = state.user.user_id
 
     fetchCommunityPosts();
 }, []);
-
 
   return (
     <div style={background}>
@@ -160,6 +171,7 @@ const user = state.user.user_id
           </div>
         </div>
       </div>
+
       <div className="container col-md-9 col-9">
         <h2>Create a New Post</h2>
         <form onSubmit={handleFormSubmit}>
@@ -173,6 +185,7 @@ const user = state.user.user_id
               onChange={handleInputChange}
             />
           </div>
+
           <div>
             <label htmlFor="content">Content</label>
             <textarea
@@ -224,7 +237,7 @@ const user = state.user.user_id
                 </div>
               </div>
               <div className="col-md-2 col-2">
-                <img src={post.image} alt="Community" style={postedPic} className="img-fluid" />
+                <img src={post.image_url} alt={`Post ${post.title}`} style={postedPic} className="img-fluid" />
               </div>
               <div className="col-md-5 col-5">
                 <div className="card-body text-start" style={textbox}>
