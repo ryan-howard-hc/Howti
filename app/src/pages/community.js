@@ -111,11 +111,9 @@ const user = state.user.user_id
 
             if (response.status === 200) {
                 const data = response.data.map(post => {
-                    // Split the image_url by '/' and get the last part
                     const parts = post.image_url.split('/');
                     const imageName = parts[parts.length - 1];
                     
-                    // Construct the GitHub URL
                     const githubImageUrl = `https://raw.githubusercontent.com/ryan-howard-hc/Howticulture-Backend/main/community_posts/${imageName}`;
                     
                     return {
