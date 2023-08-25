@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { useGlobalState } from '../context/GlobalState';
-import authService from '../services/auth.service';
 import jwtDecode from 'jwt-decode';
 import Link from 'next/link';
 import axios from 'axios'; 
 import Layout from './layout';
 import { useRouter } from 'next/router';
-import { fetchSlug } from '../utils/api'; // Import the fetchSlug function
-
+import { fetchSlug, fetchWikipediaDescription } from '../utils/api'; 
 
 const ProfilePage = () => {
   const router = useRouter();
-  const [postData, setPostData] = useState({ title: '', content: '' });
+  const { slug } = router.query;
+  const [plantData, setPlantData] = useState({});
+  const [wikipediaDescription, setWikipediaDescription] = useState({});
+  const { state, dispatch } = useGlobalState();
   const [fetchedData, setFetchedData] = useState([]);
   const [userLogs, setUserLogs] = useState([]);
-  const {state, dispatch} = useGlobalState();
   const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
 
@@ -38,20 +38,24 @@ const ProfilePage = () => {
   // }, [state.user]);
   
   useEffect(() => {
-    // Check if the query parameter 'slug' exists in the URL
-    const { slug } = router.query;
     if (slug) {
-      // Use the fetchSlug function to fetch the plant data
       fetchSlug(slug)
         .then((data) => {
-          // Use the data as needed, for example, you can set it in state
-          setFetchedData(data);
+          setPlantData(data);
+
+          fetchWikipediaDescription(data.scientific_name)
+            .then((description) => {
+              setWikipediaDescription(description);
+            })
+            .catch((error) => {
+              console.error('Error fetching Wikipedia description:', error);
+            });
         })
         .catch((error) => {
           console.error('Error fetching plant data:', error);
         });
     }
-  }, [router.query.slug]);
+  }, [slug]);
 
 
 
@@ -125,18 +129,19 @@ const ProfilePage = () => {
   
   const navigateToPlantDetail = async (slug) => {
     try {
-      // Fetch the plant data using fetchSlug
       const plantData = await fetchSlug(slug);
-
-      // Encode the plant data and navigate to the plant detail page
+  
       const plantDataParam = encodeURIComponent(JSON.stringify(plantData));
-      router.push(`/plant-detail?plantData=${plantDataParam}`);
+  
+      const plantDetailUrl = `/plant-detail?plantData=${plantDataParam}`;
+  
+      router.push(plantDetailUrl);
     } catch (error) {
       console.error('Error fetching plant data:', error);
     }
   };
 
-  const { favorites, slug } = router.query;
+  const { favorites } = router.query;
 
   const favoritePlants = JSON.parse(favorites || '[]');
 
@@ -162,21 +167,20 @@ const ProfilePage = () => {
     </div>
         
   
-        <div className="container" style={{ marginTop: '20px', marginBottom: '20px', display: 'flex', flexDirection: 'column', background: 'white', borderRadius: '50px', padding: '20px', border: '20px solid black' }}>
-          <div className="row">
-          <div className="col-12 mx-auto text-center">
-          <h1 style={{ fontFamily: 'ClimbingPlant', fontWeight: 'bold' }}>Favorite Plants</h1>
-          <ul className="list-unstyled" style={{ fontSize: '30px' }}>
+    <div className="container" style={{ marginTop: '20px', marginBottom: '20px', display: 'flex', flexDirection: 'column', background: 'white', borderRadius: '50px', padding: '20px', border: '20px solid black' }}>
+    <div className="row">
+      <div className="col-12 mx-auto text-center">
+        <h1 style={{ fontFamily: 'ClimbingPlant', fontWeight: 'bold' }}>Favorite Plants</h1>
+        <ul className="list-unstyled" style={{ fontSize: '30px' }}>
           {favoritePlants.map((plant, index) => (
             <li key={index} className="text-center" style={{ cursor: 'pointer' }} onClick={() => navigateToPlantDetail(plant)}>
               {plant.common_name}
-              {/* Modify this part to trigger navigation to the plant detail page */}
               <Link
                 href={{
-                  pathname: '/[slug]/page', // Adjust the pathname as needed
-                  query: { slug: fetchedData.slug, plantData: JSON.stringify(fetchedData) },
+                  pathname: '/[slug]/page',
+                  query: { slug: plant.slug }, // Pass the slug of the plant
                 }}
-                as={`/${fetchedData.slug}/page`} // Adjust the 'as' value as needed
+                as={`/${plant.slug}/page`} 
                 passHref
                 style={{ textDecoration: 'none' }}
               >
