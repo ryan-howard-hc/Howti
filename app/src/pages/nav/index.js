@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect }  from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { handleSearchClick } from '../../utils/api'; 
 import styles from '../../styles/global.module.css';
-import jwtDecode from 'jwt-decode';
 import { useGlobalState } from '../../context/GlobalState';
-import Link from 'next/link'; // Import Link from Next.js
-import { useRouter } from 'next/router'; // Import useRouter from Next.js
+import jwtDecode from 'jwt-decode';
+import AuthService from '../../services/auth.service';
+
+
+// Add a hover effect by changing the link color on hover
+// linkStyle[':hover'] = {
+//   color: '#FF5733', // Change to the color you want on hover
+// };
+
+
+
+
 
 const Navbar = () => {
   const { state, dispatch } = useGlobalState();
-  const router = useRouter(); // Use the useRouter hook from Next.js
 
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
   useEffect(() => {
     const getUserFromLocalStorage = () => {
       const userData = localStorage.getItem('user');
@@ -19,23 +27,51 @@ const Navbar = () => {
         const user = jwtDecode(userData);
         console.log('User data:', user);
         dispatch({
-          type: 'SET_USER',
-          payload: user
+            type: 'SET_USER',
+            payload: user
         });
-        setIsLoggedIn(true); // Set the user as logged in
       }
     };
     getUserFromLocalStorage();
   }, []);
 
-  let profileLinkText = 'Profile';
+  useEffect(() => {
+    getName();
+    fetchUserLogs();
+  }, [state.user]); 
+  const { user } = state;
 
-  if (isLoggedIn && state.user && state.user.data && state.user.data.first_name) {
-    const firstName = state.user.data.first_name;
-    profileLinkText = firstName;
-  }
-  
+  const getName = async () => {
+    try {
+      console.log(state)
+      const user_id = state.user.user_id
+      const response = await axios.get('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/' + user_id); 
+      const newUser = state.user;
+      newUser.data = response.data;
+      await dispatch({
+      currentUser: newUser
+      });
+      console.log(response.data)
+      setFetchedData(response.data);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+  };
 
+    const fetchUserLogs = async () => {
+    try {
+      const user_id = state.user.user_id; 
+      const response = await axios.get(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/${user_id}`);
+      setUserLogs(response.data);
+    } catch (error) {
+      console.error('Error fetching user logs:', error);
+    }
+  };
+
+  useEffect(() => {
+    getName();
+    fetchUserLogs(); 
+  }, []);
 
   const navbarStyle = {
     backgroundColor: ' #FFFFFF',
@@ -44,7 +80,7 @@ const Navbar = () => {
     alignItems: 'center',
     height: '60px',
     borderBottom: '3px solid #E0E0E0',
-    padding: '0 20px',
+    padding: '0 5px',
   };
 
   const titular = {
@@ -73,7 +109,17 @@ const Navbar = () => {
     fontSize: '25px',
     margin: '0 20px',
     transition: 'color 0.3s ease',
-    wordSpacing: '10px',
+    wordSpacing: '8px',
+  };
+
+  const firstName = state.user && state.user.data
+  ? state.user.data.first_name.charAt(0).toUpperCase() + state.user.data.first_name.slice(1)
+  : 'Profile';
+
+  const handleLogout = () => {
+    AuthService.logout();
+    dispatch({ type: 'LOGOUT_USER' });
+    router.push('/');
   };
 
   return (
@@ -84,18 +130,20 @@ const Navbar = () => {
       </div>
       <div style={{ fontFamily: 'KitschyRetro' }}>
         <ul style={linkContainerStyle}>
-          <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'><a href="/" style={linkStyle}>Home</a></li>
+          <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'><a href="/" style={linkStyle} >Home</a></li>
           <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'><a href="/about" style={linkStyle}>About</a></li>
           <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'><a href="/community" style={linkStyle}>Community</a></li>
-          
-          {isLoggedIn ? (
-            <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'>
-              <a href="/profile" style={linkStyle}>{profileLinkText}</a>
-            </li>
+          {state.user ? (
+            <>
+              <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'>
+                <a href="/profile" style={linkStyle}>{firstName}</a>
+              </li>
+              <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'>
+                <button onClick={handleLogout} style={{ ...linkStyle, border: 'none', background: 'none', textDecoration: 'none' }}>Logout</button>
+              </li>
+            </>
           ) : (
-            <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'>
-              <a href="/login" style={linkStyle}>Login</a>
-            </li>
+            <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'><a href="/login" style={linkStyle}>Login</a></li>
           )}
         </ul>
       </div>
@@ -104,8 +152,3 @@ const Navbar = () => {
 }
 
 export default Navbar;
-
-
-
-
-
