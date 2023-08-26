@@ -5,6 +5,7 @@ import styles from '../../styles/global.module.css';
 import { useGlobalState } from '../../context/GlobalState';
 import jwtDecode from 'jwt-decode';
 import AuthService from '../../services/auth.service';
+import { useRouter } from 'next/navigation';
 
 
 // Add a hover effect by changing the link color on hover
@@ -18,7 +19,7 @@ import AuthService from '../../services/auth.service';
 
 const Navbar = () => {
   const { state, dispatch } = useGlobalState();
-
+  const router = useRouter();
 
   useEffect(() => {
     const getUserFromLocalStorage = () => {
@@ -119,7 +120,7 @@ const Navbar = () => {
   const handleLogout = () => {
     AuthService.logout();
     dispatch({ type: 'LOGOUT_USER' });
-    router.push('/');
+    window.location.href = '/'; // Set the URL to the home page
   };
 
   return (
