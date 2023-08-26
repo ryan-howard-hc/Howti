@@ -49,7 +49,7 @@ const Main = () => {
   return (
     <Layout>
     <div style={{backgroundColor:'#ECFAF5' }}></div>
-    <div style={{ textAlign: 'center', backgroundColor:'#ECFAF5' }}>
+    <div style={{ textAlign: 'center', backgroundColor:'#ECFAF5', minHeight: '93vh' }}>
     
     <h1
     style={{

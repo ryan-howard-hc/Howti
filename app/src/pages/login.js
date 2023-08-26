@@ -150,17 +150,6 @@ function Login() {
         </Link>
         </div>
 
-        <div style={{ fontFamily: 'ClimbingPlant', marginTop: '20px', marginBottom: '50px' }} className="text-center">
-        <button
-          onClick={handleLogout}
-          className="btn muted-green-btn btn-lg rounded-pill"
-          style={mutedGreenButtonStyle}
-          onMouseEnter={(event) => (event.target.style.backgroundColor = '#753a08')}
-          onMouseLeave={(event) => (event.target.style.backgroundColor = '#8B4510')}
-        >
-          Logout
-        </button>
-      </div>
     </div>
   </div>
 </Layout>

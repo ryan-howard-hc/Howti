@@ -53,9 +53,6 @@ useEffect(() => {
     marginTop: '5px',
     marginLeft: '50px',
   };
-  const background = {
-    backgroundColor: '#ECFAF5'
-  }
   const postedPic = {
     width: '100px',
     height: '100px',
@@ -97,10 +94,10 @@ useEffect(() => {
     event.preventDefault();
     const user = state.user.user_id;
     const formData = new FormData();
-  
+
     formData.append('title', postData.title);
     formData.append('content', postData.content);
-  
+
     if (postData.image) {
       try {
         const imgurResponse = await axios.post(
@@ -113,20 +110,20 @@ useEffect(() => {
             },
           }
         );
-  
+
         const image_url = imgurResponse.data.data.link;
-  
+
         formData.append('image_url', image_url);
-  
+
         formData.append('postId', postData.postId);
         formData.append('user', user);
-  
+
         const response = await axios.post(
           'https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/',
           formData,
           {}
         );
-  
+
         console.log('Post request successful:', response.data);
         setPostData({
           title: '',
@@ -135,6 +132,26 @@ useEffect(() => {
           user: '',
           postId: generateRandomPostId(),
         });
+
+        // Fetch the user's first_name
+        const userResponse = await axios.get(
+          `https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/${user}/`
+        );
+
+        if (userResponse.status === 200) {
+          const userFirstName = userResponse.data.first_name;
+          const newPost = {
+            title: postData.title,
+            content: postData.content,
+            image_url: image_url,
+            userFirstName: userFirstName, // Add the user's first name to the post data
+          };
+
+          // Update the posts state to include the new post
+          setPosts([...posts, newPost]);
+        } else {
+          console.error('Failed to fetch user first_name');
+        }
       } catch (error) {
         console.error('Error posting data:', error);
       }
@@ -159,7 +176,7 @@ useEffect(() => {
   }, []);
 
   return (
-    <div style={background}>
+    <div style={{backgroundColor: '#ECFAF5', minHeight: '100vh' }}>
       <Layout>
       {/* Header section */}
       <div className="col-12 col-md-12 container" style={{ marginTop: '50px' }}>
@@ -260,11 +277,11 @@ useEffect(() => {
     
 
       <div className="row justify-content-center">
-      <div className="col-md-10 col-12">
+      <div className="col-md-7 col-6">
       {posts.map((post) => (
         <div className="card mb-4" style={communityCard} key={post.id}>
           <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
-            <div className="col-md-2 col-2">
+            <div className="col-md-2 col-6">
               <div style={tinyContainerStyle}>
                 <a href="heart-link">
                   <img src="./heart.png" alt="Heart" style={iconStyle} />
@@ -278,20 +295,31 @@ useEffect(() => {
                 <span style={counterStyle}></span>
               </div>
             </div>
-            <div className="col-md-2 col-2">
+            <div className="col-md-2 col-6">
               <img src={post.image_url} alt={`Post ${post.title}`} style={postedPic} className="img-fluid" />
             </div>
-            <div className="col-md-5 col-5">
+            <div className="col-md-3 col-6">
               <div className="card-body text-start" style={textbox}>
                 <h5 className="card-title">{post.title}</h5>
                 <p className="card-text">
                   {post.content}
                 </p>
+                {post.userFirstName && (
+                  <p className="card-text">Posted by: {post.userFirstName}</p>
+                )}
               </div>
             </div>
-            <div className="col-md-3 col-3 text-end">
+            <div className="col-md-5 col-6 text-end">
               <div className="card-body">
-                <a href="#" className="btn btn-lg rounded-pill " style={{ marginRight: '60px' }}>Learn More</a>
+                <a href={post.image_url} className="btn btn-lg rounded-pill " style={{                    
+                transition: 'background-color 0.3s',
+                fontFamily: 'ClimbingPlant',
+                backgroundColor: '#8B4510',
+                color: '#fff',
+                borderColor: '#8B4513',
+                letterSpacing: '5px',
+                fontSize: '25px',
+              marginRight:'80px' }}>Full Picture</a>
               </div>
             </div>
           </div>
