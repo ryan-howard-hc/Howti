@@ -1,16 +1,40 @@
-import React, { useState }  from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { handleSearchClick } from '../../utils/api'; 
 import styles from '../../styles/global.module.css';
-
-
-// Add a hover effect by changing the link color on hover
-// linkStyle[':hover'] = {
-//   color: '#FF5733', // Change to the color you want on hover
-// };
-
+import jwtDecode from 'jwt-decode';
+import { useGlobalState } from '../../context/GlobalState';
+import Link from 'next/link'; // Import Link from Next.js
+import { useRouter } from 'next/router'; // Import useRouter from Next.js
 
 const Navbar = () => {
+  const { state, dispatch } = useGlobalState();
+  const router = useRouter(); // Use the useRouter hook from Next.js
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  useEffect(() => {
+    const getUserFromLocalStorage = () => {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = jwtDecode(userData);
+        console.log('User data:', user);
+        dispatch({
+          type: 'SET_USER',
+          payload: user
+        });
+        setIsLoggedIn(true); // Set the user as logged in
+      }
+    };
+    getUserFromLocalStorage();
+  }, []);
+
+  let profileLinkText = 'Profile';
+
+  if (isLoggedIn && state.user && state.user.data && state.user.data.first_name) {
+    const firstName = state.user.data.first_name;
+    profileLinkText = firstName;
+  }
+  
 
 
   const navbarStyle = {
@@ -58,23 +82,30 @@ const Navbar = () => {
         <img src="/favicon.ico" style={{ width: '30px', height: '30px', marginRight: '10px' }} alt="Icon" />
         Howticulture
       </div>
-        <div style = {{fontFamily: 'KitschyRetro'}}>
-
-      <ul style={linkContainerStyle}>
-
-        <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/" style={linkStyle} >Home</a></li>
-        <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/about" style={linkStyle}>About</a></li>
-        <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/community" style={linkStyle}>Community</a></li>
-        <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/login" style={linkStyle}>Login</a></li>
-        <li style={{fontFamily:'KitschyRetro'}}className='nav-link'><a href="/profile" style={linkStyle}>Profile</a></li>
-
-      </ul>
+      <div style={{ fontFamily: 'KitschyRetro' }}>
+        <ul style={linkContainerStyle}>
+          <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'><a href="/" style={linkStyle}>Home</a></li>
+          <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'><a href="/about" style={linkStyle}>About</a></li>
+          <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'><a href="/community" style={linkStyle}>Community</a></li>
+          
+          {isLoggedIn ? (
+            <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'>
+              <a href="/profile" style={linkStyle}>{profileLinkText}</a>
+            </li>
+          ) : (
+            <li style={{ fontFamily: 'KitschyRetro' }} className='nav-link'>
+              <a href="/login" style={linkStyle}>Login</a>
+            </li>
+          )}
+        </ul>
       </div>
     </nav>
-
-
-    
   );
 }
 
 export default Navbar;
+
+
+
+
+
