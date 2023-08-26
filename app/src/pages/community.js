@@ -17,13 +17,14 @@ const generateRandomPostId = () => {
 };
 
 const Community = () => {
+  const { state, dispatch } = useGlobalState();
 
 
-useEffect(() => {
+  useEffect(() => {
     const getUserFromLocalStorage = () => {
       const userData = localStorage.getItem('user');
       if (userData) {
-        const user = jwtDecode(userData);
+        const user = jwtDecode(userData); // Decode the JWT if necessary
         console.log('User data:', user);
         dispatch({
           type: 'SET_USER',
@@ -32,9 +33,21 @@ useEffect(() => {
       }
     };
     getUserFromLocalStorage();
-  }, []);
+  }, [dispatch]);
+
+
+  const firstName = state.user && state.user.data
+  ? state.user.data.first_name.charAt(0).toUpperCase() + state.user.data.first_name.slice(1)
+  : 'User';
+
+const lastName = state.user && state.user.data
+  ? state.user.data.last_name.charAt(0).toUpperCase() + state.user.data.last_name.slice(1)
+  : '';
+
+const fullName = `${firstName} ${lastName}`;
+
+
   const router = useRouter();
-  const { state, dispatch } = useGlobalState();
   const iconStyle = {
     width: '30px',
     height: '30px',
