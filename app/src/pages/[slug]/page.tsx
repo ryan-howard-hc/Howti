@@ -9,10 +9,12 @@ import Head from 'next/head';
 import Image from 'next/image';
 import axios from 'axios';
 import '../../../public/heart.png';
+import { useGlobalState } from '../../context/GlobalState';
 
 
 const PlantDetailPage = () => {
   const router = useRouter();
+  const { state, dispatch } = useGlobalState();
 
   const plantDataJson = router.query.plantData;
   const plantData = plantDataJson ? JSON.parse(plantDataJson) : null;
@@ -55,17 +57,20 @@ const PlantDetailPage = () => {
 
   const handleAddToFavorites = async () => {
     try {
-      // Add the current plant to the list of favorites
-      setFavoritePlants([...favoritePlants, plantData]);
-
-      // Encode the updated favoritePlants and navigate to ProfilePage
-      const favoritesParam = encodeURIComponent(JSON.stringify([...favoritePlants, plantData]));
-
-      // Make a POST request to add the plant to favorites
-      await axios.post('/api/add-favorite-plant/', { plant_id: plantData.id }); // Adjust the endpoint and payload as needed
-
-      // Navigate back to the ProfilePage with the updated favorites data and the plant's slug
-      router.push(`/profile?favorites=${favoritesParam}&slug=${plantData.slug}`);
+      const response = await axios.post(
+        `https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/add-favorite-plant/`,
+        {
+          user_id: state.user.user_id, // Include the user_id
+          plant_name: plantData.common_name, // Replace with the actual plant name
+        }
+      );
+  
+      setFavoritePlants([...favoritePlants, response.data]);
+  
+      localStorage.setItem(
+        'favoritePlants',
+        JSON.stringify([...favoritePlants, response.data])
+      );
     } catch (error) {
       console.error('Error adding plant to favorites:', error);
     }

@@ -17,9 +17,37 @@ const generateRandomPostId = () => {
 };
 
 const Community = () => {
+  const { state, dispatch } = useGlobalState();
 
 
+  useEffect(() => {
+    const getUserFromLocalStorage = () => {
+      const userData = localStorage.getItem('user');
+      if (userData) {
+        const user = jwtDecode(userData); // Decode the JWT if necessary
+        console.log('User data:', user);
+        dispatch({
+          type: 'SET_USER',
+          payload: user
+        });
+      }
+    };
+    getUserFromLocalStorage();
+  }, [dispatch]);
 
+
+  const firstName = state.user && state.user.data
+  ? state.user.data.first_name.charAt(0).toUpperCase() + state.user.data.first_name.slice(1)
+  : 'User';
+
+const lastName = state.user && state.user.data
+  ? state.user.data.last_name.charAt(0).toUpperCase() + state.user.data.last_name.slice(1)
+  : '';
+
+const fullName = `${firstName} ${lastName}`;
+
+
+  const router = useRouter();
   const iconStyle = {
     width: '30px',
     height: '30px',
@@ -40,11 +68,11 @@ const Community = () => {
   };
   const postedPic = {
     width: '100px',
-    height: '100px',
+    height: 'auto',
     borderRadius: '10px'
   }
   const communityCard = {
-    height: '150px',
+    height: '250px',
   }
   const textbox = {
     textAlign: 'left'
@@ -82,7 +110,6 @@ const Community = () => {
 
     formData.append('title', postData.title);
     formData.append('content', postData.content);
-    formData.append('poster', postData.poster);
 
     if (postData.image) {
       try {
@@ -112,7 +139,6 @@ const Community = () => {
 
         console.log('Post request successful:', response.data);
         setPostData({
-          poster:'',
           title: '',
           content: '',
           image: null,
@@ -128,7 +154,6 @@ const Community = () => {
         if (userResponse.status === 200) {
           const userFirstName = userResponse.data.first_name;
           const newPost = {
-            poster: postData.poster,
             title: postData.title,
             content: postData.content,
             image_url: image_url,
@@ -170,13 +195,14 @@ const Community = () => {
       <div className="col-12 col-md-12 container" style={{ marginTop: '50px' }}>
         <div className="row justify-content-center mb-4 mt-4">
           <div className="col-md-8 col-7">
-            <div style={{ marginLeft: '50px', marginTop: '5px' }}>
+            <div style={{ marginLeft: '220px', marginTop: '5px' }}>
               <h2 className="community-title" style={{ fontFamily: 'JFWildWood', fontSize: '80px', letterSpacing: '4px' }}>Community</h2>
             </div>
           </div>
           <div className="col-md-2 col-2 text-end">
             <div style={{ marginRight: '50px' }}>
               <div style={{ fontFamily: 'ClimbingPlant', marginBottom: '20px', marginTop: '30px' }}>
+              {!state.user ? (
                 <Link
                   href="/login"
                   style={{
@@ -194,6 +220,7 @@ const Community = () => {
                 >
                   Login
                 </Link>
+              ) : null}
               </div>
             </div>
           </div>
@@ -206,17 +233,6 @@ const Community = () => {
         <div className="col-md-5 col-12 mb-4" style = {{marginRight:'40px'}}>
         <h2 style ={{fontFamily: 'ClimbingPlant', fontWeight: 'bold'}}>Create a New Post</h2>
           <form onSubmit={handleFormSubmit}>
-          <div className="mb-3 ">
-<label style={{fontFamily:'KitschyRetro', letterSpacing: '3px', fontSize:'24px'}} htmlFor="title">What's your name?</label>
-<input
-  type="text"
-  id="poster"
-  name="poster"
-  value={postData.poster}
-  onChange={(event) => setPostData({ ...postData, poster: event.target.value })} // Update poster directly
-  className="form-control "
-/>
-</div>
             <div className="mb-3 ">
               <label style={{fontFamily:'KitschyRetro', letterSpacing: '3px', fontSize:'24px'}} htmlFor="title">Title</label>
               <input
@@ -299,11 +315,13 @@ const Community = () => {
             </div>
             <div className="col-md-3 col-6">
               <div className="card-body text-start" style={textbox}>
-              <h5>{post.poster}</h5>
                 <h5 className="card-title">{post.title}</h5>
                 <p className="card-text">
                   {post.content}
                 </p>
+                {post.userFirstName && (
+                  <p className="card-text">Posted by: {post.userFirstName}</p>
+                )}
               </div>
             </div>
             <div className="col-md-5 col-6 text-end">
@@ -329,7 +347,6 @@ const Community = () => {
   );
 }
 export default Community;
-
 
 
 
@@ -420,3 +437,29 @@ export default Community;
 
 
 
+
+// const censorCurseWords = (text) => {
+//   const curseWords = ["fuck", "shit", "cunt","ass","bitch","cock","fucker"]; // Add your list of curse words here
+//   let censoredText = text;
+
+//   curseWords.forEach((curseWord) => {
+//     const regex = new RegExp(`\\b${curseWord}\\b`, "gi");
+//     const replacement = curseWord.charAt(0) + "*".repeat(curseWord.length - 1);
+//     censoredText = censoredText.replace(regex, replacement);
+//   });
+
+//   return censoredText;
+// };
+
+
+
+
+// const [posts, setPosts] = useState([]);
+
+// const handleFormSubmit = async (event) => {
+//   event.preventDefault();
+//   const formData = new FormData();
+
+//   formData.append('title', censorCurseWords(postData.title));
+//   formData.append('content', censorCurseWords(postData.content)); 
+//   formData.append('poster', censorCurseWords(postData.poster));

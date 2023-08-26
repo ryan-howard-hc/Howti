@@ -82,23 +82,30 @@ const ProfilePage = () => {
     }
   };
   
-  const navigateToPlantDetail = async (slug) => {
-    try {
-      const plantData = await fetchSlug(slug);
+  useEffect(() => {
+    const fetchFavoritePlants = async () => {
+      try {
+        const response = await axios.get(`/api/user-favorite-plants/${state.user.user_id}/`);
+        setFavoritePlants(response.data);
+      } catch (error) {
+        console.error('Error fetching favorite plants:', error);
+      }
+    };
   
-      const plantDataParam = encodeURIComponent(JSON.stringify(plantData));
-  
-      const plantDetailUrl = `/plant-detail?plantData=${plantDataParam}`;
-  
-      router.push(plantDetailUrl);
-    } catch (error) {
-      console.error('Error fetching plant data:', error);
+    // Call the function to fetch favorite plants
+    fetchFavoritePlants();
+  }, [state.user]);
+
+  const [favoritePlants, setFavoritePlants] = useState([]);
+
+  useEffect(() => {
+    // Retrieve the list of favorite plants from local storage
+    const storedFavorites = localStorage.getItem('favoritePlants');
+    if (storedFavorites) {
+      setFavoritePlants(JSON.parse(storedFavorites));
     }
-  };
+  }, []);
 
-  const { favorites } = router.query;
-
-  const favoritePlants = JSON.parse(favorites || '[]');
 
   const firstName = state.user && state.user.data
     ? state.user.data.first_name.charAt(0).toUpperCase() + state.user.data.first_name.slice(1)
