@@ -19,51 +19,6 @@ const ProfilePage = () => {
   const [currentUser, setCurrentUser] = useState(null);
 
 
-  // useEffect(() => {
-  //   if (!state.user) {
-  //     router.push('/login');
-  //   } else {
-  //     getName();
-  //     fetchUserLogs();
-  //   }
-  // }, [state.user]);
-
-  // useEffect(() => {
-  //   if (!state.user) {
-  //     router.push('/login');
-  //   } else {
-  //     getName();
-  //     fetchUserLogs();
-  //   }
-  // }, [state.user]);
-  
-  useEffect(() => {
-    if (slug) {
-      fetchSlug(slug)
-        .then((data) => {
-          setPlantData(data);
-
-          fetchWikipediaDescription(data.scientific_name)
-            .then((description) => {
-              setWikipediaDescription(description);
-            })
-            .catch((error) => {
-              console.error('Error fetching Wikipedia description:', error);
-            });
-        })
-        .catch((error) => {
-          console.error('Error fetching plant data:', error);
-        });
-    }
-  }, [slug]);
-
-
-
-
-
-
-
-
   useEffect(() => {
     const getUserFromLocalStorage = () => {
       const userData = localStorage.getItem('user');
@@ -207,3 +162,42 @@ const ProfilePage = () => {
 };
 
 export default ProfilePage;
+
+
+// useEffect(() => {
+  //   if (!state.user) {
+  //     router.push('/login');
+  //   } else {
+  //     getName();
+  //     fetchUserLogs();
+  //   }
+  // }, [state.user]);
+
+  // useEffect(() => {
+  //   if (!state.user) {
+  //     router.push('/login');
+  //   } else {
+  //     getName();
+  //     fetchUserLogs();
+  //   }
+  // }, [state.user]);
+  
+  // useEffect(() => {
+  //   if (slug) {
+  //     fetchSlug(slug)
+  //       .then((data) => {
+  //         setPlantData(data);
+
+  //         fetchWikipediaDescription(data.scientific_name)
+  //           .then((description) => {
+  //             setWikipediaDescription(description);
+  //           })
+  //           .catch((error) => {
+  //             console.error('Error fetching Wikipedia description:', error);
+  //           });
+  //       })
+  //       .catch((error) => {
+  //         console.error('Error fetching plant data:', error);
+  //       });
+  //   }
+  // }, [slug]);
