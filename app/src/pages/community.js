@@ -17,37 +17,9 @@ const generateRandomPostId = () => {
 };
 
 const Community = () => {
-  const { state, dispatch } = useGlobalState();
 
 
-  useEffect(() => {
-    const getUserFromLocalStorage = () => {
-      const userData = localStorage.getItem('user');
-      if (userData) {
-        const user = jwtDecode(userData); // Decode the JWT if necessary
-        console.log('User data:', user);
-        dispatch({
-          type: 'SET_USER',
-          payload: user
-        });
-      }
-    };
-    getUserFromLocalStorage();
-  }, [dispatch]);
 
-
-  const firstName = state.user && state.user.data
-  ? state.user.data.first_name.charAt(0).toUpperCase() + state.user.data.first_name.slice(1)
-  : 'User';
-
-const lastName = state.user && state.user.data
-  ? state.user.data.last_name.charAt(0).toUpperCase() + state.user.data.last_name.slice(1)
-  : '';
-
-const fullName = `${firstName} ${lastName}`;
-
-
-  const router = useRouter();
   const iconStyle = {
     width: '30px',
     height: '30px',
@@ -110,6 +82,7 @@ const fullName = `${firstName} ${lastName}`;
 
     formData.append('title', postData.title);
     formData.append('content', postData.content);
+    formData.append('poster', postData.poster);
 
     if (postData.image) {
       try {
@@ -139,6 +112,7 @@ const fullName = `${firstName} ${lastName}`;
 
         console.log('Post request successful:', response.data);
         setPostData({
+          poster:'',
           title: '',
           content: '',
           image: null,
@@ -154,6 +128,7 @@ const fullName = `${firstName} ${lastName}`;
         if (userResponse.status === 200) {
           const userFirstName = userResponse.data.first_name;
           const newPost = {
+            poster: postData.poster,
             title: postData.title,
             content: postData.content,
             image_url: image_url,
@@ -231,6 +206,17 @@ const fullName = `${firstName} ${lastName}`;
         <div className="col-md-5 col-12 mb-4" style = {{marginRight:'40px'}}>
         <h2 style ={{fontFamily: 'ClimbingPlant', fontWeight: 'bold'}}>Create a New Post</h2>
           <form onSubmit={handleFormSubmit}>
+          <div className="mb-3 ">
+<label style={{fontFamily:'KitschyRetro', letterSpacing: '3px', fontSize:'24px'}} htmlFor="title">What's your name?</label>
+<input
+  type="text"
+  id="poster"
+  name="poster"
+  value={postData.poster}
+  onChange={(event) => setPostData({ ...postData, poster: event.target.value })} // Update poster directly
+  className="form-control "
+/>
+</div>
             <div className="mb-3 ">
               <label style={{fontFamily:'KitschyRetro', letterSpacing: '3px', fontSize:'24px'}} htmlFor="title">Title</label>
               <input
@@ -313,13 +299,11 @@ const fullName = `${firstName} ${lastName}`;
             </div>
             <div className="col-md-3 col-6">
               <div className="card-body text-start" style={textbox}>
+              <h5>{post.poster}</h5>
                 <h5 className="card-title">{post.title}</h5>
                 <p className="card-text">
                   {post.content}
                 </p>
-                {post.userFirstName && (
-                  <p className="card-text">Posted by: {post.userFirstName}</p>
-                )}
               </div>
             </div>
             <div className="col-md-5 col-6 text-end">
@@ -430,3 +414,9 @@ export default Community;
 //     </div>
 //   ))}
 // </div>
+
+
+
+
+
+
