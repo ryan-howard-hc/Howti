@@ -63,11 +63,38 @@ const ProfilePage = () => {
     getUserFromLocalStorage();
   }, []);
 
-  useEffect(() => {
-    getName();
-    fetchUserLogs();
-  }, [state.user]); 
+
 //----------------------
+
+const [dataFetched, setDataFetched] = useState(false);
+
+useEffect(() => {
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/');
+      if (response.status === 200) {
+        const allPosts = response.data; 
+
+        const loggedInUserId = state.user?.user_id; // Use optional chaining
+
+        if (loggedInUserId) {
+          const userPosts = allPosts.filter(post => post.user === loggedInUserId);
+          setPosts(userPosts);
+        }
+      } else {
+        console.error('Failed to fetch community posts');
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+    }
+  };
+
+  // Only fetch data if it hasn't been fetched already
+  if (!dataFetched) {
+    fetchPosts();
+  }
+}, [dataFetched, state.user?.user_id]);
+
   const getName = async () => {
     try {
       console.log(state)
@@ -85,36 +112,11 @@ const ProfilePage = () => {
     }
   };
 
-
-  const fetchUserLogs = async () => {
-    try {
-      const user_id = state.user.user_id; 
-      const response = await axios.get(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/${user_id}`);
-      setUserLogs(response.data);
-    } catch (error) {
-      console.error('Error fetching user logs:', error);
-    }
-  };
-
-  useEffect(() => {
-    getName();
-    fetchUserLogs(); 
-  }, []);
-
-  //-------------
-  // const deleteLog = async (logId) => {
-  //   try {
-  //     const response = await axios.delete(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-logs/${logId}`);
-  //     setUserLogs((prevLogs) => prevLogs.filter((log) => log.log_id !== logId));
-  //   } catch (error) {
-  //     console.error('Error deleting user log:', error);
-  //   }
-  // };
   
   useEffect(() => {
     const fetchFavoritePlants = async () => {
       try {
-        const response = await axios.get(`/api/user-favorite-plants/${state.user.user_id}/`);
+        const response = await axios.get(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-favorite-plants/${state.user.user_id}/`);
         setFavoritePlants(response.data);
       } catch (error) {
         console.error('Error fetching favorite plants:', error);
@@ -128,7 +130,6 @@ const ProfilePage = () => {
   const [favoritePlants, setFavoritePlants] = useState([]);
 
   useEffect(() => {
-    // Retrieve the list of favorite plants from local storage
     const storedFavorites = localStorage.getItem('favoritePlants');
     if (storedFavorites) {
       setFavoritePlants(JSON.parse(storedFavorites));
@@ -146,29 +147,21 @@ const ProfilePage = () => {
 
   const fullName = `${firstName} ${lastName}`;
 
+  const fetchUserLogs = async () => {
+    try {
+      const user_id = state.user.user_id; 
+      const response = await axios.get(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/${user_id}`);
+      setUserLogs(response.data);
+    } catch (error) {
+      console.error('Error fetching user logs:', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/');
-        if (response.status === 200) {
-          const allPosts = response.data; 
+      getName();
+      fetchUserLogs();
+    }, [state.user]); 
 
-          const loggedInUserId = state.user.user_id;
-  
-          const userPosts = allPosts.filter(post => post.user === loggedInUserId);
-  
-          setPosts(userPosts);
-        } else {
-          console.error('Failed to fetch community posts');
-        }
-      } catch (error) {
-        console.error('Network error:', error);
-      }
-    };
-  
-    fetchPosts();
-  }, []);
 
   return (
     <div style={{ backgroundImage: `url(./background.png)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', minHeight: '100vh' }}>
@@ -187,18 +180,19 @@ const ProfilePage = () => {
       <div className="col-12 mx-auto text-center">
         <h1 style={{ fontFamily: 'ClimbingPlant', fontWeight: 'bold' }}>Favorite Plants</h1>
         <ul className="list-unstyled" style={{ fontSize: '30px' }}>
-          {favoritePlants.map((plant, index) => (
-            <li key={index} className="text-center" style={{ cursor: 'pointer' }} onClick={() => navigateToPlantDetail(plant)}>
-              {plant.common_name}
-              <Link
-                href={{
-                  pathname: '/[slug]/page',
-                  query: { slug: plant.slug }, // Pass the slug of the plant
-                }}
-                as={`/${plant.slug}/page`} 
-                passHref
-                style={{ textDecoration: 'none' }}
-              >
+        {favoritePlants.map((plant, index) => (
+          <li key={index} className="text-center" style={{ cursor: 'pointer' }} onClick={() => (plant)}>
+            {plant.common_name}
+            <Link
+            href={{
+              pathname: '/[slug]/page',
+              query: { slug: plant.slug, plantData: JSON.stringify(plant) },
+            }}
+            as={`/${plant.slug}/page`}
+            passHref
+            style={{ textDecoration: 'none' }}
+          >
+          
                 <button>View Plant Detail</button>
               </Link>
             </li>
@@ -212,10 +206,10 @@ const ProfilePage = () => {
           <div className="row">
             <div className="col-9 mx-auto">
               <div style={{ background: 'black', height: '2px', width: '800px', margin: '0 auto', marginTop: '30px' }}></div>
-              <h1 className="text-center" style={{ fontFamily: 'ClimbingPlant', marginTop: '30px', fontWeight: 'bold' }}>Community</h1>
-              
+              <h1 className="text-center" style={{ fontFamily: 'ClimbingPlant', marginTop: '30px', fontWeight: 'bold' }}>Your community Posts</h1>
+
               <div className="row justify-content-center">
-              <div className="col-md-7 col-6">
+              <div className="col-md-9 col-12">
                 {posts.map((post) => (
                   <div className="card mb-4" style={communityCard} key={post.id}>
                     <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
@@ -314,3 +308,17 @@ export default ProfilePage;
   //       });
   //   }
   // }, [slug]);
+
+
+
+
+  // -------------
+  // const deleteLog = async (logId) => {
+  //   try {
+  //     const response = await axios.delete(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-logs/${logId}`);
+  //     setUserLogs((prevLogs) => prevLogs.filter((log) => log.log_id !== logId));
+  //   } catch (error) {
+  //     console.error('Error deleting user log:', error);
+  //   }
+  // };
+

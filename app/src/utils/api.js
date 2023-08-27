@@ -143,27 +143,28 @@ export const fetchSlug = async (slug) => {
 // ---------------------------------------------------------------------------------------------------------// ---------------------------------------------------------------------------------------------------------
 export const fetchWikipediaDescription = async (commonName) => {
   try {
-    const googleSearchUrl = `https://www.google.com/search?q=${commonName}+site:wikipedia.org`;
-    const googleSearchResponse = await axios.get(googleSearchUrl);
-    const googleSearchHtml = googleSearchResponse.data;
+    const wikipediaSearchUrl = `https://en.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${commonName}`;
+    const wikipediaSearchResponse = await axios.get(wikipediaSearchUrl);
+    const searchResults = wikipediaSearchResponse.data.query.search;
 
-    const $ = cheerio.load(googleSearchHtml);
-    const wikipediaLink = $('a[href^="https://en.wikipedia.org/wiki/"]').attr('href');
-
-    if (!wikipediaLink) {
+    if (searchResults.length === 0) {
       return 'No Wikipedia page found';
     }
 
-    const wikipediaResponse = await axios.get(wikipediaLink);
-    const wikipediaHtml = wikipediaResponse.data;
+    // Assuming the first search result is the most relevant, get its page title
+    const pageTitle = searchResults[0].title;
 
-    const $$ = cheerio.load(wikipediaHtml);
+    const wikipediaPageUrl = `https://en.wikipedia.org/w/api.php?action=parse&format=json&page=${pageTitle}&prop=text`;
+    const wikipediaPageResponse = await axios.get(wikipediaPageUrl);
+    const pageHtml = wikipediaPageResponse.data.parse.text["*"];
+
+    const $ = cheerio.load(pageHtml);
     let description = '';
 
-    const excludeKeywords = ['media related to', 'references', 'external links'];
+    const excludeKeywords = ['media related to', 'references', 'external links', 'Wikipedia',];
 
-    $$('p').each((index, element) => {
-      const text = $$(element).text();
+    $('p').each((index, element) => {
+      const text = $(element).text();
 
       // Check if the text contains any exclude keywords
       const shouldExclude = excludeKeywords.some(keyword => text.toLowerCase().includes(keyword));
@@ -176,6 +177,7 @@ export const fetchWikipediaDescription = async (commonName) => {
       }
     });
 
+    
     return description.trim();
   } catch (error) {
     console.error('Error fetching description:', error);

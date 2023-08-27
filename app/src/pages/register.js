@@ -45,6 +45,8 @@ function Register() {
     router.push("/");
   }
 
+  
+
   return (
     <div style ={{backgroundImage: `url(./background.png)`, backgroundSize: 'cover',backgroundRepeat: 'no-repeat',minHeight: '100vh',  }}>
     <Layout>
