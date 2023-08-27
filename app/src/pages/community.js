@@ -68,11 +68,11 @@ const fullName = `${firstName} ${lastName}`;
   };
   const postedPic = {
     width: '100px',
-    height: '100px',
+    height: 'auto',
     borderRadius: '10px'
   }
   const communityCard = {
-    height: '150px',
+    height: '250px',
   }
   const textbox = {
     textAlign: 'left'
@@ -103,6 +103,24 @@ const fullName = `${firstName} ${lastName}`;
   
   const [posts, setPosts] = useState([]);
 
+  // const postToUserPosts = async (formData) => {
+  //   const user = state.user.user_id;
+  
+  //   try {
+  //     const response = await axios.post(
+  //       `https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-posts/${user}/`,
+  //       formData,
+  //       {}
+  //     );
+  
+  //     console.log('User post request successful:', response.data);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error('Error posting to user posts:', error);
+  //     throw error;
+  //   }
+  // };
+  
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const user = state.user.user_id;
@@ -195,13 +213,14 @@ const fullName = `${firstName} ${lastName}`;
       <div className="col-12 col-md-12 container" style={{ marginTop: '50px' }}>
         <div className="row justify-content-center mb-4 mt-4">
           <div className="col-md-8 col-7">
-            <div style={{ marginLeft: '50px', marginTop: '5px' }}>
+            <div style={{ marginLeft: '220px', marginTop: '5px' }}>
               <h2 className="community-title" style={{ fontFamily: 'JFWildWood', fontSize: '80px', letterSpacing: '4px' }}>Community</h2>
             </div>
           </div>
           <div className="col-md-2 col-2 text-end">
             <div style={{ marginRight: '50px' }}>
               <div style={{ fontFamily: 'ClimbingPlant', marginBottom: '20px', marginTop: '30px' }}>
+              {!state.user ? (
                 <Link
                   href="/login"
                   style={{
@@ -219,6 +238,7 @@ const fullName = `${firstName} ${lastName}`;
                 >
                   Login
                 </Link>
+              ) : null}
               </div>
             </div>
           </div>
@@ -350,7 +370,6 @@ export default Community;
 
 
 
-
 // <div className="row justify-content-center">
 //   <div className="col-md-10 col-12">
 //     <div className="card mb-4" style={communityCard}>
@@ -430,3 +449,35 @@ export default Community;
 //     </div>
 //   ))}
 // </div>
+
+
+
+
+
+
+
+// const censorCurseWords = (text) => {
+//   const curseWords = ["fuck", "shit", "cunt","ass","bitch","cock","fucker"]; // Add your list of curse words here
+//   let censoredText = text;
+
+//   curseWords.forEach((curseWord) => {
+//     const regex = new RegExp(`\\b${curseWord}\\b`, "gi");
+//     const replacement = curseWord.charAt(0) + "*".repeat(curseWord.length - 1);
+//     censoredText = censoredText.replace(regex, replacement);
+//   });
+
+//   return censoredText;
+// };
+
+
+
+
+// const [posts, setPosts] = useState([]);
+
+// const handleFormSubmit = async (event) => {
+//   event.preventDefault();
+//   const formData = new FormData();
+
+//   formData.append('title', censorCurseWords(postData.title));
+//   formData.append('content', censorCurseWords(postData.content)); 
+//   formData.append('poster', censorCurseWords(postData.poster));
