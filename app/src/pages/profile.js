@@ -68,6 +68,36 @@ const ProfilePage = () => {
     fetchUserLogs();
   }, [state.user]); 
 //----------------------
+
+const [dataFetched, setDataFetched] = useState(false);
+
+useEffect(() => {
+  const fetchPosts = async () => {
+    try {
+      const response = await axios.get('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/');
+      if (response.status === 200) {
+        const allPosts = response.data; 
+
+        const loggedInUserId = state.user?.user_id; // Use optional chaining
+
+        if (loggedInUserId) {
+          const userPosts = allPosts.filter(post => post.user === loggedInUserId);
+          setPosts(userPosts);
+        }
+      } else {
+        console.error('Failed to fetch community posts');
+      }
+    } catch (error) {
+      console.error('Network error:', error);
+    }
+  };
+
+  // Only fetch data if it hasn't been fetched already
+  if (!dataFetched) {
+    fetchPosts();
+  }
+}, [dataFetched, state.user?.user_id]);
+
   const getName = async () => {
     try {
       console.log(state)
@@ -101,7 +131,7 @@ const ProfilePage = () => {
     fetchUserLogs(); 
   }, []);
 
-  //-------------
+  // -------------
   // const deleteLog = async (logId) => {
   //   try {
   //     const response = await axios.delete(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-logs/${logId}`);
@@ -147,28 +177,7 @@ const ProfilePage = () => {
   const fullName = `${firstName} ${lastName}`;
 
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      try {
-        const response = await axios.get('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/');
-        if (response.status === 200) {
-          const allPosts = response.data; 
 
-          const loggedInUserId = state.user.user_id;
-  
-          const userPosts = allPosts.filter(post => post.user === loggedInUserId);
-  
-          setPosts(userPosts);
-        } else {
-          console.error('Failed to fetch community posts');
-        }
-      } catch (error) {
-        console.error('Network error:', error);
-      }
-    };
-  
-    fetchPosts();
-  }, []);
 
   return (
     <div style={{ backgroundImage: `url(./background.png)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', minHeight: '100vh' }}>
@@ -212,10 +221,10 @@ const ProfilePage = () => {
           <div className="row">
             <div className="col-9 mx-auto">
               <div style={{ background: 'black', height: '2px', width: '800px', margin: '0 auto', marginTop: '30px' }}></div>
-              <h1 className="text-center" style={{ fontFamily: 'ClimbingPlant', marginTop: '30px', fontWeight: 'bold' }}>Community</h1>
-              
+              <h1 className="text-center" style={{ fontFamily: 'ClimbingPlant', marginTop: '30px', fontWeight: 'bold' }}>Your community Posts</h1>
+
               <div className="row justify-content-center">
-              <div className="col-md-7 col-6">
+              <div className="col-md-9 col-12">
                 {posts.map((post) => (
                   <div className="card mb-4" style={communityCard} key={post.id}>
                     <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
