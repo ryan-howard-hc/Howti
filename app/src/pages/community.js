@@ -67,8 +67,8 @@ const fullName = `${firstName} ${lastName}`;
     marginLeft: '50px',
   };
   const postedPic = {
-    width: '100px',
-    height: 'auto',
+    maxWidth: '100px',
+    maxheight: '200px',
     borderRadius: '10px'
   }
   const communityCard = {

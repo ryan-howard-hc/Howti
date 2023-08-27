@@ -63,10 +63,7 @@ const ProfilePage = () => {
     getUserFromLocalStorage();
   }, []);
 
-  useEffect(() => {
-    getName();
-    fetchUserLogs();
-  }, [state.user]); 
+
 //----------------------
 
 const [dataFetched, setDataFetched] = useState(false);
@@ -115,36 +112,11 @@ useEffect(() => {
     }
   };
 
-
-  const fetchUserLogs = async () => {
-    try {
-      const user_id = state.user.user_id; 
-      const response = await axios.get(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/${user_id}`);
-      setUserLogs(response.data);
-    } catch (error) {
-      console.error('Error fetching user logs:', error);
-    }
-  };
-
-  useEffect(() => {
-    getName();
-    fetchUserLogs(); 
-  }, []);
-
-  // -------------
-  // const deleteLog = async (logId) => {
-  //   try {
-  //     const response = await axios.delete(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-logs/${logId}`);
-  //     setUserLogs((prevLogs) => prevLogs.filter((log) => log.log_id !== logId));
-  //   } catch (error) {
-  //     console.error('Error deleting user log:', error);
-  //   }
-  // };
   
   useEffect(() => {
     const fetchFavoritePlants = async () => {
       try {
-        const response = await axios.get(`/api/user-favorite-plants/${state.user.user_id}/`);
+        const response = await axios.get(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-favorite-plants/${state.user.user_id}/`);
         setFavoritePlants(response.data);
       } catch (error) {
         console.error('Error fetching favorite plants:', error);
@@ -158,7 +130,6 @@ useEffect(() => {
   const [favoritePlants, setFavoritePlants] = useState([]);
 
   useEffect(() => {
-    // Retrieve the list of favorite plants from local storage
     const storedFavorites = localStorage.getItem('favoritePlants');
     if (storedFavorites) {
       setFavoritePlants(JSON.parse(storedFavorites));
@@ -176,7 +147,20 @@ useEffect(() => {
 
   const fullName = `${firstName} ${lastName}`;
 
+  const fetchUserLogs = async () => {
+    try {
+      const user_id = state.user.user_id; 
+      const response = await axios.get(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user/${user_id}`);
+      setUserLogs(response.data);
+    } catch (error) {
+      console.error('Error fetching user logs:', error);
+    }
+  };
 
+  useEffect(() => {
+      getName();
+      fetchUserLogs();
+    }, [state.user]); 
 
 
   return (
@@ -196,9 +180,9 @@ useEffect(() => {
       <div className="col-12 mx-auto text-center">
         <h1 style={{ fontFamily: 'ClimbingPlant', fontWeight: 'bold' }}>Favorite Plants</h1>
         <ul className="list-unstyled" style={{ fontSize: '30px' }}>
-          {favoritePlants.map((plant, index) => (
-            <li key={index} className="text-center" style={{ cursor: 'pointer' }} onClick={() => navigateToPlantDetail(plant)}>
-              {plant.common_name}
+        {favoritePlants.map((plant, index) => (
+          <li key={index} className="text-center" style={{ cursor: 'pointer' }} onClick={() => (plant)}>
+            {plant.common_name}
               <Link
                 href={{
                   pathname: '/[slug]/page',
@@ -323,3 +307,17 @@ export default ProfilePage;
   //       });
   //   }
   // }, [slug]);
+
+
+
+
+  // -------------
+  // const deleteLog = async (logId) => {
+  //   try {
+  //     const response = await axios.delete(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-logs/${logId}`);
+  //     setUserLogs((prevLogs) => prevLogs.filter((log) => log.log_id !== logId));
+  //   } catch (error) {
+  //     console.error('Error deleting user log:', error);
+  //   }
+  // };
+
