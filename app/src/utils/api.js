@@ -161,7 +161,7 @@ export const fetchWikipediaDescription = async (commonName) => {
     const $ = cheerio.load(pageHtml);
     let description = '';
 
-    const excludeKeywords = ['media related to', 'references', 'external links'];
+    const excludeKeywords = ['media related to', 'references', 'external links', 'Wikipedia',];
 
     $('p').each((index, element) => {
       const text = $(element).text();
@@ -177,6 +177,7 @@ export const fetchWikipediaDescription = async (commonName) => {
       }
     });
 
+    
     return description.trim();
   } catch (error) {
     console.error('Error fetching description:', error);

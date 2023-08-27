@@ -183,15 +183,16 @@ useEffect(() => {
         {favoritePlants.map((plant, index) => (
           <li key={index} className="text-center" style={{ cursor: 'pointer' }} onClick={() => (plant)}>
             {plant.common_name}
-              <Link
-                href={{
-                  pathname: '/[slug]/page',
-                  query: { slug: plant.slug }, // Pass the slug of the plant
-                }}
-                as={`/${plant.slug}/page`} 
-                passHref
-                style={{ textDecoration: 'none' }}
-              >
+            <Link
+            href={{
+              pathname: '/[slug]/page',
+              query: { slug: plant.slug, plantData: JSON.stringify(plant) },
+            }}
+            as={`/${plant.slug}/page`}
+            passHref
+            style={{ textDecoration: 'none' }}
+          >
+          
                 <button>View Plant Detail</button>
               </Link>
             </li>

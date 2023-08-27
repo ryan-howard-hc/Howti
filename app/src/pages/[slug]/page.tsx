@@ -30,8 +30,6 @@ const PlantDetailPage = () => {
   const [scientificName, setScientificName] = useState('');
   const [favoritePlants, setFavoritePlants] = useState([]);
 
-
-
   
   useEffect(() => {
     const plantSlug = router.query.slug;
@@ -60,8 +58,8 @@ const PlantDetailPage = () => {
       const response = await axios.post(
         `https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/add-favorite-plant/`,
         {
-          user_id: state.user.user_id, // Include the user_id
-          plant_name: plantData.common_name, // Replace with the actual plant name
+          user_id: state.user.user_id,
+          plant_name: plantData.common_name,
         }
       );
   

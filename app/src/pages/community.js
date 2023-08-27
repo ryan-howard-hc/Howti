@@ -36,6 +36,11 @@ const Community = () => {
   }, [dispatch]);
 
 
+
+
+
+
+
   const firstName = state.user && state.user.data
   ? state.user.data.first_name.charAt(0).toUpperCase() + state.user.data.first_name.slice(1)
   : 'User';
@@ -48,6 +53,12 @@ const fullName = `${firstName} ${lastName}`;
 
 
   const router = useRouter();
+
+
+
+
+
+
   const iconStyle = {
     width: '30px',
     height: '30px',
