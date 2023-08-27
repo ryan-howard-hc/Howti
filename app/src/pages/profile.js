@@ -17,7 +17,36 @@ const ProfilePage = () => {
   const [userLogs, setUserLogs] = useState([]);
   const [user, setUser] = useState(null);
   const [currentUser, setCurrentUser] = useState(null);
-
+  const [posts, setPosts] = useState([]);
+  const iconStyle = {
+    width: '30px',
+    height: '30px',
+    marginRight: '5px',
+    marginBottom: "10px"
+  };
+  const counterStyle = {
+    verticalAlign: 'middle',
+    marginLeft: '5px',
+    marginBottom: '10px'
+  };
+  const tinyContainerStyle = {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: '5px',
+    marginLeft: '50px',
+  };
+  const postedPic = {
+    width: '100px',
+    height: 'auto',
+    borderRadius: '10px'
+  }
+  const communityCard = {
+    height: '250px',
+  }
+  const textbox = {
+    textAlign: 'left'
+  }
 
   useEffect(() => {
     const getUserFromLocalStorage = () => {
@@ -73,14 +102,14 @@ const ProfilePage = () => {
   }, []);
 
   //-------------
-  const deleteLog = async (logId) => {
-    try {
-      const response = await axios.delete(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-logs/${logId}`);
-      setUserLogs((prevLogs) => prevLogs.filter((log) => log.log_id !== logId));
-    } catch (error) {
-      console.error('Error deleting user log:', error);
-    }
-  };
+  // const deleteLog = async (logId) => {
+  //   try {
+  //     const response = await axios.delete(`https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-logs/${logId}`);
+  //     setUserLogs((prevLogs) => prevLogs.filter((log) => log.log_id !== logId));
+  //   } catch (error) {
+  //     console.error('Error deleting user log:', error);
+  //   }
+  // };
   
   useEffect(() => {
     const fetchFavoritePlants = async () => {
@@ -116,6 +145,30 @@ const ProfilePage = () => {
     : '';
 
   const fullName = `${firstName} ${lastName}`;
+
+
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await axios.get('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/');
+        if (response.status === 200) {
+          const allPosts = response.data; 
+
+          const loggedInUserId = state.user.user_id;
+  
+          const userPosts = allPosts.filter(post => post.user === loggedInUserId);
+  
+          setPosts(userPosts);
+        } else {
+          console.error('Failed to fetch community posts');
+        }
+      } catch (error) {
+        console.error('Network error:', error);
+      }
+    };
+  
+    fetchPosts();
+  }, []);
 
   return (
     <div style={{ backgroundImage: `url(./background.png)`, backgroundSize: 'cover', backgroundRepeat: 'no-repeat', minHeight: '100vh' }}>
@@ -160,6 +213,59 @@ const ProfilePage = () => {
             <div className="col-9 mx-auto">
               <div style={{ background: 'black', height: '2px', width: '800px', margin: '0 auto', marginTop: '30px' }}></div>
               <h1 className="text-center" style={{ fontFamily: 'ClimbingPlant', marginTop: '30px', fontWeight: 'bold' }}>Community</h1>
+              
+              <div className="row justify-content-center">
+              <div className="col-md-7 col-6">
+                {posts.map((post) => (
+                  <div className="card mb-4" style={communityCard} key={post.id}>
+                    <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
+                      <div className="col-md-2 col-6">
+                        <div style={tinyContainerStyle}>
+                          <a href="heart-link">
+                            <img src="./heart.png" alt="Heart" style={iconStyle} />
+                          </a>
+                          <span style={counterStyle}></span>
+                        </div>
+                        <div style={tinyContainerStyle}>
+                          <a href="chat-link">
+                            <img src="./chat.png" alt="Chat" style={iconStyle} />
+                          </a>
+                          <span style={counterStyle}></span>
+                        </div>
+                      </div>
+                      <div className="col-md-2 col-6">
+                        <img src={post.image_url} alt={`Post ${post.title}`} style={postedPic} className="img-fluid" />
+                      </div>
+                      <div className="col-md-3 col-6">
+                        <div className="card-body text-start" style={textbox}>
+                          <h5 className="card-title">{post.title}</h5>
+                          <p className="card-text">{post.content}</p>
+                          {/* You can display the post user's first name if available */}
+                          {post.user && post.user.first_name && (
+                            <p className="card-text">Posted by: {post.user.first_name}</p>
+                          )}
+                        </div>
+                      </div>
+                      <div className="col-md-5 col-6 text-end">
+                        <div className="card-body">
+                          <a href={post.image_url} className="btn btn-lg rounded-pill" style={{
+                            transition: 'background-color 0.3s',
+                            fontFamily: 'ClimbingPlant',
+                            backgroundColor: '#8B4510',
+                            color: '#fff',
+                            borderColor: '#8B4513',
+                            letterSpacing: '5px',
+                            fontSize: '25px',
+                            marginRight: '80px'
+                          }}>Full Picture</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             </div>
           </div>
         </div>

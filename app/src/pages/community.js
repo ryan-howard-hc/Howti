@@ -103,6 +103,24 @@ const fullName = `${firstName} ${lastName}`;
   
   const [posts, setPosts] = useState([]);
 
+  // const postToUserPosts = async (formData) => {
+  //   const user = state.user.user_id;
+  
+  //   try {
+  //     const response = await axios.post(
+  //       `https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-posts/${user}/`,
+  //       formData,
+  //       {}
+  //     );
+  
+  //     console.log('User post request successful:', response.data);
+  //     return response.data;
+  //   } catch (error) {
+  //     console.error('Error posting to user posts:', error);
+  //     throw error;
+  //   }
+  // };
+  
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     const user = state.user.user_id;
