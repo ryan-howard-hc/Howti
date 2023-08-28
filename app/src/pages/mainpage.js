@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { handleSearchClick, fetchFlowerData, fetchFoliageData, fetchGrowthData } from '../utils/api';
 import Navbar from './nav';
 import Link from 'next/link';
 import Layout from './layout';
+import Head from 'next/head';
 
 const Main = () => {
   const [searchValue, setSearchValue] = useState('');
@@ -45,8 +45,14 @@ const Main = () => {
   }
 
   return (
+    
     <Layout>
-      <div style={{ backgroundColor: '#ECFAF5' }}></div>
+    <Head>
+    <title>Plant Database</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  </Head>
+      <div className='col-md-12' style={{ backgroundColor: '#ECFAF5' }}></div>
       <div style={{ textAlign: 'center', backgroundColor: '#ECFAF5', minHeight: '93vh' }}>
         <h1
           style={{
