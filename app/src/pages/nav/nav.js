@@ -6,7 +6,7 @@ import { useGlobalState } from '../../context/GlobalState';
 import jwtDecode from 'jwt-decode';
 import AuthService from '../../services/auth.service';
 import { useRouter } from 'next/navigation';
-
+import Head from 'next/head';
 
 // Add a hover effect by changing the link color on hover
 // linkStyle[':hover'] = {
@@ -124,7 +124,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav style={navbarStyle}>
+    
+    <nav className='col-12'style={navbarStyle}>
+    <Head>
+    <title>Plant Database</title>
+    <meta name="viewport" content="width=device-width, initial-scale=.3" />
+
+  </Head>
       <div className="howticulture-nav-title" style={titular}>
         <img src="/favicon.ico" style={{ width: '30px', height: '30px', marginRight: '10px' }} alt="Icon" />
         Howticulture

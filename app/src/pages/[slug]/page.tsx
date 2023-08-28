@@ -116,11 +116,11 @@ const PlantDetailPage = () => {
   return (
     <Layout>
 
-    <div style = {{marginTop: '50px'}}className="container">
+    <div style = {{marginTop: '50px'}}className="container" className= 'col-12'>
 
     <div className="row">
 
-    <div className="col-md-12">
+    <div className="col-md-12 col-12">
       <div className="text-center">
         <h1 style={{ marginBottom: '30px', fontFamily: 'KitschyRetro', letterSpacing: '3px', fontSize: '80px' }}>
           {scientificName || 'Loading...'}
@@ -132,7 +132,7 @@ const PlantDetailPage = () => {
         <div className="card">
           <div className="row">
 
-          <div className="col-md-6 text-center">
+          <div className="col-md-6 col-12 text-center">
           {/* Leaf Carousel */}
           {leafImages.length > 0 && (
             <div>
