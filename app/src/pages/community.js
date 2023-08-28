@@ -18,7 +18,10 @@ const generateRandomPostId = () => {
 
 const Community = () => {
   const { state, dispatch } = useGlobalState();
-
+  const [commentData, setCommentData] = useState({
+    postId: '', // Initialize with an empty postId
+    text: '', // The text of the comment
+  });
 
   useEffect(() => {
     const getUserFromLocalStorage = () => {
@@ -114,23 +117,33 @@ const fullName = `${firstName} ${lastName}`;
   
   const [posts, setPosts] = useState([]);
 
-  // const postToUserPosts = async (formData) => {
-  //   const user = state.user.user_id;
+  const handleCommentSubmit = async (postId) => {
+    // Send the commentData to the backend API to create a comment
+    try {
+      const response = await axios.post(
+        `https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/community-posts/comments/`, // Replace with your actual API endpoint for creating comments
+        {
+          postId: postId,
+          text: commentData.text,
+        },
+        {
+          headers: authHeader(),
+        }
+      );
   
-  //   try {
-  //     const response = await axios.post(
-  //       `https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/user-posts/${user}/`,
-  //       formData,
-  //       {}
-  //     );
+      // Handle the response as needed, e.g., display a success message, update the UI, etc.
+      console.log('Comment posted successfully:', response.data);
   
-  //     console.log('User post request successful:', response.data);
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error('Error posting to user posts:', error);
-  //     throw error;
-  //   }
-  // };
+      // Clear the comment input field after submitting
+      setCommentData({
+        postId: '',
+        text: '',
+      });
+    } catch (error) {
+      console.error('Error posting comment:', error);
+    }
+  };
+  
   
   const handleFormSubmit = async (event) => {
     event.preventDefault();
@@ -207,6 +220,7 @@ const fullName = `${firstName} ${lastName}`;
     setAscendingOrder(!ascendingOrder); // Toggle the ascendingOrder state
   };
   
+  
   useEffect(() => {
     const fetchPosts = async () => {
       try {
@@ -223,6 +237,12 @@ const fullName = `${firstName} ${lastName}`;
 
     fetchPosts();
   }, []);
+  const [commentInput, setCommentInput] = useState('');
+
+  const handleCommentInputChange = (e) => {
+    setCommentInput(e.target.value);
+  };
+
 
   return (
     <div style={{backgroundColor: '#ECFAF5', minHeight: '100vh' }}>
@@ -348,51 +368,77 @@ const fullName = `${firstName} ${lastName}`;
       </button>
       {posts.map((post) => (
         <div className="card mb-4" style={communityCard} key={post.id}>
-          <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
-            <div className="col-md-2 col-6">
-              <div style={tinyContainerStyle}>
-                <a href="heart-link">
-                  <img src="./heart.png" alt="Heart" style={iconStyle} />
-                </a>
-                <span style={counterStyle}></span>
+          <div className='row'>
+            <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
+              <div className="col-md-2 col-6">
+                <div style={tinyContainerStyle}>
+                  <a href="heart-link">
+                    <img src="./heart.png" alt="Heart" style={iconStyle} />
+                  </a>
+                  <span style={counterStyle}></span>
+                </div>
+                <div style={tinyContainerStyle}>
+                  <a href="chat-link">
+                    <img src="./chat.png" alt="Chat" style={iconStyle} />
+                  </a>
+                  <span style={counterStyle}></span>
+                </div>
               </div>
-              <div style={tinyContainerStyle}>
-                <a href="chat-link">
-                  <img src="./chat.png" alt="Chat" style={iconStyle} />
-                </a>
-                <span style={counterStyle}></span>
+              <div className="col-md-2 col-6">
+                <img src={post.image_url} alt={`Post ${post.title}`} style={postedPic} className="img-fluid" />
               </div>
-            </div>
-            <div className="col-md-2 col-6">
-              <img src={post.image_url} alt={`Post ${post.title}`} style={postedPic} className="img-fluid" />
-            </div>
-            <div className="col-md-3 col-6">
-              <div className="card-body text-start" style={textbox}>
-                <h5 className="card-title">{post.title}</h5>
-                <p className="card-text">
-                  {post.content}
-                </p>
-                {post.userFirstName && (
-                  <p className="card-text">Posted by: {post.userFirstName}</p>
-                )}
+              <div className="col-md-3 col-6">
+                <div className="card-body text-start" style={textbox}>
+                  <h5 className="card-title">{post.title}</h5>
+                  <p className="card-text">
+                    {post.content}
+                  </p>
+                  {post.userFirstName && (
+                    <p className="card-text">Posted by: {post.userFirstName}</p>
+                  )}
+      
+                  {/* Render comments for the post */}
+                  {post.comments && post.comments.map((comment) => (
+                    <div key={comment.id}>
+                      <p>{comment.text}</p>
+                    </div>
+                  ))}
+      
+                  {/* Comment field */}
+                  <div className="form-group mt-3">
+                    <textarea
+                      className="form-control"
+                      rows="3"
+                      placeholder="Add a comment..."
+                      // You can add an event handler here to handle comment submission
+                    ></textarea>
+                    <button
+                    className="btn btn-primary mt-2"
+                    onClick={() => handleCommentSubmit(post.id)}
+                  >
+                    Submit Comment
+                  </button>                  </div>
+                </div>
               </div>
-            </div>
-            <div className="col-md-5 col-6 text-end">
-              <div className="card-body">
-                <a href={post.image_url} className="btn btn-lg rounded-pill " style={{                    
-                transition: 'background-color 0.3s',
-                fontFamily: 'ClimbingPlant',
-                backgroundColor: '#8B4510',
-                color: '#fff',
-                borderColor: '#8B4513',
-                letterSpacing: '5px',
-                fontSize: '25px',
-              marginRight:'80px' }}>Full Picture</a>
+              <div className="col-md-5 col-6 text-end">
+                <div className="card-body">
+                  <a href={post.image_url} className="btn btn-lg rounded-pill " style={{                    
+                    transition: 'background-color 0.3s',
+                    fontFamily: 'ClimbingPlant',
+                    backgroundColor: '#8B4510',
+                    color: '#fff',
+                    borderColor: '#8B4513',
+                    letterSpacing: '5px',
+                    fontSize: '25px',
+                    marginRight:'80px'
+                  }}>Full Picture</a>
+                </div>
               </div>
             </div>
           </div>
         </div>
       ))}
+      
     </div>
     </div>
       </Layout>
