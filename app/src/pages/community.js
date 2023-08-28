@@ -199,6 +199,13 @@ const fullName = `${firstName} ${lastName}`;
       }
     }
   };
+  const [ascendingOrder, setAscendingOrder] = useState(true);
+
+  const toggleSortOrder = () => {
+    const sortedPosts = [...posts].reverse(); // Reverse the array to change sorting order
+    setPosts(sortedPosts);
+    setAscendingOrder(!ascendingOrder); // Toggle the ascendingOrder state
+  };
   
   useEffect(() => {
     const fetchPosts = async () => {
@@ -256,7 +263,7 @@ const fullName = `${firstName} ${lastName}`;
         </div>
       </div>
 
-      <div className="container mx-auto">
+      <div className="container mx-auto" style={{marginBottom:'80px'}}>
       
       <div className="row justify-content-center">
         <div className="col-md-5 col-12 mb-4" style = {{marginRight:'40px'}}>
@@ -296,7 +303,8 @@ const fullName = `${firstName} ${lastName}`;
                 className="form-control"
               />
             </div>
-            <button type="submit" className="btn btn-primary"
+            <div className="text-center"> 
+            <button type="submit" className="btn btn-lg rounded-pill"
             style={{
               transition: 'background-color 0.3s',
               fontFamily: 'ClimbingPlant',
@@ -306,6 +314,7 @@ const fullName = `${firstName} ${lastName}`;
               letterSpacing: '5px',
               fontSize: '25px'
             }}>Create Post</button>
+            </div>
           </form>
         </div>
     
@@ -322,6 +331,21 @@ const fullName = `${firstName} ${lastName}`;
 
       <div className="row justify-content-center">
       <div className="col-md-7 col-6">
+      <button
+        onClick={toggleSortOrder}
+        className="btn btn-lg rounded-pill"
+        style={{
+          transition: 'background-color 0.3s',
+          fontFamily: 'ClimbingPlant',
+          backgroundColor: '#8B4510',
+          color: '#fff',
+          borderColor: '#8B4513',
+          letterSpacing: '5px',
+          fontSize: '18px',
+        }}
+      >
+        {ascendingOrder ? 'Sort Descending' : 'Sort Ascending'}
+      </button>
       {posts.map((post) => (
         <div className="card mb-4" style={communityCard} key={post.id}>
           <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>

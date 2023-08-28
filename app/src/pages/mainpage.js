@@ -14,7 +14,7 @@ const Main = () => {
   const [foliageData, setFoliageData] = useState([]);
   const [growthData, setGrowthData] = useState([]);
   const [showCenteredText, setShowCenteredText] = useState(true); 
-
+  let totalResults = 0;
   const handleSearch = async () => {
     try {
       await handleSearchClick(searchValue, setPlantData);
@@ -26,12 +26,14 @@ const Main = () => {
         Object.values(plantData).map(async (plant) => {
           const description = await fetchWikipediaDescription(plant.common_name);
           return { ...plant, description };
+         
         })
       );
       console.log(updatedPlantData);
 
       setPlantData(updatedPlantData);
       setShowCenteredText(false); 
+
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -103,7 +105,11 @@ const Main = () => {
           >
             Search
           </button>
-          {/* Conditional rendering of centered text */}
+          <div style={{ textAlign: 'center', marginTop: '20px', fontSize: '20px' }}>
+          <h4 style={{fontFamily:''}}>
+          Total Results: {plantDataArray.length >= 20 ? '20+' : plantDataArray.length}
+          </h4>
+        </div>
           {showCenteredText && (
             <div>
               <i><p style={{ fontSize: '24px', fontWeight: 'bold', marginTop:'175px', fontSize: '120px',fontFamily:'KitschyRetro',letterSpacing:'10px' }}>Start Searchin'!</p></i>
@@ -115,6 +121,7 @@ const Main = () => {
           <div className="row justify-content-center">
             {plantDataArray.map((plant, index) => (
               <div className="col-md-4" key={plant.id} style={{ marginTop: '20px' }}>
+              
                 <Link
                   href={{
                     pathname: '/[slug]/page',
