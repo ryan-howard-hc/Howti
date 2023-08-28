@@ -17,7 +17,7 @@ const About = () => {
         <Layout>
         <div className="text-center">
         <div style={{ marginTop: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <img src="./research.png" alt="Research" style={{ width: '80px', height: '80px', marginRight: '50px' }} />
+            <img src="./research.png" alt="Research" style={{ width: '100px', height: '100px', marginRight: '50px', border: '5px solid rgba(128, 128, 128, 0.1)'  }} />
             <h1     style={{
                 borderBottom: '1px solid #000',
                 borderTop: '1px solid #000',
@@ -25,8 +25,8 @@ const About = () => {
                 fontFamily: 'JFWildWood, sans-serif',
                 fontSize: '80px'
               }} className="howticulture-title">Howticulture</h1>
-            <img src="./plant.png" alt="Plant" style={{ width: '80px', height: '80px', marginLeft: '50px' }} />
-        </div>
+              <img src="./plant.png" alt="Plant" style={{  width: '100px', height: '100px', marginLeft: '50px', border: '5px solid rgba(128, 128, 128, 0.1)' }} />
+              </div>
     </div>
     
             
