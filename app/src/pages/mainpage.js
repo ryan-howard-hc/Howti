@@ -31,7 +31,7 @@ const Main = () => {
       console.log(updatedPlantData);
 
       setPlantData(updatedPlantData);
-      setShowCenteredText(false); // Hide centered text after data fetching
+      setShowCenteredText(false); 
     } catch (error) {
       console.error('Error fetching data:', error);
     }

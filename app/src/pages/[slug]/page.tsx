@@ -119,13 +119,8 @@ const PlantDetailPage = () => {
     <div style = {{marginTop: '50px'}}className="container">
 
     <div className="row">
-    <div className="col-md-2">
-      // <a  onClick={addToFavorites}style={{ cursor: 'pointer' }}>
-      //   <Image src="/heart.png" alt="Heart" width={100} height={100} />
-      //   <p>Click to like!</p>
-      // </a>
-    </div>
-    <div className="col-md-10">
+
+    <div className="col-md-12">
       <div className="text-center">
         <h1 style={{ marginBottom: '30px', fontFamily: 'KitschyRetro', letterSpacing: '3px', fontSize: '80px' }}>
           {scientificName || 'Loading...'}
@@ -234,7 +229,7 @@ const PlantDetailPage = () => {
               {barkImages.length > 0 && (
                 <div>
                   <div className="text-center">
-                    <h2 style={{marginBottom: '30px', fontFamily: 'ClimbingPlant', letterSpacing: "3px", fontWeight:'bold' }}>Bark</h2>
+                    <h2 style={{marginBottom: '30px', fontFamily: 'ClimbingPlant', letterSpacing: "3px", fontWeight:'bold' }}>Bark/Stem</h2>
                   </div>
                   <Carousel showArrows={true} infiniteLoop={true}>
                     {barkImages.map((imageUrl, index) => (
@@ -283,3 +278,11 @@ const PlantDetailPage = () => {
 };
 
 export default PlantDetailPage;
+
+
+// <div className="col-md-2">
+// // <a  onClick={addToFavorites}style={{ cursor: 'pointer' }}>
+// //   <Image src="/heart.png" alt="Heart" width={100} height={100} />
+// //   <p>Click to like!</p>
+// // </a>
+// </div>
