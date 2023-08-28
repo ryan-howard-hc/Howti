@@ -161,6 +161,7 @@ useEffect(() => {
       getName();
       fetchUserLogs();
     }, [state.user]); 
+    const postCount = posts.length;
 
 
   return (
@@ -181,6 +182,9 @@ useEffect(() => {
           <div className="row">
             <div className="col-9 mx-auto">
               <div style={{ width: '800px', margin: '0 auto', marginTop: '30px' }}></div>
+              <h1 className="text-center" style={{ fontFamily: 'ClimbingPlant', marginTop: '30px', fontWeight: 'bold' }}>
+               ({postCount} posts)
+            </h1>
               <h1 className="text-center" style={{ fontFamily: 'ClimbingPlant', marginTop: '30px', fontWeight: 'bold' }}>Your community Posts</h1>
 
               <div className="row justify-content-center">
