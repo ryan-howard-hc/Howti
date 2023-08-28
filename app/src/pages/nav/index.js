@@ -98,7 +98,7 @@ const Navbar = () => {
     display: 'flex',
     listStyleType: 'none',
     margin: 0,
-    marginRight: '400px',
+    marginRight: '300px',
     fontFamily:'KitchyRetro',
   };
 

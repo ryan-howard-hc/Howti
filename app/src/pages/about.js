@@ -12,6 +12,8 @@ import '../styles/global.module.css';
 const About = () => {
     
     return (
+        <div style={{backgroundColor: '#ECFAF5', minHeight: '100vh' }}>
+
         <Layout>
         <div className="text-center">
         <div style={{ marginTop: '50px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
@@ -121,6 +123,7 @@ const About = () => {
                     </div>
                 </div>
             </div></Layout>
+            </div>
     );
 }
 
