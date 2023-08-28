@@ -80,7 +80,8 @@ const fullName = `${firstName} ${lastName}`;
   const postedPic = {
     maxWidth: '100px',
     maxheight: '200px',
-    borderRadius: '10px'
+    borderRadius: '10px',
+    marginLeft: '50px'
   }
   const communityCard = {
     height: '250px',
@@ -348,25 +349,12 @@ const fullName = `${firstName} ${lastName}`;
       </button>
       {posts.map((post) => (
         <div className="card mb-4" style={communityCard} key={post.id}>
-          <div className="row g-0 align-items-center" style={{ marginTop: '23px' }}>
-            <div className="col-md-2 col-6">
-              <div style={tinyContainerStyle}>
-                <a href="heart-link">
-                  <img src="./heart.png" alt="Heart" style={iconStyle} />
-                </a>
-                <span style={counterStyle}></span>
-              </div>
-              <div style={tinyContainerStyle}>
-                <a href="chat-link">
-                  <img src="./chat.png" alt="Chat" style={iconStyle} />
-                </a>
-                <span style={counterStyle}></span>
-              </div>
-            </div>
-            <div className="col-md-2 col-6">
+          <div className="row g-0 align-items-center" style={{ marginTop: '23px', marginLeft:'20px' }}>
+
+            <div className="col-md-3 col-6">
               <img src={post.image_url} alt={`Post ${post.title}`} style={postedPic} className="img-fluid" />
             </div>
-            <div className="col-md-3 col-6">
+            <div className="col-md-4 col-6">
               <div className="card-body text-start" style={textbox}>
                 <h5 className="card-title">{post.title}</h5>
                 <p className="card-text">
