@@ -14,7 +14,6 @@ const Main = () => {
   const [foliageData, setFoliageData] = useState([]);
   const [growthData, setGrowthData] = useState([]);
   const [showCenteredText, setShowCenteredText] = useState(true); 
-  const router = useRouter();
 
   const handleSearch = async () => {
     try {
@@ -29,6 +28,7 @@ const Main = () => {
           return { ...plant, description };
         })
       );
+      console.log(updatedPlantData);
 
       setPlantData(updatedPlantData);
       setShowCenteredText(false); // Hide centered text after data fetching
@@ -36,10 +36,10 @@ const Main = () => {
       console.error('Error fetching data:', error);
     }
   };
-
+  console.log(handleSearch);
 
   const plantDataArray = Object.values(plantData);
-
+  console.log(plantDataArray);
   if (!plantData) {
     return null;
   }
