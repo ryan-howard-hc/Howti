@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import axios from 'axios';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { handleSearchClick, fetchFlowerData, fetchFoliageData, fetchGrowthData } from '../utils/api';
