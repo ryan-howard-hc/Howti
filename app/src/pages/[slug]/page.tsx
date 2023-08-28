@@ -116,7 +116,7 @@ const PlantDetailPage = () => {
   return (
     <Layout>
 
-    <div style = {{marginTop: '50px'}}className="container" className= 'col-12'>
+    <div style = {{marginTop: '50px'}}className="container col-12" >
 
     <div className="row">
 
@@ -204,7 +204,7 @@ const PlantDetailPage = () => {
               {flowerImages.length > 0 && (
                 <div>
                   <div className="text-center">
-                    <h2 style={{marginBottom: '30px', fontFamily: 'ClimbingPlant', letterSpacing: "3px", fontWeight:'bold' }}>Flower</h2>
+                    <h2 style={{marginBottom: '30px', fontFamily: 'ClimbingPlant', letterSpacing: "1px", fontWeight:'bold' }}>Flower/Seed</h2>
                   </div>
                   <Carousel showArrows={true} infiniteLoop={true}>
                     {flowerImages.map((imageUrl, index) => (
