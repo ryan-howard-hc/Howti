@@ -176,36 +176,11 @@ useEffect(() => {
         
   
     <div className="container" style={{ marginTop: '20px', marginBottom: '20px', display: 'flex', flexDirection: 'column', background: 'white', borderRadius: '50px', padding: '20px', border: '20px solid black' }}>
-    <div className="row">
-      <div className="col-12 mx-auto text-center">
-        <h1 style={{ fontFamily: 'ClimbingPlant', fontWeight: 'bold' }}>Favorite Plants</h1>
-        <ul className="list-unstyled" style={{ fontSize: '30px' }}>
-        {favoritePlants.map((plant, index) => (
-          <li key={index} className="text-center" style={{ cursor: 'pointer' }} onClick={() => (plant)}>
-            {plant.common_name}
-            <Link
-            href={{
-              pathname: '/[slug]/page',
-              query: { slug: plant.slug, plantData: JSON.stringify(plant) },
-            }}
-            as={`/${plant.slug}/page`}
-            passHref
-            style={{ textDecoration: 'none' }}
-          >
-          
-                <button>View Plant Detail</button>
-              </Link>
-            </li>
-            
-          ))}
-        </ul>
 
-        </div>
-          </div>
   
           <div className="row">
             <div className="col-9 mx-auto">
-              <div style={{ background: 'black', height: '2px', width: '800px', margin: '0 auto', marginTop: '30px' }}></div>
+              <div style={{ width: '800px', margin: '0 auto', marginTop: '30px' }}></div>
               <h1 className="text-center" style={{ fontFamily: 'ClimbingPlant', marginTop: '30px', fontWeight: 'bold' }}>Your community Posts</h1>
 
               <div className="row justify-content-center">

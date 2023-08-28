@@ -10,6 +10,7 @@ import Image from 'next/image';
 import axios from 'axios';
 import '../../../public/heart.png';
 import { useGlobalState } from '../../context/GlobalState';
+import authHeader from '../../services/auth.headers';
 
 
 const PlantDetailPage = () => {
@@ -36,6 +37,7 @@ const PlantDetailPage = () => {
 
     if (plantSlug) {
       fetchSlug(plantSlug).then((data) => {
+        console.log(data);
         setLeafImages(data.images.leaf || []);
         setFlowerImages(data.images.flower || []);
         setBarkImages(data.images.bark || []);
@@ -53,26 +55,61 @@ const PlantDetailPage = () => {
   }, [router.query.slug]);
 
 
-  const handleAddToFavorites = async () => {
-    try {
-      const response = await axios.post(
-        `https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/add-favorite-plant/`,
-        {
-          user_id: state.user.user_id,
-          plant_name: plantData.common_name,
-        }
-      );
-  
-      setFavoritePlants([...favoritePlants, response.data]);
-  
-      localStorage.setItem(
-        'favoritePlants',
-        JSON.stringify([...favoritePlants, response.data])
-      );
-    } catch (error) {
-      console.error('Error adding plant to favorites:', error);
+  const addToFavorites = async (id) => {
+    const axios = require('axios');
+    const userId = state.user.user_id;
+    const header = authHeader();
+    const favoriteInfo = {
+      user: userId,
+      plant_name: plantData.slug,
     }
-  };
+    axios.post('https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/add-favorite-plant/', favoriteInfo, header)
+    .then(response => {
+      console.log('Successfully added to favorite plants', response.data);
+  })
+  .catch(error => {
+      console.error('Error posting data:', error.response)
+  })
+  }
+
+
+
+
+  // const handleAddToFavorites = async () => {
+  //   try {
+  //     const isFavorite = favoritePlants.some((plant) => plant.plant_name === plantData.common_name);
+  
+  //     if (isFavorite) {
+  //       // Remove the plant from favorites
+  //       const response = await axios.delete(
+  //         `https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/add-favorite-plant/`,
+  //         {
+  //           data: {
+  //             user_id: state.user.user_id,
+  //             plant_name: plantData.common_name,
+  //           },
+  //         }
+  //       );
+  
+  //       setFavoritePlants(favoritePlants.filter((plant) => plant.plant_name !== plantData.common_name));
+  //     } else {
+  //       // Add the plant to favorites
+  //       const response = await axios.post(
+  //         `https://8000-ryanhowardh-howticultur-x28i0huza91.ws-us104.gitpod.io/api/add-favorite-plant/`,
+  //         {
+  //           user_id: state.user.user_id,
+  //           plant_name: plantData.common_name,
+  //         }
+  //       );
+  
+  //       setFavoritePlants([...favoritePlants, response.data]);
+  //     }
+  
+  //     localStorage.setItem('favoritePlants', JSON.stringify([...favoritePlants]));
+  //   } catch (error) {
+  //     console.error('Error adding/removing plant from favorites:', error);
+  //   }
+  // };
 
 
   
@@ -82,13 +119,8 @@ const PlantDetailPage = () => {
     <div style = {{marginTop: '50px'}}className="container">
 
     <div className="row">
-    <div className="col-md-2">
-      <a  onClick={handleAddToFavorites} style={{ cursor: 'pointer' }}>
-        <Image src="/heart.png" alt="Heart" width={100} height={100} />
-        <p>Click to like!</p>
-      </a>
-    </div>
-    <div className="col-md-10">
+
+    <div className="col-md-12">
       <div className="text-center">
         <h1 style={{ marginBottom: '30px', fontFamily: 'KitschyRetro', letterSpacing: '3px', fontSize: '80px' }}>
           {scientificName || 'Loading...'}
@@ -197,7 +229,7 @@ const PlantDetailPage = () => {
               {barkImages.length > 0 && (
                 <div>
                   <div className="text-center">
-                    <h2 style={{marginBottom: '30px', fontFamily: 'ClimbingPlant', letterSpacing: "3px", fontWeight:'bold' }}>Bark</h2>
+                    <h2 style={{marginBottom: '30px', fontFamily: 'ClimbingPlant', letterSpacing: "3px", fontWeight:'bold' }}>Bark/Stem</h2>
                   </div>
                   <Carousel showArrows={true} infiniteLoop={true}>
                     {barkImages.map((imageUrl, index) => (
@@ -246,3 +278,11 @@ const PlantDetailPage = () => {
 };
 
 export default PlantDetailPage;
+
+
+// <div className="col-md-2">
+// // <a  onClick={addToFavorites}style={{ cursor: 'pointer' }}>
+// //   <Image src="/heart.png" alt="Heart" width={100} height={100} />
+// //   <p>Click to like!</p>
+// // </a>
+// </div>
